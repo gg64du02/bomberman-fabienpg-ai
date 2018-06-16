@@ -77,7 +77,7 @@ if 0:
 
 starting_value = 1
 while True:
-    file_name = 'training_data-{}.npy'.format(starting_value)
+    file_name = './phase7-larger-color/training_data-{}.npy'.format(starting_value)
     if os.path.isfile(file_name):
         print('File exists, moving along', starting_value)
         starting_value += 1
