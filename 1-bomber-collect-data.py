@@ -34,7 +34,7 @@ def what_keys_is_pressed():
         return ctrl
     if(keyboard.is_pressed('shift')):
         return shift
-    pass
+    return -1
 # ============================================
 
 # for i in list(range(4))[::-1]:
@@ -97,12 +97,15 @@ def main(file_name, starting_value):
     paused = False
     print('STARTING!!!')
 
+    intI = 0
+
     while(True):
         if(paused == True):
             time.sleep(1)
             paused = False
         # DONE: find the proper anchor
         while paused==False:
+            print("========================")
 
             # print("another frame")
 
@@ -126,24 +129,28 @@ def main(file_name, starting_value):
             # which key is pressed
             key = what_keys_is_pressed()
             print("key:"+str(key))
-            # output = keys_to_output(keys)
             output = key
-            if 0:
-                training_data.append([screen,output])
+            if(key==-1):
+                print("if(key==-1):")
+            else:
+                if(1):
+                    intI = intI + 1
+                    print("intI:"+str(intI))
+                    training_data.append([screen,output])
+
+                    if len(training_data) % 100 == 0:
+                        print("len(training_data):" + str(len(training_data)))
+
+                        if len(training_data) == 500:
+                            np.save(file_name, training_data)
+                            print('SAVED')
+                            training_data = []
+                            starting_value += 1
+                            file_name = './phase7-larger-color/training_data-{}.npy'.format(starting_value)
 
             #print('loop took {} seconds'.format(time.time()-last_time))
             last_time = time.time()
 
-            if len(training_data) % 100 == 0:
-                print(len(training_data))
-
-                if len(training_data) == 500:
-                    np.save(file_name, training_data)
-                    print('SAVED')
-                    training_data = []
-                    starting_value += 1
-                    # file_name = 'X:/pygta5/phase7-larger-color/training_data-{}.npy'.format(starting_value)
-                    file_name = 'D:/pybomber/phase7-larger-color/training_data-{}.npy'.format(starting_value)
 
 
             # print(type(screen))
