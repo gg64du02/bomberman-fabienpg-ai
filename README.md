@@ -1,4 +1,4 @@
-# bomberman-fabienpg-ai
+# bomberman-fabienpg-ai (Work in progress)
 
 
 ## What is this:
