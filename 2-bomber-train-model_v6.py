@@ -27,7 +27,7 @@ import sys
 
 
 # FILE_I_END = 19
-FILE_I_END = 1
+FILE_I_END = 18
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -37,7 +37,7 @@ HEIGHT = int( 480 / 2 )
 
 LR = 1e-3
 # EPOCHS = 30
-EPOCHS = 1
+EPOCHS = 500
 
 MODEL_NAME = 'bomberman-nn-keras.h5'
 PREV_MODEL = MODEL_NAME
@@ -67,6 +67,7 @@ shift = [0,0,0,0,0,1]
 model = Sequential()
 # 32 is probably the batch size
 model.add(Dense(32, activation='relu', input_dim=76800))
+model.add(Dense(32, activation='relu', input_dim=1200))
 # 6 is probably the number of classes
 model.add(Dense(6, activation='softmax'))
 model.compile(optimizer='rmsprop',
@@ -95,6 +96,7 @@ for e in range(EPOCHS):
     # data_order = [i for i in range(1,FILE_I_END+1)]
     data_order = [i for i in range(1, FILE_I_END + 1)]
     shuffle(data_order)
+    print("EPOCHS:",e)
     for count, i in enumerate(data_order):
 
         try:
@@ -107,8 +109,8 @@ for e in range(EPOCHS):
 
             # shuffle(train_data)
 
-            train = train_data[:-50]
-            test = train_data[-50:]
+            train = train_data[:-500]
+            test = train_data[-500:]
 
             X = np.array([i[0] for i in train]).reshape(-1, WIDTH, HEIGHT, 3)
             Y = [i[1] for i in train]
@@ -121,7 +123,7 @@ for e in range(EPOCHS):
             # test_y = [i[1] for i in test]
             # for keras one hot function
             test_y = [i[1] for i in test]
-            test_y2 = np.zeros((50, 1))
+            test_y2 = np.zeros((500, 1))
             tmp_i = 0
             print("count1test")
             for i in test_y:
@@ -138,7 +140,7 @@ for e in range(EPOCHS):
             print("len(test_y):",len(test_y))
 
 
-            data = test_x[:,:,:,0].reshape((50,WIDTH*HEIGHT))
+            data = test_x[:,:,:,0].reshape((500,WIDTH*HEIGHT))
             print("data.shape:",data.shape)
             # former vector
             # labels = np.asarray(test_y)
@@ -158,7 +160,8 @@ for e in range(EPOCHS):
             print("one_hot_labels:",one_hot_labels.shape)
 
             # Train the model, iterating on the data in batches of 32 samples
-            model.fit(data, one_hot_labels, epochs=10, batch_size=32)
+            # model.fit(data, one_hot_labels, epochs=10, batch_size=32)
+            model.fit(data, one_hot_labels, epochs=1, batch_size=500)
 
             if count % 10 == 0:
                 print('SAVING MODEL!')
