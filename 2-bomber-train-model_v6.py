@@ -1,5 +1,5 @@
 import numpy as np
-from grabscreen import grab_screen
+
 import cv2
 import time
 import os
@@ -17,6 +17,8 @@ from keras.layers import Input, Dense
 from keras import optimizers
 from keras import losses
 import keras
+
+import sys
 
 
 # https://keras.io/losses/
@@ -37,10 +39,10 @@ LR = 1e-3
 # EPOCHS = 30
 EPOCHS = 1
 
-MODEL_NAME = ''
-PREV_MODEL = ''
+MODEL_NAME = 'bomberman-nn-keras.h5'
+PREV_MODEL = MODEL_NAME
 
-LOAD_MODEL = True
+LOAD_MODEL = False
 
 # outer NN variables ?
 e1 =     0
@@ -83,9 +85,9 @@ model.compile(optimizer='rmsprop',
 # model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
 #
-# if LOAD_MODEL:
-#     model.load(PREV_MODEL)
-#     print('We have loaded a previous model!!!!')
+if LOAD_MODEL:
+    keras.models.load_model(PREV_MODEL)
+    print('We have loaded a previous model!!!!')
 
 # iterates through the training files
 
@@ -105,12 +107,8 @@ for e in range(EPOCHS):
 
             # shuffle(train_data)
 
-            print("count:",1)
-
             train = train_data[:-50]
             test = train_data[-50:]
-
-            print("count:",2)
 
             X = np.array([i[0] for i in train]).reshape(-1, WIDTH, HEIGHT, 3)
             Y = [i[1] for i in train]
@@ -118,25 +116,21 @@ for e in range(EPOCHS):
             print("len(Y):", len(Y))
 
             test_x = np.array([i[0] for i in test]).reshape(-1, WIDTH, HEIGHT, 3)
-            # test_y = [i[1] for i in test]
 
+            # former vector
+            # test_y = [i[1] for i in test]
+            # for keras one hot function
             test_y = [i[1] for i in test]
-            # test_y2 = []
             test_y2 = np.zeros((50, 1))
             tmp_i = 0
             print("count1test")
             for i in test_y:
                 tmp_ii = 0
-                # print("count2test")
                 for ii in i:
-                    # print("count3test")
-                    # print("ii:",ii)
                     if(ii==1):
-                        # print("count4test")
                         test_y2[tmp_i,0] = tmp_ii
                     tmp_ii +=1
                 tmp_i +=1
-            # print("test_y2:",test_y2)
             print("test_y2.shape:",test_y2.shape)
 
 
@@ -144,21 +138,13 @@ for e in range(EPOCHS):
             print("len(test_y):",len(test_y))
 
 
-            # data = np.random.random((1000, 100))
-            # labels = np.random.randint(10, size=(1000, 1))
-
-            # Generate dummy data
-            # data = test_x[0,:,:,0]
-            # data = test_x[0,:,:,0].reshape((WIDTH*HEIGHT,))
             data = test_x[:,:,:,0].reshape((50,WIDTH*HEIGHT))
             print("data.shape:",data.shape)
+            # former vector
             # labels = np.asarray(test_y)
             labels = np.asarray(test_y2)
             print("len(labels):",len(labels))
             print("labels.shape:",labels.shape)
-
-            # labels = test_y.reshape((WIDTH*HEIGHT,))
-            # print("labels.shape):",labels.shape)
 
 
             # from the website
@@ -167,28 +153,17 @@ for e in range(EPOCHS):
             # print("data:",data.shape)
             # print("labels:",labels.shape)
 
-            print("count:",3)
-
-            # data1 = data.transpose()
-
-            print("count:",4)
-
             # Convert labels to categorical one-hot encoding
             one_hot_labels = keras.utils.to_categorical(labels, num_classes=6)
-            # print(one_hot_labels)
             print("one_hot_labels:",one_hot_labels.shape)
-
-            print("count:",5)
 
             # Train the model, iterating on the data in batches of 32 samples
             model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
-            print("count:",6)
-
             if count % 10 == 0:
                 print('SAVING MODEL!')
-                # model.save(MODEL_NAME)
-                model.save('./test.tfmodel')
+                model.save(MODEL_NAME)
+                # model.save('./test.tfmodel')
 
         except Exception as e:
             print(str(e))
