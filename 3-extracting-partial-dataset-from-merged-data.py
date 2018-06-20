@@ -34,23 +34,13 @@ tmpOutput = []
 # tmpScreen = np.zeros((500,1))
 # tmpOutput = np.zeros((500,1))
 
-numberOfDifferentsOutput = 6
-
-possibleOutputs = np.zeros((numberOfDifferentsOutput,numberOfDifferentsOutput))
-
-i5 = 0
-while(i5<numberOfDifferentsOutput):
-    possibleOutputs[i5,i5]=1;
-    i5 += 1
-
-print("possibleOutputs:\n",possibleOutputs)
 # outputsOccurence = np.zeros((numberOfDifferentsOutput,1))
 
 while(iii<FILE_I_END+1):
     print("====================================")
-    file_name = './phase7-larger-color/training_data-{}.npy'.format(iii)
+    # file_name = './phase7-larger-color/training_data-{}.npy'.format(iii)
 
-    # file_name = './phase7-larger-color-merged/training_data_merged-{}.npy'.format(iii)
+    file_name = './phase7-larger-color-merged/training_data_merged-{}.npy'.format(iii)
 
     # full file info
     # train_data=[]
@@ -70,11 +60,25 @@ while(iii<FILE_I_END+1):
     # train_data = sc.misc.imread(file_name)
     print('training_data-{}.npy'.format(iii), len(train_data))
 
+    lenghtInt = len((train_data[:,1])[0])
+
+    possibleOutputs = np.zeros((lenghtInt, lenghtInt))
+
+    i5 = 0
+    while (i5 < lenghtInt):
+        possibleOutputs[i5, i5] = 1;
+        i5 += 1
+
+    print("possibleOutputs:\n", possibleOutputs)
+
     # outputsOccurence = np.zeros((numberOfDifferentsOutput, 1))
 
-    outputsOccurence = np.empty(numberOfDifferentsOutput, dtype=np.object)
+    outputsOccurence = np.empty(lenghtInt, dtype=np.object)
 
-    outputsOccurence = [[],[],[],[],[],[]]
+    # trying to do automatic generation
+    # outputsOccurence = [[],[],[],[],[],[]]
+    # outputsOccurence = [[] for i in range(6)]
+    outputsOccurence = [[] for i in range(lenghtInt)]
 
     outputs_number = 0
     for Outputs in possibleOutputs:
