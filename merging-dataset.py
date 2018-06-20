@@ -75,6 +75,40 @@ while(iii<FILE_I_END+1):
     if iii % 10 == 0:
         training_data = []
         training_data.append([np.asarray(tmpScreen), np.asarray(tmpOutput)])
+        # training_data_numpy_array = np.zeros((len(training_data),2))
+        training_data_numpy_array = np.zeros((2, WIDTH, HEIGHT, 3, 5000))
+
+        print("len(training_data):",len(training_data))
+        print("(training_data_numpy_array[:,:,:,:].shape)[4]:",(training_data_numpy_array[:,:,:,:].shape)[4])
+
+        training_data_lineNumber = 0
+        while(training_data_lineNumber<(training_data_numpy_array[:,:,:,:].shape)[4]):
+
+            print("(np.asarray(training_data[0])[:,:]).shape:",
+                  (np.asarray(training_data[0])[:,:]).shape)
+            print("(np.asarray(training_data_numpy_array[0])[:,:]).shape:",
+                   (np.asarray(training_data_numpy_array[0])[:,:]).shape)
+            print("(np.asarray(training_data_numpy_array)[:,:]).shape:",
+                   (np.asarray(training_data_numpy_array)[:,:]).shape)
+            print("(np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape:",
+                   (np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape)
+
+            print("training_data_numpy_array[:,:,:,:,0].shape:",
+                   training_data_numpy_array[:,:,:,:,0].shape)
+            print("training_data_numpy_array[:,:,:,:,:].shape:",
+                   training_data_numpy_array[:,:,:,:,:].shape)
+
+            print()
+            # training_data_numpy_array[training_data_lineNumber, 0,] =\
+            #     (training_data[training_data_lineNumber])[0][training_data_lineNumber]
+
+
+            # training_data_numpy_array[training_data_lineNumber, 0] =\
+            #     (training_data[training_data_lineNumber])[0][training_data_lineNumber]
+
+
+            training_data_lineNumber+=1
+
         print("len(training_data):",len(training_data))
         print("len(training_data[:,0]):",len(training_data[:]))
         # training_data.append(train_data)
