@@ -12,7 +12,7 @@ from random import shuffle
 import sys
 
 # FILE_I_END = 19
-FILE_I_END = 11
+FILE_I_END = 54
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -75,45 +75,30 @@ while(iii<FILE_I_END+1):
     if iii % 10 == 0:
         training_data = []
         training_data.append([np.asarray(tmpScreen), np.asarray(tmpOutput)])
-        # training_data_numpy_array = np.zeros((len(training_data),2))
-        training_data_numpy_array = np.zeros((2, WIDTH, HEIGHT, 3, 5000))
 
         print("len(training_data):",len(training_data))
-        print("(training_data_numpy_array[:,:,:,:].shape)[4]:",(training_data_numpy_array[:,:,:,:].shape)[4])
+        # print("(np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape:",
+        #        (np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape)
+        #
+        # print("training_data_numpy_array[:,:,:,:,0].shape:",
+        #        training_data_numpy_array[:,:,:,:,0].shape)
+        #
+        # training_data is a list
+        print("len(training_data[0]):",
+               len(training_data[0]))
+        print("(np.asarray(training_data[0])).shape",
+               (np.asarray(training_data[0])).shape)
+        print("(np.asarray(training_data[0])).reshape((5000,2)).shape",
+               (np.asarray(training_data[0])).reshape((5000,2)).shape)
 
-        training_data_lineNumber = 0
-        while(training_data_lineNumber<(training_data_numpy_array[:,:,:,:].shape)[4]):
-
-            print("(np.asarray(training_data[0])[:,:]).shape:",
-                  (np.asarray(training_data[0])[:,:]).shape)
-            print("(np.asarray(training_data_numpy_array[0])[:,:]).shape:",
-                   (np.asarray(training_data_numpy_array[0])[:,:]).shape)
-            print("(np.asarray(training_data_numpy_array)[:,:]).shape:",
-                   (np.asarray(training_data_numpy_array)[:,:]).shape)
-            print("(np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape:",
-                   (np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape)
-
-            print("training_data_numpy_array[:,:,:,:,0].shape:",
-                   training_data_numpy_array[:,:,:,:,0].shape)
-            print("training_data_numpy_array[:,:,:,:,:].shape:",
-                   training_data_numpy_array[:,:,:,:,:].shape)
-
-            print()
-            # training_data_numpy_array[training_data_lineNumber, 0,] =\
-            #     (training_data[training_data_lineNumber])[0][training_data_lineNumber]
-
-
-            # training_data_numpy_array[training_data_lineNumber, 0] =\
-            #     (training_data[training_data_lineNumber])[0][training_data_lineNumber]
-
-
-            training_data_lineNumber+=1
+        testLOL = (np.asarray(training_data[0])).transpose()
 
         print("len(training_data):",len(training_data))
         print("len(training_data[:,0]):",len(training_data[:]))
         # training_data.append(train_data)
         file_name_merged = './phase7-larger-color-merged/training_data_merged-{}.npy'.format(int(iii/10))
         # np.save(file_name_merged, training_data)
+        np.save(file_name_merged, testLOL)
         print("len(tmpData):",len(tmpData))
         tmpData = []
         tmpScreen = []
