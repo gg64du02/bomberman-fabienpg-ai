@@ -12,7 +12,7 @@ from random import shuffle
 import sys
 
 # FILE_I_END = 19
-FILE_I_END = 1
+FILE_I_END = 5
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -42,22 +42,13 @@ while(iii<FILE_I_END+1):
 
     file_name = './phase7-larger-color-merged/training_data_merged-{}.npy'.format(iii)
 
-    # full file info
-    # train_data=[]
-
-    # with load('foo.npz') as data:
-    #     a = data['a']
-    # with np.load(file_name) as data:
-    #     train_data = data['a']
+    # to get read of the error during debugging after to many file opening
+    fd = os.open(file_name, os.O_RDWR | os.O_CREAT)
+    fo = os.fdopen(fd, "r")
+    fo.close()
 
     train_data = np.load(file_name)
 
-    # fd = os.open(file_name, os.O_RDWR | os.O_CREAT)
-    # fo = os.fdopen(fd, "r")
-    # fo.close()
-
-    # train_data = np.load(file_name, mmap_mode='r')
-    # train_data = sc.misc.imread(file_name)
     print('training_data-{}.npy'.format(iii), len(train_data))
 
     lenghtInt = len((train_data[:,1])[0])
@@ -80,6 +71,11 @@ while(iii<FILE_I_END+1):
     # outputsOccurence = [[] for i in range(6)]
     outputsOccurence = [[] for i in range(lenghtInt)]
 
+    NumberOfOccurenceOutput = []
+
+    # stir everything to get a better results when extracting on the first go.
+    # shuffle(train_data)
+
     outputs_number = 0
     for Outputs in possibleOutputs:
         print("Outputs:",Outputs)
@@ -100,67 +96,63 @@ while(iii<FILE_I_END+1):
             i6 += 1
         print("len(outputsOccurence["+str(outputs_number)+"]):",
                len(outputsOccurence[outputs_number]))
+
+        NumberOfOccurenceOutput.append(len(outputsOccurence[outputs_number]))
+
         outputs_number += 1
 
+    # bare minimum to extract
+    minimumToExtract = min(NumberOfOccurenceOutput)
+    # preparing the numpy for file writing
+    # extractedNumpyFromTrainData = np.zeros((lenghtInt*minimumToExtract,2))
+    extractedNumpyFromTrainData = [[[],[]] for line in range(int(lenghtInt*minimumToExtract))]
+    # extractedNumpyFromTrainData = np.zeros((int(lenghtInt*minimumToExtract),2))
+
+    print("len(extractedNumpyFromTrainData):",len(extractedNumpyFromTrainData))
+
+    # counting remaining
+    outputsOccurenceInOutputFile = NumberOfOccurenceOutput
+
+
+    # outputsOccurence[outputs_number])
+    print()
+    i7 = 0
+
+    i9 = 0
+    print("len(outputsOccurence):",len(outputsOccurence))
+    while(i7<len(outputsOccurence)):
+        # print(outputsOccurence[i7])
+        print("i7:",i7)
+        i8 = 0
+        # lol (outputsOccurence[5])[0]
+        while(i8<minimumToExtract):
+            print("i8:",i8)
+            # print((outputsOccurence[i7])[i8])
+            # print( ( (outputsOccurence[i7])[i8] )[0]      )
+            tmpIndex = ( (outputsOccurence[i7])[i8] )[0]
+            print("tmpIndex:",tmpIndex)
+
+            extractedNumpyFromTrainData[i9] = train_data[tmpIndex]
+
+            print("i9:",i9)
+
+            # index for tain_data
+            i9 +=1
+
+            # iteration on each occurence
+            i8 +=1
+
+        # iteration on another output
+        i7+=1
 
     print()
 
-        # resOutputs = train_data[:,1]
-        # resOutputs = train_data[np.where(train_data==Outputs)]
-        # print("resOutputs:",resOutputs)
+    file_name_partial_extraction_dataset = './phase7-larger-color-merged-partial-dataset/training_data_merged-partial-dataset-{}.npy'.format(iii)
 
-    #
-    # print("train_data.shape:",train_data.shape)
-    # print("train_data[:,0].shape:",train_data[:,0].shape)
-    # print("train_data[:,1].shape:",train_data[:,1].shape)
+    # np.save(file_name_partial_extraction_dataset, extractedNumpyFromTrainData)
 
-    # print(train_data[:, 0].reshape((500,)).shape)
-    # tmpScreen +=train_data[:, 0]
-    # tmpOutput +=train_data[:, 1]
-    # test= np.append(tmpData, train_data)
-    # print(type(tmpData))
-    # tmpData = np.append(tmpData, train_data)
+    # extractedNumpyFromTrainData is a list
+    np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainData))
 
-    # tmpScreen= np.append(tmpScreen,train_data[:, 0])
-    # tmpOutput= np.append(tmpOutput,train_data[:, 1])
-    # print("tmpScreen.shape:",tmpScreen.shape)
-    # print("tmpOutput.shape:",tmpOutput.shape)
-
-
-    # if iii % 10 == 0:
-    #     training_data = []
-    #     training_data.append([np.asarray(tmpScreen), np.asarray(tmpOutput)])
-    #
-    #     print("len(training_data):",len(training_data))
-    #     # print("(np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape:",
-    #     #        (np.asarray(training_data_numpy_array)[:,:,:,:,0]).shape)
-    #     #
-    #     # print("training_data_numpy_array[:,:,:,:,0].shape:",
-    #     #        training_data_numpy_array[:,:,:,:,0].shape)
-    #     #
-    #     # training_data is a list
-    #     print("len(training_data[0]):",
-    #            len(training_data[0]))
-    #     print("(np.asarray(training_data[0])).shape",
-    #            (np.asarray(training_data[0])).shape)
-    #     print("(np.asarray(training_data[0])).reshape((5000,2)).shape",
-    #            (np.asarray(training_data[0])).reshape((5000,2)).shape)
-    #
-    #     testLOL = (np.asarray(training_data[0])).transpose()
-    #
-    #     print("len(training_data):",len(training_data))
-    #     print("len(training_data[:,0]):",len(training_data[:]))
-    #     # training_data.append(train_data)
-    #     file_name_merged = './phase7-larger-color-merged/training_data_merged-{}.npy'.format(int(iii/10))
-    #     # np.save(file_name_merged, training_data)
-    #     np.save(file_name_merged, testLOL)
-    #     print("len(tmpData):",len(tmpData))
-    #     tmpData = []
-    #     tmpScreen = []
-    #     tmpOutput = []
-
-
-
-    # time.sleep(1)
     iii += 1
 
