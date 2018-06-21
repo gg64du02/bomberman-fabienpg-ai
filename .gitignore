@@ -1,5 +1,8 @@
 old/*
 phase7-larger-color/*
+phase7*/*
 Graph/*
 training_data-1.npy
 test_tf.py
+*.lnk
+__pycache__/*
