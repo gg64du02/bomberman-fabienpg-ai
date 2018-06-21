@@ -1,3 +1,5 @@
+# TODO: collect data w/ only the first player
+
 # TODO: make a balancing data script
 
 # TODO: make a specific config (for the game) to only use (e,s,d,f and ctrl)
