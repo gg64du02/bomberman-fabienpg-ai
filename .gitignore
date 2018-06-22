@@ -9,3 +9,5 @@ __pycache__/*
 data/*
 link_tensorboard.txt
 dataset/*
+*.npy
+*.bak

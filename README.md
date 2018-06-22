@@ -27,3 +27,20 @@ http://perso.club-internet.fr/fabienpg
 Sentdex:
 
 https://github.com/Sentdex/pygta5
+
+
+Stanford:
+
+https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly.html
+
+
+The semilicon (to help me understand with his video):
+
+https://github.com/shreyans29/thesemicolon
+
+https://youtu.be/Q21fWIdHGFM
+
+
+Keras (using TensorFlow backend):
+
+https://keras.io/models/sequential/
