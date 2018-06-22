@@ -40,7 +40,7 @@ while(iii<FILE_I_END+1):
     print("====================================")
     # file_name = './phase7-larger-color/training_data-{}.npy'.format(iii)
 
-    file_name = './phase7-larger-color-merged/training_data_merged-{}.npy'.format(iii)
+    file_name = './phase-2/training_data_merged-{}.npy'.format(iii)
 
     # to get read of the error during debugging after to many file opening
     fd = os.open(file_name, os.O_RDWR | os.O_CREAT)
@@ -147,7 +147,7 @@ while(iii<FILE_I_END+1):
 
     print()
 
-    file_name_partial_extraction_dataset = './phase7-larger-color-merged-partial-dataset/training_data_merged-partial-dataset-{}.npy'.format(iii)
+    file_name_partial_extraction_dataset = './phase-3/training_data_merged-partial-dataset-{}.npy'.format(iii)
 
     # np.save(file_name_partial_extraction_dataset, extractedNumpyFromTrainData)
 

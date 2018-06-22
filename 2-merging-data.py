@@ -36,20 +36,13 @@ tmpOutput = []
 
 while(iii<FILE_I_END+1):
     print("====================================")
-    file_name = './phase7-larger-color/training_data-{}.npy'.format(iii)
-    # full file info
-    # train_data=[]
-
-    # with load('foo.npz') as data:
-    #     a = data['a']
-    # with np.load(file_name) as data:
-    #     train_data = data['a']
-
-    train_data = np.load(file_name)
+    file_name = './phase-1/training_data-{}.npy'.format(iii)
 
     fd = os.open(file_name, os.O_RDWR | os.O_CREAT)
     fo = os.fdopen(fd, "r")
     fo.close()
+
+    train_data = np.load(file_name)
 
     # train_data = np.load(file_name, mmap_mode='r')
     # train_data = sc.misc.imread(file_name)
@@ -96,7 +89,7 @@ while(iii<FILE_I_END+1):
         print("len(training_data):",len(training_data))
         print("len(training_data[:,0]):",len(training_data[:]))
         # training_data.append(train_data)
-        file_name_merged = './phase7-larger-color-merged/training_data_merged-{}.npy'.format(int(iii/10))
+        file_name_merged = './phase-2/training_data_merged-{}.npy'.format(int(iii/10))
         # np.save(file_name_merged, training_data)
         np.save(file_name_merged, testLOL)
         print("len(tmpData):",len(tmpData))

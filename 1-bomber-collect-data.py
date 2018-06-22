@@ -11,14 +11,20 @@ import os
 
 # ============================================
 # default player keyboard binding
-e =     [1,0,0,0,0,0]
-d =     [0,1,0,0,0,0]
-s =     [0,0,1,0,0,0]
-f =     [0,0,0,1,0,0]
-ctrl =  [0,0,0,0,1,0]
-shift = [0,0,0,0,0,1]
+# e =     [1,0,0,0,0,0]
+# d =     [0,1,0,0,0,0]
+# s =     [0,0,1,0,0,0]
+# f =     [0,0,0,1,0,0]
+# ctrl =  [0,0,0,0,1,0]
+# shift = [0,0,0,0,0,1]
+# all_keys = [e,d,s,f,ctrl,shift]
 
-all_keys = [e,d,s,f,ctrl,shift]
+e =     [1,0,0,0,0]
+d =     [0,1,0,0,0]
+s =     [0,0,1,0,0]
+f =     [0,0,0,1,0]
+ctrl =  [0,0,0,0,1]
+all_keys = [e,d,s,f,ctrl]
 
 def what_keys_is_pressed():
     if(keyboard.is_pressed('e')):
@@ -32,8 +38,8 @@ def what_keys_is_pressed():
 
     if(keyboard.is_pressed('ctrl')):
         return ctrl
-    if(keyboard.is_pressed('shift')):
-        return shift
+    # if(keyboard.is_pressed('shift')):
+    #     return shift
     return -1
 # ============================================
 
@@ -77,7 +83,7 @@ if 0:
 
 starting_value = 1
 while True:
-    file_name = './phase7-larger-color/training_data-{}.npy'.format(starting_value)
+    file_name = './phase-1/training_data-{}.npy'.format(starting_value)
     if os.path.isfile(file_name):
         print('File exists, moving along', starting_value)
         starting_value += 1
@@ -146,7 +152,7 @@ def main(file_name, starting_value):
                             print('SAVED')
                             training_data = []
                             starting_value += 1
-                            file_name = './phase7-larger-color/training_data-{}.npy'.format(starting_value)
+                            file_name = './phase-1/training_data-{}.npy'.format(starting_value)
 
             #print('loop took {} seconds'.format(time.time()-last_time))
             last_time = time.time()

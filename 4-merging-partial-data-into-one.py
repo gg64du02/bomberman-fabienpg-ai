@@ -35,7 +35,7 @@ tmpOutput = []
 
 while(iii<FILE_I_END+1):
     print("====================================")
-    file_name = './phase7-larger-color-merged-partial-dataset/training_data_merged-partial-dataset-{}.npy'.format(iii)
+    file_name = './phase-3/training_data_merged-partial-dataset-{}.npy'.format(iii)
 
     fd = os.open(file_name, os.O_RDWR | os.O_CREAT)
     fo = os.fdopen(fd, "r")
@@ -94,7 +94,7 @@ while(iii<FILE_I_END+1):
         print("len(training_data):",len(training_data))
         print("len(training_data[:,0]):",len(training_data[:]))
         # training_data.append(train_data)
-        file_name_merged = './dataset/bomberman-dataset-{}.npy'.format(int(iii/10))
+        file_name_merged = './phase-4/bomberman-dataset-{}.npy'.format(int(iii/10))
 
         np.save(file_name_merged, testLOL)
         print("len(tmpData):",len(tmpData))
