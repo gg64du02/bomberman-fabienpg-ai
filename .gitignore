@@ -6,3 +6,6 @@ training_data-1.npy
 test_tf.py
 *.lnk
 __pycache__/*
+data/*
+link_tensorboard.txt
+dataset/*
