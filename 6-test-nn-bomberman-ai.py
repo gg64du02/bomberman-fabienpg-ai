@@ -43,7 +43,10 @@ LR = 1e-3
 # EPOCHS = 1
 EPOCHS = 10
 
-MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
+# MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
+# MODEL_NAME = 'bomberman-nn-keras_v14_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
+
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = True
@@ -134,8 +137,6 @@ while (True):
 
         print("prediction:",prediction)
 
-        # time.sleep(1)
-
         # print("loop time :{}ms".format((time.time()-last_time)*1000))
         if(1):
             mostImportantInputNumber = (np.where(prediction[0]==np.max(prediction[0])))[0]
@@ -145,42 +146,45 @@ while (True):
 
             tmpInt2 = 0
 
+            once = False
+
             for futureInput in all_keys:
-                if(mostImportantInputNumber==0):
-                    print("e")
-                    keyboard.press('e')
-                    time.sleep(0.05)
-                    keyboard.release('e')
-                    # pass
-                if(mostImportantInputNumber==1):
-                    print("d")
-                    keyboard.press('d')
-                    time.sleep(0.05)
-                    keyboard.release('d')
-                    # pass
-                if(mostImportantInputNumber==2):
-                    print("s")
-                    keyboard.press('s')
-                    time.sleep(0.05)
-                    keyboard.release('s')
-                    # pass
-                    pass
-                if(mostImportantInputNumber==3):
-                    print("f")
-                    keyboard.press('f')
-                    time.sleep(0.05)
-                    keyboard.release('f')
-                    # pass
-                if(mostImportantInputNumber==4):
-                    print("ctrl")
-                    keyboard.press('ctrl')
-                    time.sleep(0.05)
-                    keyboard.release('ctrl')
-                    # pass
+                if(once==False):
+                    once=True
+                    if(mostImportantInputNumber==0):
+                        # print("e")
+                        keyboard.press('e')
+                        # time.sleep(0.05)
+                        keyboard.release('e')
+                        # pass
+                    if(mostImportantInputNumber==1):
+                        print("d")
+                        keyboard.press('d')
+                        # time.sleep(0.05)
+                        keyboard.release('d')
+                        # pass
+                    if(mostImportantInputNumber==2):
+                        print("s")
+                        keyboard.press('s')
+                        # time.sleep(0.05)
+                        keyboard.release('s')
+                        # pass
+                        pass
+                    if(mostImportantInputNumber==3):
+                        print("f")
+                        keyboard.press('f')
+                        # time.sleep(0.05)
+                        keyboard.release('f')
+                        # pass
+                    if(mostImportantInputNumber==4):
+                        print("ctrl")
+                        keyboard.press('ctrl')
+                        # time.sleep(0.05)
+                        keyboard.release('ctrl')
+                        # pass
 
 
 
                 tmpInt2 +=1
 
-            time.sleep(0.05)
-
+            # time.sleep(0.05)
