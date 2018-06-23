@@ -29,7 +29,7 @@ from IPython.utils.capture import capture_output
 
 
 # FILE_I_END = 19
-FILE_I_END = 25
+FILE_I_END = 1
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -40,9 +40,10 @@ HEIGHT = int( 480 / 2 )
 LR = 1e-3
 # LR = 1e-4
 # EPOCHS = 30
-EPOCHS = 1
+# EPOCHS = 1
+EPOCHS = 250
 
-MODEL_NAME = 'bomberman-nn-keras.h5'
+MODEL_NAME = 'bomberman-nn-keras_v12.h5'
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = False
@@ -224,4 +225,7 @@ def generate_arrays_from_folder(folder):
 
 
 model.fit_generator(generate_arrays_from_folder('dataset'),
-                    steps_per_epoch=25, epochs=1)
+                    steps_per_epoch=EPOCHS, epochs=1)
+
+model.save(MODEL_NAME)
+
