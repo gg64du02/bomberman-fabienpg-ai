@@ -63,6 +63,8 @@ s =     [0,0,1,0,0]
 f =     [0,0,0,1,0]
 ctrl =  [0,0,0,0,1]
 
+all_keys=[e,d,s,f,ctrl]
+
 from keras.layers.core import Activation
 
 
@@ -135,6 +137,50 @@ while (True):
         # time.sleep(1)
 
         # print("loop time :{}ms".format((time.time()-last_time)*1000))
+        if(1):
+            mostImportantInputNumber = (np.where(prediction[0]==np.max(prediction[0])))[0]
+
+            futureKeypress = np.zeros((1,5), np.uint8)
+            futureKeypress[0][mostImportantInputNumber] = 1
+
+            tmpInt2 = 0
+
+            for futureInput in all_keys:
+                if(mostImportantInputNumber==0):
+                    print("e")
+                    keyboard.press('e')
+                    time.sleep(0.05)
+                    keyboard.release('e')
+                    # pass
+                if(mostImportantInputNumber==1):
+                    print("d")
+                    keyboard.press('d')
+                    time.sleep(0.05)
+                    keyboard.release('d')
+                    # pass
+                if(mostImportantInputNumber==2):
+                    print("s")
+                    keyboard.press('s')
+                    time.sleep(0.05)
+                    keyboard.release('s')
+                    # pass
+                    pass
+                if(mostImportantInputNumber==3):
+                    print("f")
+                    keyboard.press('f')
+                    time.sleep(0.05)
+                    keyboard.release('f')
+                    # pass
+                if(mostImportantInputNumber==4):
+                    print("ctrl")
+                    keyboard.press('ctrl')
+                    time.sleep(0.05)
+                    keyboard.release('ctrl')
+                    # pass
 
 
+
+                tmpInt2 +=1
+
+            time.sleep(0.05)
 
