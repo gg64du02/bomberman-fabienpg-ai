@@ -43,7 +43,7 @@ LR = 1e-3
 # EPOCHS = 1
 EPOCHS = 10
 
-MODEL_NAME = 'bomberman-nn-keras_v14_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v12.h5'
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = False
@@ -73,12 +73,12 @@ from keras.layers.core import Activation
 # 320 * 240 = 76800
 model = Sequential()
 # Input tensor for sequences of 32 timesteps,
-model.add(Dense(125, activation='relu', input_dim=76800))
+model.add(Dense(1, activation='relu', input_dim=76800))
 model.add(Activation('relu'));
 # grid is 15*20 32 pixels
 # make it so it would be 30*40
 # /64
-model.add(Dense(25, activation='relu', input_dim=1200))
+model.add(Dense(1, activation='relu', input_dim=1200))
 model.add(Activation('relu'));
 # 6 is probably the number of classes
 model.add(Dense(5, activation='softmax'))
@@ -151,8 +151,7 @@ def generate_arrays_from_folder(folder):
 
             try:
                 # file_name = './'+folder+'/bomberman-dataset-0.npy'
-                # file_name = './'+folder+'/bomberman-dataset-{}.npy'.format(i)
-                file_name = './'+folder+'/training_data_merged-partial-dataset-{}.npy'.format(i)
+                file_name = './'+folder+'/bomberman-dataset-{}.npy'.format(i)
                 print("file_name:",file_name)
 
                 # full file info
@@ -210,15 +209,13 @@ def generate_arrays_from_folder(folder):
                 # print("labels:",labels.shape)
 
                 # Convert labels to categorical one-hot encoding
-                one_hot_labels = keras.utils.to_categorical(labels, num_classes=5)
+                one_hot_labels = keras.utils.to_categorical(labels, num_classes=6)
                 print("one_hot_labels:", one_hot_labels.shape)
 
                 # Train the model, iterating on the data in batches of 32 samples
                 # model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
                 # model.fit(data, one_hot_labels, epochs=1, verbose=0,steps_per_epoch=55)
-                print("data.shape, one_hot_labels.shape:",data.shape, one_hot_labels.shape)
-
                 yield(data,one_hot_labels)
 
                 pass
@@ -228,7 +225,7 @@ def generate_arrays_from_folder(folder):
 
 
 
-model.fit_generator(generate_arrays_from_folder('phase-3'),
+model.fit_generator(generate_arrays_from_folder('dataset'),
                     steps_per_epoch=EPOCHS*FILE_I_END, epochs=1)
 
 model.save(MODEL_NAME)

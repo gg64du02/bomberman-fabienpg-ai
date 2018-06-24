@@ -43,7 +43,7 @@ LR = 1e-3
 # EPOCHS = 1
 EPOCHS = 5
 
-MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = False
@@ -73,7 +73,7 @@ from keras.layers.core import Activation
 # 320 * 240 = 76800
 model = Sequential()
 # Input tensor for sequences of 32 timesteps,
-model.add(Dense(25, activation='relu', input_dim=76800))
+model.add(Dense(125, activation='relu', input_dim=76800))
 # model.add(Activation('relu'));
 # grid is 15*20 32 pixels
 # make it so it would be 30*40
