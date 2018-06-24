@@ -43,8 +43,8 @@ LR = 1e-3
 # EPOCHS = 1
 EPOCHS = 10
 
-# MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
 # MODEL_NAME = 'bomberman-nn-keras_v14_5classes.h5'
+# MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
 MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
 
 PREV_MODEL = MODEL_NAME
@@ -99,6 +99,8 @@ def detect_key_from_frame():
 
 paused = True
 
+previousPrediction = [[]]
+
 while (True):
     if (paused == True):
         time.sleep(1)
@@ -135,10 +137,26 @@ while (True):
 
         prediction = model.predict(screen_reshaped, batch_size=1, verbose=0, steps=None)
 
-        print("prediction:",prediction)
+        if(np.array_equal(prediction,previousPrediction)==False):
+            print("prediction:", prediction)
+        else:
+            print("lol")
+
+
+        previousPrediction = prediction
+
+        # print("prediction:",prediction)
 
         # print("loop time :{}ms".format((time.time()-last_time)*1000))
-        if(1):
+
+        # print(type(screen))
+        # too see what is captured
+        cv2.imshow('screen', cv2.cvtColor(screen, cv2.COLOR_BGR2RGB))
+        if cv2.waitKey(25) & 0xFF == ord('t'):
+            cv2.destroyAllWindows()
+            break
+
+        if(0):
             mostImportantInputNumber = (np.where(prediction[0]==np.max(prediction[0])))[0]
 
             futureKeypress = np.zeros((1,5), np.uint8)
