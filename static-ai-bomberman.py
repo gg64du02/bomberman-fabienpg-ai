@@ -16,6 +16,8 @@ from scipy.spatial import distance
 from scipy import ndimage
 
 
+
+
 def IssueKeystroke(key):
     keyboard.press(key)
     time.sleep(0.05)
@@ -24,7 +26,93 @@ def IssueKeystroke(key):
 def MapMaskGenerator():
     pass
 
-def GoToPosition(X,Y):
+
+from heapq import *
+import time
+
+# credits:http://code.activestate.com/recipes/578919-python-a-pathfinding-with-binary-heap/
+def heuristic(a, b):
+    return (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2
+
+def astar(array, start, goal):
+    # neighbors = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]
+    neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+    print("(start, goal):",(start, goal))
+
+    close_set = set()
+    came_from = {}
+    gscore = {start: 0}
+    fscore = {start: heuristic(start, goal)}
+    oheap = []
+
+    heappush(oheap, (fscore[start], start))
+
+    while oheap:
+
+        current = heappop(oheap)[1]
+
+        if current == goal:
+            data = []
+            while current in came_from:
+                data.append(current)
+                current = came_from[current]
+            return data
+
+        close_set.add(current)
+        for i, j in neighbors:
+            neighbor = current[0] + i, current[1] + j
+            tentative_g_score = gscore[current] + heuristic(current, neighbor)
+            if 0 <= neighbor[0] < array.shape[0]:
+                if 0 <= neighbor[1] < array.shape[1]:
+                    if array[neighbor[0]][neighbor[1]] == 1:
+                        continue
+                else:
+                    # array bound y walls
+                    continue
+            else:
+                # array bound x walls
+                continue
+
+            if neighbor in close_set and tentative_g_score >= gscore.get(neighbor, 0):
+                continue
+
+            if tentative_g_score < gscore.get(neighbor, 0) or neighbor not in [i[1] for i in oheap]:
+                came_from[neighbor] = current
+                gscore[neighbor] = tentative_g_score
+                fscore[neighbor] = tentative_g_score + heuristic(neighbor, goal)
+                heappush(oheap, (fscore[neighbor], neighbor))
+
+    return False
+
+
+def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
+
+    # potentialPath.shape Out[2]: (15, 20)
+    notPotentialPath = np.ones_like(potentialPath)
+    np.place(notPotentialPath,potentialPath>0,0)
+    print(                       (player1indexes[0],player1indexes[1]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+    tmp = astar(notPotentialPath,(player1indexes[0],player1indexes[1]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+    print("tmp:",tmp)
+
+
+    pass
+
+
+def closest_node(node, nodes):
+    closest_index = distance.cdist([node], nodes).argmin()
+    return nodes[closest_index]
+
+# TODO:implement this
+# do one step toward to bomb something
+def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes):
+    # print()
+    # potentialPath.shape Out[2]: (15, 20)
+    print("closest_node:",closest_node(player2indexes,potentialPathList))
+    closest_node1=closest_node(player2indexes,potentialPathList)
+
+    GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
+
     pass
 
 def convertToIndexesGetPlayerPosition(getPlayerPosition):
@@ -53,7 +141,7 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     # props.image  # array matching the bbox sub-image
     print(len(props.coords))  # list of (row,col) pixel indices
 
-    availiablePathRet = np.zeros((16,20))
+    availiablePathRet = np.zeros((15,20))
 
     connectedCoords = props.coords
     for coord in connectedCoords:
@@ -127,7 +215,7 @@ def AvailiablePath(screen,screenAveraged,number):
 
     allBlocking = [crate,hardBlock,bomb]
 
-    availiableSpots = np.ones((16,20))
+    availiableSpots = np.ones((15,20))
 
     tp = tilePositionGenerator()
     for tile in tp:
@@ -150,7 +238,7 @@ def ScreenAveraging(screen):
 
     # tile of 32 piwel
     tileWidth = 32
-    screenAveragedRet = np.zeros((16,20,3))
+    screenAveragedRet = np.zeros((15,20,3))
     tilePositons = tilePositionGenerator()
     for tilePos in tilePositons:
         # print(tilePos)
@@ -167,40 +255,11 @@ def tilePositionGenerator():
     # tile of 32 piwel
     tileWidth = 32
     for i in range(20):
-        for ii in range(16):
+        for ii in range(15):
             # print(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
             yield(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
 
 
-# def closest_node(node, nodes):
-#     closest_index = distance.cdist([node], nodes).argmin()
-#     return nodes[closest_index]
-
-def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes):
-    # a = random.randint(1000, size=(50000, 2))
-    # some_pt = (1, 2)
-    # print()
-    # print("closest_node:",closest_node(player2indexes,potentialPathList))
-
-    p2i = player2indexes
-
-    # anynumber sup to 16**2 + 20**2
-    curDir = 50
-
-    for potPathElement in potentialPathList:
-        x = potPathElement[0]
-        y = potPathElement[1]
-        # print("oneStepToPutBomb:",x,y)
-        tmpDist = np.sqrt((x-p2i[0])**2+(y-p2i[1])**2)
-        # print("tmpDist:",tmpDist)
-        if(curDir>tmpDist):
-            closest_node = (x,y)
-            curDir=tmpDist
-
-
-    print("closest_node:",closest_node)
-
-    pass
 
 
 def MapMaskGenerator():
@@ -272,7 +331,7 @@ while True:
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes)
 
 
-    time.sleep(2)
+    time.sleep(0.5)
 
 
     if (keyboard.is_pressed('p') == True):
