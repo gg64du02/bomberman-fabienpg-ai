@@ -71,18 +71,25 @@ def AvailiablePath(screen,screenAveraged,number):
     hardBlock = [156,156,156]
     bomb = [46,56,58]
 
+    screenAveragedToInt = screenAveraged.astype(int)
+
     allBlocking = [crate,hardBlock,bomb]
 
-    availiableSpots = np.zeros((20,10))
+    availiableSpots = np.ones((10,20))
 
     tp = tilePositionGenerator()
     for tile in tp:
         for i in allBlocking:
-            print()
-            if(np.array_equal(i,tile)==True):
-                availiableSpots[int(tile[0]/32),int(tile[1]/32)] = False
-            else:
-                availiableSpots[int(tile[0]/32),int(tile[1]/32)] = True
+            x = int(tile[0]/32)
+            y = int(tile[1]/32)
+            # print(x,y)
+            # print("i:",i)
+            # print("screenAveragedToInt[y,x]:",screenAveragedToInt[y,x])
+            if(np.array_equal(i,screenAveragedToInt[y,x])==True):
+                # print("True\n")
+                availiableSpots[y,x] = False
+            # else:
+            #     print("!True\n")
     return availiableSpots
 
 def ScreenAveraging(screen):
@@ -164,9 +171,11 @@ while True:
 
     screenAveraged = ScreenAveraging(screen)
 
-    # availiablePath = AvailiablePath(screen,screenAveraged, 1)
-    #
-    # print(availiablePath)
+    availiablePath = AvailiablePath(screen,screenAveraged, 1)
+
+    print(availiablePath)
+
+    time.sleep(0.2)
 
 
     if (keyboard.is_pressed('p') == True):
