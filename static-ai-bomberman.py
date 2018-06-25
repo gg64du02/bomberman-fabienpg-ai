@@ -25,33 +25,62 @@ def MapMaskGenerator():
 def GoToPosition(X,Y):
     pass
 
-def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
+def convertToIndexesGetPlayerPosition(getPlayerPosition):
     playerXindex = int( ( getPlayerPosition[0] - getPlayerPosition[0] % 32 )/32 )
     playerYindex = int( ( getPlayerPosition[1] - getPlayerPosition[1] % 32 )/32 )
+    return (playerXindex,playerYindex)
 
-    # print(playerXindex,playerYindex)
+
+def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
+    # playerXindex = int( ( getPlayerPosition[0] - getPlayerPosition[0] % 32 )/32 )
+    # playerYindex = int( ( getPlayerPosition[1] - getPlayerPosition[1] % 32 )/32 )
+    playerIndexPos = convertToIndexesGetPlayerPosition(getPlayerPosition)
+    playerXindex = playerIndexPos[0]
+    playerYindex = playerIndexPos[1]
+
+    print(playerXindex,playerYindex)
 
     labeled = measure.label(availiablePath, background=False, connectivity=1)
-    label = labeled[playerXindex, playerYindex]  # known pixel location
+    # reversed X,Y why ?
+    label = labeled[playerYindex, playerXindex]  # known pixel location
 
     rp = measure.regionprops(labeled)
     props = rp[label - 1]  # background is labeled 0, not in rp
 
-    props.bbox  # (min_row, min_col, max_row, max_col)
-    props.image  # array matching the bbox sub-image
+    # props.bbox  # (min_row, min_col, max_row, max_col)
+    # props.image  # array matching the bbox sub-image
     print(len(props.coords))  # list of (row,col) pixel indices
 
-    return []
+    availiablePathRet = np.zeros((16,20))
 
+    connectedCoords = props.coords
+    for coord in connectedCoords:
+        availiablePathRet[coord[0],coord[1]] = 1
+
+    return availiablePathRet
+
+# support player 1, 2
 def GetPlayerPosition(screen, number):
     # number 1 2 3 4
 
-    H_min = 0
-    S_min = 60
-    V_min = 120
-    H_max = 10
-    S_max = 255
-    V_max = 255
+    if(number==1):
+        H_min = 0
+        S_min = 60
+        V_min = 120
+        H_max = 10
+        S_max = 255
+        V_max = 255
+    if(number==2):
+        # 152 100 50
+        # 120 100 50
+        # 120 66 78
+        H_min = 56
+        S_min = 30
+        V_min = 125
+        H_max = 136
+        S_max = 255
+        V_max = 255
+
     frame_to_thresh = cv2.cvtColor(screen, cv2.COLOR_BGR2HSV)
     thresh = cv2.inRange(
         frame_to_thresh, (H_min, S_min, V_min), (H_max, S_max, V_max))
@@ -86,6 +115,7 @@ def GetPlayerPosition(screen, number):
     #
     # return pos3D
 
+# TODO: fix the "filled" (even though clear) bottom path issue
 def AvailiablePath(screen,screenAveraged,number):
     crate = [65,151,191]
     hardBlock = [156,156,156]
@@ -95,7 +125,7 @@ def AvailiablePath(screen,screenAveraged,number):
 
     allBlocking = [crate,hardBlock,bomb]
 
-    availiableSpots = np.ones((10,20))
+    availiableSpots = np.ones((16,20))
 
     tp = tilePositionGenerator()
     for tile in tp:
@@ -118,7 +148,7 @@ def ScreenAveraging(screen):
 
     # tile of 32 piwel
     tileWidth = 32
-    screenAveragedRet = np.zeros((10,20,3))
+    screenAveragedRet = np.zeros((16,20,3))
     tilePositons = tilePositionGenerator()
     for tilePos in tilePositons:
         # print(tilePos)
@@ -135,11 +165,15 @@ def tilePositionGenerator():
     # tile of 32 piwel
     tileWidth = 32
     for i in range(20):
-        for ii in range(10):
+        for ii in range(16):
             # print(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
             yield(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
 
+def oneStepToPutBomb(potentialPath,player1indexes,player2indexes):
+    
+
     pass
+
 
 def MapMaskGenerator():
     pass
@@ -187,17 +221,29 @@ while True:
 
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
-    # print("getPlayerPosition:",getPlayerPosition)
+    print("getPlayerPosition:",getPlayerPosition)
 
     screenAveraged = ScreenAveraging(screen)
 
     availiablePath = AvailiablePath(screen,screenAveraged, 1)
 
-    print(availiablePath)
+    # print(availiablePath)
 
     potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
-    time.sleep(0.2)
+    # print()
+    # print(potentialPath)
+
+    # print("convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2):",
+    #       convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2)))
+
+    player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
+    player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
+
+    oneStepToPutBomb(potentialPath,player1indexes,player2indexes)
+
+
+    time.sleep(0.5)
 
 
     if (keyboard.is_pressed('p') == True):
