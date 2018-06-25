@@ -8,6 +8,8 @@ from grabscreen import grab_screen
 
 import keyboard
 
+from skimage import measure
+
 # to process to potential centroid for each player (ie player positions
 from scipy import ndimage
 
@@ -22,6 +24,24 @@ def MapMaskGenerator():
 
 def GoToPosition(X,Y):
     pass
+
+def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
+    playerXindex = int( ( getPlayerPosition[0] - getPlayerPosition[0] % 32 )/32 )
+    playerYindex = int( ( getPlayerPosition[1] - getPlayerPosition[1] % 32 )/32 )
+
+    # print(playerXindex,playerYindex)
+
+    labeled = measure.label(availiablePath, background=False, connectivity=1)
+    label = labeled[playerXindex, playerYindex]  # known pixel location
+
+    rp = measure.regionprops(labeled)
+    props = rp[label - 1]  # background is labeled 0, not in rp
+
+    props.bbox  # (min_row, min_col, max_row, max_col)
+    props.image  # array matching the bbox sub-image
+    print(len(props.coords))  # list of (row,col) pixel indices
+
+    return []
 
 def GetPlayerPosition(screen, number):
     # number 1 2 3 4
@@ -174,6 +194,8 @@ while True:
     availiablePath = AvailiablePath(screen,screenAveraged, 1)
 
     print(availiablePath)
+
+    potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
     time.sleep(0.2)
 
