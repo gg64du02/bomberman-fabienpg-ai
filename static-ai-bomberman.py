@@ -10,6 +10,8 @@ import keyboard
 
 from skimage import measure
 
+from scipy.spatial import distance
+
 # to process to potential centroid for each player (ie player positions
 from scipy import ndimage
 
@@ -57,7 +59,7 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     for coord in connectedCoords:
         availiablePathRet[coord[0],coord[1]] = 1
 
-    return availiablePathRet
+    return connectedCoords,availiablePathRet
 
 # support player 1, 2
 def GetPlayerPosition(screen, number):
@@ -115,7 +117,7 @@ def GetPlayerPosition(screen, number):
     #
     # return pos3D
 
-# TODO: fix the "filled" (even though clear) bottom path issue
+# DONE: fix the "filled" (even though clear) bottom path issue
 def AvailiablePath(screen,screenAveraged,number):
     crate = [65,151,191]
     hardBlock = [156,156,156]
@@ -169,8 +171,34 @@ def tilePositionGenerator():
             # print(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
             yield(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
 
-def oneStepToPutBomb(potentialPath,player1indexes,player2indexes):
-    
+
+# def closest_node(node, nodes):
+#     closest_index = distance.cdist([node], nodes).argmin()
+#     return nodes[closest_index]
+
+def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes):
+    # a = random.randint(1000, size=(50000, 2))
+    # some_pt = (1, 2)
+    # print()
+    # print("closest_node:",closest_node(player2indexes,potentialPathList))
+
+    p2i = player2indexes
+
+    # anynumber sup to 16**2 + 20**2
+    curDir = 50
+
+    for potPathElement in potentialPathList:
+        x = potPathElement[0]
+        y = potPathElement[1]
+        # print("oneStepToPutBomb:",x,y)
+        tmpDist = np.sqrt((x-p2i[0])**2+(y-p2i[1])**2)
+        # print("tmpDist:",tmpDist)
+        if(curDir>tmpDist):
+            closest_node = (x,y)
+            curDir=tmpDist
+
+
+    print("closest_node:",closest_node)
 
     pass
 
@@ -221,6 +249,7 @@ while True:
 
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
+    print()
     print("getPlayerPosition:",getPlayerPosition)
 
     screenAveraged = ScreenAveraging(screen)
@@ -229,21 +258,21 @@ while True:
 
     # print(availiablePath)
 
-    potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
+    potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
-    # print()
-    # print(potentialPath)
-
-    # print("convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2):",
-    #       convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2)))
+    # TODO: remove the bottom line
+    print(potentialPath)
 
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
-    player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
+    player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
 
-    oneStepToPutBomb(potentialPath,player1indexes,player2indexes)
+    print("player1indexes:",player1indexes)
+    print("player2indexes:",player2indexes)
+
+    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes)
 
 
-    time.sleep(0.5)
+    time.sleep(2)
 
 
     if (keyboard.is_pressed('p') == True):
