@@ -18,20 +18,12 @@ from scipy import ndimage
 # to generate alternative timing for keystroke to get around more easily
 from numpy import random
 
-
-
-
-def IssueKeystroke(key):
-    keyboard.press(key)
-    time.sleep(0.05)
-    keyboard.release(key)
+# for a star
+from heapq import *
+import time
 
 def MapMaskGenerator():
     pass
-
-
-from heapq import *
-import time
 
 # credits:http://code.activestate.com/recipes/578919-python-a-pathfinding-with-binary-heap/
 def heuristic(a, b):
@@ -88,6 +80,15 @@ def astar(array, start, goal):
 
     return False
 
+# TODO:implement this
+def putBombAndStartToRunAway(node,player1indexes):
+    print("putBombAndStartToRunAway")
+    # keyboard.press_and_release('ctrl')
+    keyboard.press('ctrl')
+    time.sleep(0.15)
+    keyboard.release('ctrl')
+    # MoveToTheTileNextToMe(player1indexes,node)
+    pass
 
 def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
 
@@ -98,7 +99,6 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
     print("nextSteps:",nextSteps)
 
-
     # TODO: implement
     if(nextSteps!=False):
         if(len(nextSteps)!=0):
@@ -107,12 +107,27 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
             MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(nextStep[0],nextStep[1]))
         else:
             pass
-    pass
+
+    print("player1indexes,closestNodeToEnemy:",player1indexes,closestNodeToEnemy)
+    if(player1indexes[1]==closestNodeToEnemy[0]):
+        print("111")
+        if(player1indexes[0]==closestNodeToEnemy[1]):
+            print("222")
+            putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
+                                 (player1indexes[1], player1indexes[0]))
+    else:
+        if(nextSteps==False):
+            print("333")
+            putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
+                                 (player1indexes[1], player1indexes[0]))
+
+
 
 def MoveToTheTileNextToMe(playerPos, nextStepPos):
     print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
     # timePress = 0.15
     timePress = 0.10+random.randint(5)*0.01
+    # timePress = random.randint(5)*0.01
     # upward
     if(playerPos[0]>nextStepPos[0]):
         keyboard.press('e')
@@ -133,7 +148,8 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
         keyboard.press('s')
         time.sleep(timePress)
         keyboard.release('s')
-    # time.sleep(0.05)eeeeeeessfffddffffdffdedddeddddddddeeeeeeeffsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsf
+
+    # time.sleep(0.05)
     # keyboard.release('s')
     # keyboard.release('f')
     # keyboard.release('d')
@@ -146,7 +162,7 @@ def closest_node(node, nodes):
     closest_index = distance.cdist([node], nodes).argmin()
     return nodes[closest_index]
 
-# TODO:implement this
+# DONE:implement this
 # do one step toward to bomb something
 def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes):
     # print()
@@ -337,7 +353,10 @@ if 0:
     print()
     # break
 
-time.sleep(5)
+for i in list(range(4))[::-1]:
+    print(i+1)
+    time.sleep(1)
+
 while True:
 
     # getting the window mode screen
@@ -364,7 +383,7 @@ while True:
 
     potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
-    # TODO: remove the bottom line
+    # DONE: remove the bottom line
     print(potentialPath)
 
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
@@ -374,6 +393,7 @@ while True:
     print("player2indexes:",player2indexes)
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes)
+
 
 
     # time.sleep(5)
@@ -388,6 +408,7 @@ while True:
     # cv2.imshow('screen', cv2.cvtColor(screen, cv2.COLOR_BGR2RGB))
     # cv2.imshow('thresh', thresh)
 
-    if cv2.waitKey(25) & 0xFF == ord('t'):
-        cv2.destroyAllWindows()
-        break
+    # if cv2.waitKey(25) & 0xFF == ord('t'):
+    #     cv2.destroyAllWindows()
+    #     break
+
