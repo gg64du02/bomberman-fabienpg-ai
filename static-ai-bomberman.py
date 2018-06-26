@@ -15,6 +15,9 @@ from scipy.spatial import distance
 # to process to potential centroid for each player (ie player positions
 from scipy import ndimage
 
+# to generate alternative timing for keystroke to get around more easily
+from numpy import random
+
 
 
 
@@ -108,7 +111,8 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
 
 def MoveToTheTileNextToMe(playerPos, nextStepPos):
     print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
-    timePress = 0.15
+    # timePress = 0.15
+    timePress = 0.10+random.randint(5)*0.01
     # upward
     if(playerPos[0]>nextStepPos[0]):
         keyboard.press('e')
