@@ -91,12 +91,41 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     # potentialPath.shape Out[2]: (15, 20)
     notPotentialPath = np.ones_like(potentialPath)
     np.place(notPotentialPath,potentialPath>0,0)
-    print(                       (player1indexes[0],player1indexes[1]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
-    tmp = astar(notPotentialPath,(player1indexes[0],player1indexes[1]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
-    print("tmp:",tmp)
+    # print(                       (player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+    nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+    print("nextSteps:",nextSteps)
 
+    nextStep = nextSteps[len(nextSteps)-1]
+    print("nextStep:",nextStep)
 
+    # TODO: implement this
+    MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
     pass
+
+def MoveToTheTileNextToMe(playerPos, NodePos):
+    if(playerPos[0]>NodePos[0]):
+        keyboard.press('s')
+        time.sleep(0.05)
+        keyboard.release('s')
+    if(playerPos[0]<NodePos[0]):
+        keyboard.press('f')
+        time.sleep(0.05)
+        keyboard.release('f')
+    if(playerPos[1]>NodePos[1]):
+        keyboard.press('d')
+        time.sleep(0.05)
+        keyboard.release('d')
+    if (playerPos[1] > NodePos[1]):
+        keyboard.press('e')
+        time.sleep(0.05)
+        keyboard.release('e')
+    time.sleep(0.05)
+    keyboard.release('s')
+    keyboard.release('f')
+    keyboard.release('d')
+    keyboard.release('f')
+    pass
+
 
 
 def closest_node(node, nodes):
