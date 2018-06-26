@@ -13,3 +13,4 @@ dataset/*
 *.bak
 *.h5
 old_5classes/*
+trained*

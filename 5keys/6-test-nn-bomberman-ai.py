@@ -45,7 +45,9 @@ EPOCHS = 10
 
 # MODEL_NAME = 'bomberman-nn-keras_v14_5classes.h5'
 # MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
-MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
+# MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
+# MODEL_NAME = 'bomberman-nn-keras_v13_5classes_data_p_255.h5'
+MODEL_NAME = 'bomberman-nn-keras_v13_5classes.h5'
 
 PREV_MODEL = MODEL_NAME
 
@@ -135,12 +137,16 @@ while (True):
         # print("screen[:,:,0].shape:",screen[:,:,0].shape)
         screen_reshaped = (screen[:,:,0]).reshape((1,76800))
 
-        prediction = model.predict(screen_reshaped, batch_size=1, verbose=0, steps=None)
+        # prediction = model.predict(screen_reshaped, batch_size=1, verbose=0, steps=None)
 
-        if(np.array_equal(prediction,previousPrediction)==False):
-            print("prediction:", prediction)
-        else:
-            print("lol")
+        prediction = model.predict(screen_reshaped/255, batch_size=1, verbose=0, steps=None)
+
+        # if(np.array_equal(prediction,previousPrediction)==False):
+        #     print("prediction:", prediction)
+        # else:
+        #     print("lol")
+        #
+        print("prediction:", prediction)
 
 
         previousPrediction = prediction

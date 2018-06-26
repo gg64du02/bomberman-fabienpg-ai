@@ -12,7 +12,7 @@ from random import shuffle
 import sys
 
 # FILE_I_END = 19
-FILE_I_END = 54
+FILE_I_END = 103
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -33,6 +33,24 @@ tmpOutput = []
 # tmpData = np.zeros((500,1))
 # tmpScreen = np.zeros((500,1))
 # tmpOutput = np.zeros((500,1))
+
+
+starting_value = 1
+
+while True:
+    file_name = './phase-2/training_data_merged-{}.npy'.format(starting_value)
+
+    if os.path.isfile(file_name):
+        print('File exists, moving along', starting_value)
+        starting_value += 1
+    else:
+        print('File does not exist, starting fresh!', starting_value)
+
+        break
+
+if starting_value != 1:
+    iii = 10 * starting_value + 1
+
 
 while(iii<FILE_I_END+1):
     print("====================================")

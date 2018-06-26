@@ -12,7 +12,7 @@ from random import shuffle
 import sys
 
 # FILE_I_END = 19
-FILE_I_END = 5
+FILE_I_END = 10
 
 # WIDTH = 480
 # HEIGHT = 270

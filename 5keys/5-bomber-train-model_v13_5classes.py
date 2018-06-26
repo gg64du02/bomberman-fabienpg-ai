@@ -14,6 +14,7 @@ import tensorflow as tf
 from keras.models import Sequential
 from keras.models import Model
 from keras.layers import Input, Dense
+from keras.layers import Dropout
 from keras import optimizers
 from keras import losses
 import keras
@@ -29,7 +30,7 @@ from IPython.utils.capture import capture_output
 
 
 # FILE_I_END = 19
-FILE_I_END = 5
+FILE_I_END = 10
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -41,7 +42,9 @@ LR = 1e-3
 # LR = 1e-4
 # EPOCHS = 30
 # EPOCHS = 1
-EPOCHS = 10
+# EPOCHS = 10
+# EPOCHS = 120
+EPOCHS = 1
 
 MODEL_NAME = 'bomberman-nn-keras_v13_5classes.h5'
 PREV_MODEL = MODEL_NAME
@@ -73,54 +76,30 @@ from keras.layers.core import Activation
 # 320 * 240 = 76800
 model = Sequential()
 # Input tensor for sequences of 32 timesteps,
-model.add(Dense(1, activation='relu', input_dim=76800))
-model.add(Activation('relu'));
+model.add(Dense(200, activation='relu', input_dim=76800))
+# model.add(Activation('relu'));
 # grid is 15*20 32 pixels
 # make it so it would be 30*40
 # /64
-model.add(Dense(1, activation='relu', input_dim=1200))
-model.add(Activation('relu'));
+model.add(Dense(1200, activation='relu', input_dim=1200))
+keras.layers.Dropout(0.5)
+# model.add(Activation('relu'));
 # 6 is probably the number of classes
 model.add(Dense(5, activation='softmax'))
-model.add(Activation('relu'));
+# model.add(Activation('relu'));
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
+# model.compile(optimizer='adagrad',
+#               loss='categorical_crossentropy',
+#               metrics=['accuracy'])
 # # ============================================================
 
 
-# # ++++++++++++++++++++++++++++++++++++++++++++++++
-# from keras.layers.convolutional import Convolution2D, MaxPooling2D
-# from keras.layers.convolutional import Conv2D, Cropping2D
-# from keras.layers.convolutional import Conv3D
-# from keras.layers.core import Dense, Dropout, Activation, Flatten
-#
-# batch_size=32
-# # nb_classes=len(classes)
-# nb_classes=6
-# nb_epoch=20
-# nb_filters=32
-# nb_pool=2
-# nb_conv=3
-#
-# model= Sequential()
-# # model.add(Cropping2D(cropping=((2, 2), (4, 4)),
-# #                      input_shape=(28, 28, 3)));
-# # model.add(Conv2D(nb_filters,(nb_conv,nb_conv), padding='same'))
-# model.add(Conv3D(nb_filters,(320,240,3), padding='same'))
-# model.add(Activation('relu'));
-# # model.add(Conv2D(nb_filters,(nb_conv,nb_conv)));
-# # model.add(Activation('relu'));
-# # model.add(MaxPooling2D(pool_size=(nb_pool,nb_pool)));
-# # model.add(Dropout(0.5));
-# # model.add(Flatten());
-# # model.add(Dense(128));
-# # model.add(Dropout(0.5));
-# # model.add(Dense(nb_classes));
-# # model.add(Activation('softmax'));
-# model.compile(loss='categorical_crossentropy',optimizer='adadelta',metrics=['accuracy'])
-# print(model)
-# # ++++++++++++++++++++++++++++++++++++++++++++++++
+# a = Input(shape=(76800,))
+# b = Dense(32)(a)
+# model = Model(inputs=a, outputs=b)
+
 
 
 if LOAD_MODEL:
@@ -213,11 +192,15 @@ def generate_arrays_from_folder(folder):
                 one_hot_labels = keras.utils.to_categorical(labels, num_classes=5)
                 print("one_hot_labels:", one_hot_labels.shape)
 
+                print("data.shape:",data.shape)
+
                 # Train the model, iterating on the data in batches of 32 samples
                 # model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
                 # model.fit(data, one_hot_labels, epochs=1, verbose=0,steps_per_epoch=55)
-                yield(data,one_hot_labels)
+
+                # yield(data,one_hot_labels)
+                yield(data/255, one_hot_labels)
 
                 pass
             except Exception as e:
@@ -226,8 +209,11 @@ def generate_arrays_from_folder(folder):
 
 
 
+# model.fit_generator(generate_arrays_from_folder('phase-3'),
+#                     steps_per_epoch=EPOCHS*FILE_I_END, epochs=1)
+
 model.fit_generator(generate_arrays_from_folder('phase-3'),
-                    steps_per_epoch=EPOCHS*FILE_I_END, epochs=1)
+                    steps_per_epoch=FILE_I_END, epochs=EPOCHS)
 
 model.save(MODEL_NAME)
 
