@@ -95,35 +95,45 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
     print("nextSteps:",nextSteps)
 
-    nextStep = nextSteps[len(nextSteps)-1]
-    print("nextStep:",nextStep)
 
-    # TODO: implement this
-    MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+    # TODO: implement
+    if(nextSteps!=False):
+        if(len(nextSteps)!=0):
+            nextStep = nextSteps[len(nextSteps)-1]
+            print("nextStep:",nextStep)
+            MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(nextStep[0],nextStep[1]))
+        else:
+            pass
     pass
 
-def MoveToTheTileNextToMe(playerPos, NodePos):
-    if(playerPos[0]>NodePos[0]):
-        keyboard.press('s')
-        time.sleep(0.05)
-        keyboard.release('s')
-    if(playerPos[0]<NodePos[0]):
-        keyboard.press('f')
-        time.sleep(0.05)
-        keyboard.release('f')
-    if(playerPos[1]>NodePos[1]):
-        keyboard.press('d')
-        time.sleep(0.05)
-        keyboard.release('d')
-    if (playerPos[1] > NodePos[1]):
+def MoveToTheTileNextToMe(playerPos, nextStepPos):
+    print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
+    timePress = 0.15
+    # upward
+    if(playerPos[0]>nextStepPos[0]):
         keyboard.press('e')
-        time.sleep(0.05)
+        time.sleep(timePress)
         keyboard.release('e')
-    time.sleep(0.05)
-    keyboard.release('s')
-    keyboard.release('f')
-    keyboard.release('d')
-    keyboard.release('f')
+    # downward
+    if(playerPos[0]<nextStepPos[0]):
+        keyboard.press('d')
+        time.sleep(timePress)
+        keyboard.release('d')
+    # rightward
+    if(playerPos[1]<nextStepPos[1]):
+        keyboard.press('f')
+        time.sleep(timePress)
+        keyboard.release('f')
+    # leftward
+    if (playerPos[1] > nextStepPos[1]):
+        keyboard.press('s')
+        time.sleep(timePress)
+        keyboard.release('s')
+    # time.sleep(0.05)eeeeeeessfffddffffdffdedddeddddddddeeeeeeeffsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsf
+    # keyboard.release('s')
+    # keyboard.release('f')
+    # keyboard.release('d')
+    # keyboard.release('f')
     pass
 
 
@@ -322,6 +332,8 @@ if 0:
         print(tilePos)
     print()
     # break
+
+time.sleep(5)
 while True:
 
     # getting the window mode screen
@@ -360,7 +372,7 @@ while True:
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes)
 
 
-    time.sleep(0.5)
+    # time.sleep(5)
 
 
     if (keyboard.is_pressed('p') == True):
