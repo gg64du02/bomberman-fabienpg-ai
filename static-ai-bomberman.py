@@ -80,14 +80,119 @@ def astar(array, start, goal):
 
     return False
 
+
+# TODO: implement this
+def isTheirABombAtThisPosition(position):
+
+    pass
+
+# TODO: implement this
+def listBombsPositions(screenAvged):
+    # print("listBombsPostions")
+    tp = tilePositionGenerator()
+    list = []
+    for potentialBombs in tp:
+        x = int( potentialBombs[0] / 32 )
+        y = int( potentialBombs[1] / 32 )
+
+        # for debugging
+        # if(x==0):
+        #     if(y==0):
+        #         print("potentialBombs:",potentialBombs)
+        #         print("screenAveraged[y,x]:",screenAveraged[y,x])
+
+        # [45.29032258 55.72528616 62.90114464]
+        # [49.06971904 60.13735692 61.8855359]
+        # [48.4037461  58.98855359 60.85327784]
+        # [48.08740895 58.87200832 60.35379813]
+        # [47.421436  57.3735692 59.2049948]
+        # [46.27263267 56.09157128 57.52341311]
+        # [46.15608741 54.89281998 56.05827263]
+        # [45.29032258 53.87721124 54.82622268]
+        if(screenAveraged[y,x,0]<=50):
+            if(screenAveraged[y,x,0]>45):
+                if(screenAveraged[y,x,1]<=61):
+                    if(screenAveraged[y,x,1]>53):
+                        if(screenAveraged[y,x,2]<=63):
+                            if(screenAveraged[y,x,2]>54):
+                                # print("bomb decteted")
+                                list.append([y,x])
+
+    return list
+
+# TODO: implement this
+def adjacentNodeToPotentialBombBlast(bombPosition, potentialPath):
+
+    pass
+
+
+previousBombPlacedPosition =(0,0)
+currentBombPlacedPosition =(0,0)
+
+# TODO: implement this
+def closestNodeOutOfDanger(player1indexes,potentialPath):
+    # player1indexes is onto bomb position
+    print("closestNodeOutOfDanger")
+
+    notPotentialPath = np.ones_like(potentialPath)
+    np.place(notPotentialPath,potentialPath>0,0)
+
+    # nextSteps = astar(notPotentialPath, (player1indexes[1], player1indexes[0]),
+    #                   (previousBombPlacedPosition[0], previousBombPlacedPosition[1]))
+
+    nextSteps = astar(notPotentialPath, (player1indexes[1], player1indexes[0]),
+                      (previousBombPlacedPosition[0], previousBombPlacedPosition[1]))
+
+    if(nextSteps!=False):
+        print("nextSStep:",nextSteps[len(nextSteps)-1])
+
+    # notPotentialPath[player1indexes[0],player1indexes[1]] = 3
+    # notPotentialPath[:,player1indexes[1]] = 2
+    # notPotentialPath[player1indexes[0],:] = 2
+
+    # print("notPotentialPath:\n",notPotentialPath)
+    # TODO: closest nodes
+
+
+    # nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+
+    return (0,0)
+    pass
+
 # TODO:implement this
-def putBombAndStartToRunAway(node,player1indexes):
+def putBombAndStartToRunAway(node,player1indexes,potentialPath):
     print("putBombAndStartToRunAway")
     # keyboard.press_and_release('ctrl')
     keyboard.press('ctrl')
     time.sleep(0.15)
     keyboard.release('ctrl')
+
+    currentBombPlacedPosition = player1indexes
+
     # MoveToTheTileNextToMe(player1indexes,node)
+    # rightward (0,1)
+    # left (0,-1)
+    # downward (1,0)
+    # upward (-1,0)
+    neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
+    for i in neighboors:
+        ii = np.subtract(player1indexes, i)
+        print("ii:",ii)
+        if(ii[0]>=0):
+            if(ii[0]<=19):
+                if(ii[1]>=0):
+                    if(ii[1]<=15):
+                        # print("ii[0] in [0-19]")
+                        # print("ii[1] in [0-15]")
+                        print("ii in (0,0) and (19,15)")
+
+    # TODO: detect bomb position
+    closestNodeOutOfDanger(player1indexes,potentialPath)
+def adjacentNodeToPotentialBombBlast(bombPosition, potentialPath):
+
+
+    # TODO
+    # MoveToTheTileNextToMe(np.subtract(player1indexes,(0,-1)),node)
     pass
 
 def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
@@ -114,12 +219,12 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
         if(player1indexes[0]==closestNodeToEnemy[1]):
             print("222")
             putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
-                                 (player1indexes[1], player1indexes[0]))
+                                 (player1indexes[1], player1indexes[0]),potentialPath)
     else:
         if(nextSteps==False):
             print("333")
             putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
-                                 (player1indexes[1], player1indexes[0]))
+                                 (player1indexes[1], player1indexes[0]),potentialPath)
 
 
 
@@ -127,6 +232,7 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
     print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
     # timePress = 0.15
     timePress = 0.10+random.randint(5)*0.01
+    # timePress = 0.10+random.randint(10)*0.01
     # timePress = random.randint(5)*0.01
     # upward
     if(playerPos[0]>nextStepPos[0]):
@@ -170,6 +276,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2index
     print("closest_node:",closest_node(player2indexes,potentialPathList))
     closest_node1=closest_node(player2indexes,potentialPathList)
 
+    # TODO: detected if a bomb is aligned with the controlled player
     GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
 
     pass
@@ -377,6 +484,10 @@ while True:
 
     screenAveraged = ScreenAveraging(screen)
 
+    listOfBombs = listBombsPositions(screenAveraged)
+
+    print("listOfBombs:",listOfBombs)
+
     availiablePath = AvailiablePath(screen,screenAveraged, 1)
 
     # print(availiablePath)
@@ -392,11 +503,12 @@ while True:
     print("player1indexes:",player1indexes)
     print("player2indexes:",player2indexes)
 
-    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes)
+
+    # oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes)
 
 
 
-    # time.sleep(5)
+    # time.sleep(1)
 
 
     if (keyboard.is_pressed('p') == True):
