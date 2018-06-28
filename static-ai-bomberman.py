@@ -82,7 +82,7 @@ def astar(array, start, goal):
 
 
 # TODO: implement this
-def isTheirABombAtThisPosition(position):
+def isThereABombAtThisPosition(position):
 
     pass
 
@@ -270,14 +270,25 @@ def closest_node(node, nodes):
 
 # DONE:implement this
 # do one step toward to bomb something
-def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes):
+def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs):
     # print()
     # potentialPath.shape Out[2]: (15, 20)
     print("closest_node:",closest_node(player2indexes,potentialPathList))
     closest_node1=closest_node(player2indexes,potentialPathList)
 
     # TODO: detected if a bomb is aligned with the controlled player
-    GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
+    aligned_with_bomb_blast = False
+    for bombsPosition in listOfBombs:
+        print("bombsPosition:",bombsPosition)
+        if(player1indexes[1]==bombsPosition[0]):
+            aligned_with_bomb_blast = True
+        if (player1indexes[0] == bombsPosition[1]):
+            aligned_with_bomb_blast = True
+    if(aligned_with_bomb_blast==False):
+        print("aligned_with_bomb_blast==False")
+        GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
+    else:
+        print("aligned_with_bomb_blast==True")
 
     pass
 
@@ -504,7 +515,7 @@ while True:
     print("player2indexes:",player2indexes)
 
 
-    # oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes)
+    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs)
 
 
 
