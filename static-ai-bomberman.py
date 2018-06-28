@@ -133,28 +133,43 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     # downward (1,0)
     # upward (-1,0)
 
+    listOfAdjacents = []
+
     blastinPositions = potentialPathWithinBlasts(listOfBombs,potentialPath)
 
     neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
 
     tp = tilePositionGenerator()
 
+    # create everything as one
+    AdajacentNodesArray = np.ones_like(potentialPath)
+
+    # set to zero: bomb blast and blocked tile
     for checkingAdjacentTile in tp:
         x = int( checkingAdjacentTile[0] / 32 )
         y = int( checkingAdjacentTile[1] / 32 )
 
+        if (potentialPath[x, y] == 0):
+            AdajacentNodesArray[x,y] = 0
+
+        # next to a bomb blast
         if(blastinPositions[x,y]==1):
+            AdajacentNodesArray[x,y] = 0
+
+            # check every neighboors
             for i in neighboors:
                 ii = np.subtract(player1indexes, i)
                 print("ii:",ii)
                 isIndexesRange = isIndexesRange(ii)
                 if(isIndexesRange==True):
                     print("if(isIndexesRange==True):")
+                    if(potentialPath[ii[0]],ii[1]==1):
+                        listOfAdjacents.append(ii)
                 else:
                     print("!if(isIndexesRange==True):")
                 pass
 
-
+    return listOfAdjacents
 
     # for bombPosition in listOfBombs:
     #     xBomb = bombPosition[0]
@@ -171,8 +186,6 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     #             print("if(isIndexesRange==True):")
     #         else:
     #             print("!if(isIndexesRange==True):")
-
-
     return (0,0)
     # pass
 
@@ -281,12 +294,6 @@ def putBombAndStartToRunAway(node,player1indexes,potentialPath):
     # TODO: detect bomb position
     closestNodeOutOfDanger(player1indexes,potentialPath)
 
-def adjacentNodeToPotentialBombBlast(bombPosition, potentialPath):
-
-
-    # TODO
-    # MoveToTheTileNextToMe(np.subtract(player1indexes,(0,-1)),node)
-    pass
 
 def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
 
