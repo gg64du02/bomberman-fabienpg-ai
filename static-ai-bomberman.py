@@ -116,12 +116,13 @@ def listBombsPositions(screenAvged):
         # [46.27263267 56.09157128 57.52341311]
         # [46.15608741 54.89281998 56.05827263]
         # [45.29032258 53.87721124 54.82622268]
-        if(screenAveraged[y,x,0]<=50):
-            if(screenAveraged[y,x,0]>45):
-                if(screenAveraged[y,x,1]<=61):
-                    if(screenAveraged[y,x,1]>53):
-                        if(screenAveraged[y,x,2]<=63):
-                            if(screenAveraged[y,x,2]>54):
+
+        if(screenAveraged[y,x,0]<=55):
+            if(screenAveraged[y,x,0]>40):
+                if(screenAveraged[y,x,1]<=66):
+                    if(screenAveraged[y,x,1]>48):
+                        if(screenAveraged[y,x,2]<=68):
+                            if(screenAveraged[y,x,2]>49):
                                 # print("bomb decteted")
                                 list.append([y,x])
 
@@ -134,16 +135,13 @@ def isIndexesRange(point):
         if (point[0] <= 19):
             if (point[1] >= 0):
                 if (point[1] <= 15):
-                    # print("ii[0] in [0-19]")
-                    # print("ii[1] in [0-15]")
-                    print("ii in (0,0) and (19,15)")
+                    # print("ii in (0,0) and (19,15)")
                     isInsideIndexRange = True
     return isInsideIndexRange
 
 # TODO:test this
 def sort_uniq(sequence):
     return (x[0] for x in itertools.groupby(sorted(sequence)))
-
 
 # TODO: implement this
 def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes):
@@ -157,6 +155,8 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     listOfAdjacents = []
 
     blastinPositions = potentialPathWithinBlasts(listOfBombs,potentialPath)
+
+    print("blastinPositions:\n",blastinPositions)
 
     neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
 
@@ -176,30 +176,50 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
         # ff
         # next to a bomb blast
         if(blastinPositions[y,x]==1):
+            print("====================")
+            print("[y,x]     :",[y,x])
             # AdajacentNodesArray[y, x] = 0
 
             # check every neighboors
             for neighboor in neighboors:
-                nodeTested = np.subtract(player1indexes, neighboor)
+                print("neighboor:",neighboor)
+                # bug
+                # nodeTested = np.subtract(player1indexes, neighboor)
+                # bugfixe?
+                nodeTested = np.subtract([x,y], neighboor)
                 print("nodeTested:",nodeTested)
                 inRange = isIndexesRange(nodeTested)
                 if(inRange==True):
-                    print("if(isIndexesRange==True):")
+                    # print("if(isIndexesRange==True):")
                     # former test
-                    if(potentialPath[nodeTested[0],nodeTested[1]]==1):
-                        listOfAdjacents.append(nodeTested)
+                    # if(potentialPath[nodeTested[0],nodeTested[1]]==1):
+                    #     listOfAdjacents.append(nodeTested)
 
-                    # # test if there is no blast onto the tested node
-                    # if(potentialPath[nodeTested[0]],nodeTested[1]==1):
-                    #     if(AdajacentNodesArray[nodeTested[0],nodeTested[1]]==1):
-                    #         listOfAdjacents.append(nodeTested)
+                    # 6th iter
+                    if(potentialPath[nodeTested[0],nodeTested[1]]==1):
+                        if(blastinPositions[nodeTested[0],nodeTested[1]]==0):
+                            listOfAdjacents.append(nodeTested)
                 else:
-                    print("!if(isIndexesRange==True):")
+                    # print("!if(isIndexesRange==True):")
+                    pass
 
     # sorting the points
     listOfAdjacents = sorted(listOfAdjacents , key=lambda k: [k[1], k[0]])
 
     return listOfAdjacents
+
+
+    # lenght = len(listOfAdjacents)
+    # listNodes = []
+    # nodesTmp = []
+    #
+    # for nodes in listOfAdjacents:
+    #     # if(nodesTmp!=nodes):
+    #     if(np.array_equal(nodesTmp,nodes)):
+    #         nodesTmp = nodes
+    #         listNodes.append(nodes)
+    #
+    # return listNodes
 
 
 # DONE: checked: ok
@@ -612,7 +632,7 @@ while True:
     potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
     # DONE: remove the bottom line
-    # print(potentialPath)
+    print("potentialPath:\n",potentialPath)
 
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
     player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
@@ -625,7 +645,7 @@ while True:
 
 
 
-    time.sleep(1)
+    # time.sleep(1)
 
 
     if (keyboard.is_pressed('p') == True):
@@ -633,7 +653,7 @@ while True:
         cv2.destroyAllWindows()
         break
 
-    # too see what is captured
+    # too see what is capturedd
     # cv2.imshow('screen', cv2.cvtColor(screen, cv2.COLOR_BGR2RGB))
     # cv2.imshow('thresh', thresh)
 
