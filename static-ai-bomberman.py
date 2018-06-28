@@ -25,6 +25,10 @@ import time
 def MapMaskGenerator():
     pass
 
+# Author: Christian Careaga (christian.careaga7@gmail.com)
+# A* Pathfinding in Python (2.7)
+# Please give credit if used
+
 # credits:http://code.activestate.com/recipes/578919-python-a-pathfinding-with-binary-heap/
 def heuristic(a, b):
     return (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2
@@ -86,7 +90,7 @@ def isThereABombAtThisPosition(position):
 
     pass
 
-# TODO: implement this
+# TODO: fixes thresholds
 def listBombsPositions(screenAvged):
     # print("listBombsPostions")
     tp = tilePositionGenerator()
@@ -121,9 +125,97 @@ def listBombsPositions(screenAvged):
     return list
 
 # TODO: implement this
-def adjacentNodeToPotentialBombBlast(bombPosition, potentialPath):
+def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes):
 
-    pass
+    # MoveToTheTileNextToMe(player1indexes,node)
+    # rightward (0,1)
+    # left (0,-1)
+    # downward (1,0)
+    # upward (-1,0)
+
+    blastinPositions = potentialPathWithinBlasts(listOfBombs,potentialPath)
+
+    neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
+
+    tp = tilePositionGenerator()
+
+    for checkingAdjacentTile in tp:
+        x = int( checkingAdjacentTile[0] / 32 )
+        y = int( checkingAdjacentTile[1] / 32 )
+
+        if(blastinPositions[x,y]==1):
+            for i in neighboors:
+                ii = np.subtract(player1indexes, i)
+                print("ii:",ii)
+                isIndexesRange = isIndexesRange(ii)
+                if(isIndexesRange==True):
+                    print("if(isIndexesRange==True):")
+                else:
+                    print("!if(isIndexesRange==True):")
+                pass
+
+
+
+    # for bombPosition in listOfBombs:
+    #     xBomb = bombPosition[0]
+    #     yBomb = bombPosition[1]
+    #
+    #     xPlayer = player1indexes[0]
+    #     yPlayer = player1indexes[1]
+    #
+    #     for i in neighboors:
+    #         ii = np.subtract(player1indexes, i)
+    #         print("ii:",ii)
+    #         isIndexesRange = isIndexesRange(ii)
+    #         if(isIndexesRange==True):
+    #             print("if(isIndexesRange==True):")
+    #         else:
+    #             print("!if(isIndexesRange==True):")
+
+
+    return (0,0)
+    # pass
+
+def isIndexesRange(point):
+    isInsideIndexRange = False
+    if (point[0] >= 0):
+        if (point[0] <= 19):
+            if (point[1] >= 0):
+                if (point[1] <= 15):
+                    # print("ii[0] in [0-19]")
+                    # print("ii[1] in [0-15]")
+                    print("ii in (0,0) and (19,15)")
+                    isInsideIndexRange = True
+    return isInsideIndexRange
+
+def potentialPathWithinBlasts(listOfBombs,potentialPath):
+    pathInBlasts = np.zeros_like(potentialPath)
+    for bombPosition in listOfBombs:
+        xBomb = bombPosition[0]
+        yBomb = bombPosition[1]
+        # notsorted
+        #
+        # upwward
+        # downward
+        # rightward
+        # leftward
+        for i in range(4):
+            xTmp = xBomb
+            yTmp = yBomb
+            while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
+                pathInBlasts[xTmp, yTmp] = 1
+                if(i==0):
+                    xTmp += 1
+                if(i==1):
+                    xTmp -= 1
+                if(i==2):
+                    yTmp += 1
+                if(i==3):
+                    yTmp -= 1
+
+
+    return pathInBlasts
+    # return []
 
 
 previousBombPlacedPosition =(0,0)
@@ -188,6 +280,7 @@ def putBombAndStartToRunAway(node,player1indexes,potentialPath):
 
     # TODO: detect bomb position
     closestNodeOutOfDanger(player1indexes,potentialPath)
+
 def adjacentNodeToPotentialBombBlast(bombPosition, potentialPath):
 
 
@@ -289,6 +382,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2index
         GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
     else:
         print("aligned_with_bomb_blast==True")
+        nearestRunAwayNode = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
+        # GoToPositionOneStep(player1indexes,run_awaynode,potentialPath)
 
     pass
 
@@ -299,8 +394,6 @@ def convertToIndexesGetPlayerPosition(getPlayerPosition):
 
 
 def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
-    # playerXindex = int( ( getPlayerPosition[0] - getPlayerPosition[0] % 32 )/32 )
-    # playerYindex = int( ( getPlayerPosition[1] - getPlayerPosition[1] % 32 )/32 )
     playerIndexPos = convertToIndexesGetPlayerPosition(getPlayerPosition)
     playerXindex = playerIndexPos[0]
     playerYindex = playerIndexPos[1]
