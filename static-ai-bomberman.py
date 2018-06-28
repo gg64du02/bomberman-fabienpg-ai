@@ -183,43 +183,23 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
             # check every neighboors
             for neighboor in neighboors:
                 print("neighboor:",neighboor)
-                # bug
-                # nodeTested = np.subtract(player1indexes, neighboor)
-                # bugfixe?
                 nodeTested = np.subtract([x,y], neighboor)
                 print("nodeTested:",nodeTested)
                 inRange = isIndexesRange(nodeTested)
                 if(inRange==True):
-                    # print("if(isIndexesRange==True):")
-                    # former test
-                    # if(potentialPath[nodeTested[0],nodeTested[1]]==1):
-                    #     listOfAdjacents.append(nodeTested)
-
-                    # 6th iter
+                    # 7th iter
                     if(potentialPath[nodeTested[0],nodeTested[1]]==1):
                         if(blastinPositions[nodeTested[0],nodeTested[1]]==0):
-                            listOfAdjacents.append(nodeTested)
+                            if(blastinPositions[x,y]==1):
+                                listOfAdjacents.append(nodeTested)
                 else:
                     # print("!if(isIndexesRange==True):")
                     pass
 
-    # sorting the points
+    # sorting the points: not really usefull anymore
     listOfAdjacents = sorted(listOfAdjacents , key=lambda k: [k[1], k[0]])
 
     return listOfAdjacents
-
-
-    # lenght = len(listOfAdjacents)
-    # listNodes = []
-    # nodesTmp = []
-    #
-    # for nodes in listOfAdjacents:
-    #     # if(nodesTmp!=nodes):
-    #     if(np.array_equal(nodesTmp,nodes)):
-    #         nodesTmp = nodes
-    #         listNodes.append(nodes)
-    #
-    # return listNodes
 
 
 # DONE: checked: ok
