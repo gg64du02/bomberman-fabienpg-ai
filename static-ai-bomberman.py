@@ -18,6 +18,9 @@ from scipy import ndimage
 # to generate alternative timing for keystroke to get around more easily
 from numpy import random
 
+# sort and uniq
+import itertools
+
 # for a star
 from heapq import *
 import time
@@ -124,6 +127,24 @@ def listBombsPositions(screenAvged):
 
     return list
 
+
+def isIndexesRange(point):
+    isInsideIndexRange = False
+    if (point[0] >= 0):
+        if (point[0] <= 19):
+            if (point[1] >= 0):
+                if (point[1] <= 15):
+                    # print("ii[0] in [0-19]")
+                    # print("ii[1] in [0-15]")
+                    print("ii in (0,0) and (19,15)")
+                    isInsideIndexRange = True
+    return isInsideIndexRange
+
+# TODO:test this
+def sort_uniq(sequence):
+    return (x[0] for x in itertools.groupby(sorted(sequence)))
+
+
 # TODO: implement this
 def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes):
 
@@ -149,26 +170,37 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
         x = int( checkingAdjacentTile[0] / 32 )
         y = int( checkingAdjacentTile[1] / 32 )
 
-        if (potentialPath[x, y] == 0):
-            AdajacentNodesArray[x,y] = 0
-
+        if (potentialPath[y, x] == 0):
+            AdajacentNodesArray[y, x] = 0
+        # ff
         # next to a bomb blast
-        if(blastinPositions[x,y]==1):
-            AdajacentNodesArray[x,y] = 0
+        if(blastinPositions[y,x]==1):
+            AdajacentNodesArray[y, x] = 0
 
             # check every neighboors
-            for i in neighboors:
-                ii = np.subtract(player1indexes, i)
-                print("ii:",ii)
-                isIndexesRange = isIndexesRange(ii)
-                if(isIndexesRange==True):
+            for neighboor in neighboors:
+                nodeTested = np.subtract(player1indexes, neighboor)
+                print("nodeTested:",nodeTested)
+                inRange = isIndexesRange(nodeTested)
+                if(inRange==True):
                     print("if(isIndexesRange==True):")
-                    if(potentialPath[ii[0]],ii[1]==1):
-                        listOfAdjacents.append(ii)
+                    # former test
+                    if(potentialPath[nodeTested[0],nodeTested[1]]==1):
+                        listOfAdjacents.append(nodeTested)
+                    # if(potentialPath[nodeTested[0]],nodeTested[1]==1):
+                    #     if(AdajacentNodesArray[nodeTested[0],nodeTested[1]]==1):
+                    #         listOfAdjacents.append(nodeTested)
                 else:
                     print("!if(isIndexesRange==True):")
-                pass
 
+    # sorting the points
+    listOfAdjacents = sorted(listOfAdjacents , key=lambda k: [k[1], k[0]])
+
+    # listOfAdjacents = list(sorted(set(listOfAdjacents)))
+    # listOfAdjacents = sorted(set(listOfAdjacents))
+
+
+    # return listOfAdjacents2
     return listOfAdjacents
 
     # for bombPosition in listOfBombs:
@@ -189,18 +221,7 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     return (0,0)
     # pass
 
-def isIndexesRange(point):
-    isInsideIndexRange = False
-    if (point[0] >= 0):
-        if (point[0] <= 19):
-            if (point[1] >= 0):
-                if (point[1] <= 15):
-                    # print("ii[0] in [0-19]")
-                    # print("ii[1] in [0-15]")
-                    print("ii in (0,0) and (19,15)")
-                    isInsideIndexRange = True
-    return isInsideIndexRange
-
+# DONE: checked: ok
 def potentialPathWithinBlasts(listOfBombs,potentialPath):
     pathInBlasts = np.zeros_like(potentialPath)
     for bombPosition in listOfBombs:
@@ -389,8 +410,12 @@ def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2index
         GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
     else:
         print("aligned_with_bomb_blast==True")
-        nearestRunAwayNode = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
-        # GoToPositionOneStep(player1indexes,run_awaynode,potentialPath)
+        nearestRunAwayNodes = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
+        print("nearestRunAwayNodes:",nearestRunAwayNodes)
+        # if(nearestRunAwayNodes!=[]):
+        # Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
+        print()
+        # GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
 
     pass
 
@@ -606,7 +631,7 @@ while True:
     potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
     # DONE: remove the bottom line
-    print(potentialPath)
+    # print(potentialPath)
 
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
     player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
@@ -619,7 +644,7 @@ while True:
 
 
 
-    # time.sleep(1)
+    time.sleep(1)
 
 
     if (keyboard.is_pressed('p') == True):
