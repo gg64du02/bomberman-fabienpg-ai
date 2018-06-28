@@ -163,19 +163,20 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     tp = tilePositionGenerator()
 
     # create everything as one
-    AdajacentNodesArray = np.ones_like(potentialPath)
+    # AdajacentNodesArray = np.ones_like(potentialPath)
+    AdajacentNodesArray = potentialPath
 
     # set to zero: bomb blast and blocked tile
     for checkingAdjacentTile in tp:
         x = int( checkingAdjacentTile[0] / 32 )
         y = int( checkingAdjacentTile[1] / 32 )
 
-        if (potentialPath[y, x] == 0):
-            AdajacentNodesArray[y, x] = 0
+        # if (potentialPath[y, x] == 0):
+        #     AdajacentNodesArray[y, x] = 0
         # ff
         # next to a bomb blast
         if(blastinPositions[y,x]==1):
-            AdajacentNodesArray[y, x] = 0
+            # AdajacentNodesArray[y, x] = 0
 
             # check every neighboors
             for neighboor in neighboors:
@@ -187,6 +188,8 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
                     # former test
                     if(potentialPath[nodeTested[0],nodeTested[1]]==1):
                         listOfAdjacents.append(nodeTested)
+
+                    # # test if there is no blast onto the tested node
                     # if(potentialPath[nodeTested[0]],nodeTested[1]==1):
                     #     if(AdajacentNodesArray[nodeTested[0],nodeTested[1]]==1):
                     #         listOfAdjacents.append(nodeTested)
@@ -196,30 +199,8 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     # sorting the points
     listOfAdjacents = sorted(listOfAdjacents , key=lambda k: [k[1], k[0]])
 
-    # listOfAdjacents = list(sorted(set(listOfAdjacents)))
-    # listOfAdjacents = sorted(set(listOfAdjacents))
-
-
-    # return listOfAdjacents2
     return listOfAdjacents
 
-    # for bombPosition in listOfBombs:
-    #     xBomb = bombPosition[0]
-    #     yBomb = bombPosition[1]
-    #
-    #     xPlayer = player1indexes[0]
-    #     yPlayer = player1indexes[1]
-    #
-    #     for i in neighboors:
-    #         ii = np.subtract(player1indexes, i)
-    #         print("ii:",ii)
-    #         isIndexesRange = isIndexesRange(ii)
-    #         if(isIndexesRange==True):
-    #             print("if(isIndexesRange==True):")
-    #         else:
-    #             print("!if(isIndexesRange==True):")
-    return (0,0)
-    # pass
 
 # DONE: checked: ok
 def potentialPathWithinBlasts(listOfBombs,potentialPath):
