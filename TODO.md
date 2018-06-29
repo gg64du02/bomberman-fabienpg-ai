@@ -1,3 +1,6 @@
+# TODO: in static ai: switch all the script to [y,x] convention, because potentialPath.shape: (15, 20)
+It will help debugging on the long run.
+
 # TODO: make/find a better model, input it, train it and test it
 
 ## ======================================
