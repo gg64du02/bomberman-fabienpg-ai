@@ -284,7 +284,8 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     notPotentialPath = np.ones_like(potentialPath)
     np.place(notPotentialPath,potentialPath>0,0)
     # print(                       (player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
-    nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+    # nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+    nextSteps = astar(notPotentialPath,(player1indexes[0],player1indexes[1]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
     print("nextSteps:",nextSteps)
 
     global previousPlayer1Position
@@ -293,15 +294,19 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
         if(len(nextSteps)!=0):
             nextStep = nextSteps[len(nextSteps)-1]
             print("nextStep:",nextStep)
-            MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(nextStep[0],nextStep[1]))
-            previousPlayer1Position = (player1indexes[1],player1indexes[0])
+            # MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(nextStep[0],nextStep[1]))
+            MoveToTheTileNextToMe(player1indexes,nextStep)
+            # previousPlayer1Position = (player1indexes[1],player1indexes[0])
+            previousPlayer1Position = player1indexes
         else:
             pass
 
     print("player1indexes,closestNodeToEnemy:",player1indexes,closestNodeToEnemy)
-    if(player1indexes[1]==closestNodeToEnemy[0]):
+    # if(player1indexes[1]==closestNodeToEnemy[0]):
+    if(player1indexes[0]==closestNodeToEnemy[0]):
         print("=============================111=============================")
-        if(player1indexes[0]==closestNodeToEnemy[1]):
+        # if(player1indexes[0]==closestNodeToEnemy[1]):
+        if (player1indexes[1] == closestNodeToEnemy[1]):
             print("=============================222=============================")
 
             putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
@@ -359,19 +364,23 @@ def closest_node(node, nodes):
 
 # DONE:implement this
 # do one step toward to bomb something
-def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs):
-    # print()
+def oneStepToPutBomb(potentialPath,potentialPathList,
+                     player1indexes,player2indexes,listOfBombs):
     # potentialPath.shape Out[2]: (15, 20)
-    print("closest_node:",closest_node(player2indexes,potentialPathList))
+    # objective to bomb
     closest_node1=closest_node(player2indexes,potentialPathList)
+    print("closest_node1:",closest_node1)
+    print("potentialPath.shape:",potentialPath.shape)
 
     # TODO: detected if a bomb is aligned with the controlled player
     aligned_with_bomb_blast = False
     for bombsPosition in listOfBombs:
         print("bombsPosition:",bombsPosition)
-        if(player1indexes[1]==bombsPosition[0]):
+        # if(player1indexes[1]==bombsPosition[0]):
+        if(player1indexes[0]==bombsPosition[0]):
             aligned_with_bomb_blast = True
-        if (player1indexes[0] == bombsPosition[1]):
+        # if (player1indexes[0] == bombsPosition[1]):
+        if (player1indexes[1] == bombsPosition[1]):
             aligned_with_bomb_blast = True
     if(aligned_with_bomb_blast==False):
         print("aligned_with_bomb_blast==False")
@@ -396,8 +405,10 @@ def convertToIndexesGetPlayerPosition(getPlayerPosition):
 
 def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     playerIndexPos = convertToIndexesGetPlayerPosition(getPlayerPosition)
-    playerXindex = playerIndexPos[0]
-    playerYindex = playerIndexPos[1]
+    # playerXindex = playerIndexPos[0]
+    # playerYindex = playerIndexPos[1]
+    playerYindex = playerIndexPos[0]
+    playerXindex = playerIndexPos[1]
 
     # print(playerXindex,playerYindex)
 
@@ -471,7 +482,9 @@ def GetPlayerPosition(screen, number):
         sum_y = sum_y / len(i)
     # print(sum_x,sum_y)
 
-    return (sum_x,sum_y)
+    # y,x convention
+    return (sum_y,sum_x)
+    # return (sum_x,sum_y)
 
     # pos3D = ndimage.measurements.center_of_mass(np.asarray(cnts))
     #
@@ -533,11 +546,6 @@ def tilePositionGenerator():
             yield(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
 
 
-
-
-def MapMaskGenerator():
-    pass
-
 # your desktop resolution:
 desktopHeight = 1080
 desktopWidth = 1920
@@ -546,17 +554,12 @@ desktopWidth = 1920
 HEIGTH = 480
 WIDTH = 640
 
-
 # calculating top left anchor point in window mode:
 anchorHeightTopLeft = int( ( desktopHeight - HEIGTH ) / 2 )
 anchorHWidthTopLeft = int( ( desktopWidth - WIDTH ) / 2 )
 
 anchorHeightBotRight = anchorHeightTopLeft + HEIGTH - 1
 anchorWidthBotRight = anchorHWidthTopLeft + WIDTH - 1
-
-
-
-# def
 
 stop = False
 
@@ -570,6 +573,10 @@ if 0:
 for i in list(range(4))[::-1]:
     print(i+1)
     time.sleep(1)
+
+# TODO: implement this
+def isItABomb(tile):
+    pass
 
 while True:
 
