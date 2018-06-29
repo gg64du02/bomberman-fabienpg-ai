@@ -1,7 +1,8 @@
-# TODO: in static ai: switch all the script to [y,x] convention, because potentialPath.shape: (15, 20)
-It will help debugging on the long run.
+# TODO: static ai: make it not run into its own bombs
 
-# TODO: in static ai: check the bombs listing coords function
+# TODO: static ai: fix the path discovery with bomb (path)
+
+# TODO: static ai: function to detect bomb with pixel
 
 # TODO: make/find a better model, input it, train it and test it
 
@@ -29,3 +30,8 @@ It will help debugging on the long run.
 
 # DONE: make a specific config (for the game) to only use (e,s,d,f and ctrl)
  to get more balanced data after capture
+
+ # DONE: in static ai: switch all the script to [y,x] convention, because potentialPath.shape: (15, 20)
+It will help debugging on the long run.
+
+# DONE: in static ai: check the bombs listing coords function
