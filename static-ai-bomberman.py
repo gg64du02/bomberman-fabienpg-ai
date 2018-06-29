@@ -399,7 +399,7 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     playerXindex = playerIndexPos[0]
     playerYindex = playerIndexPos[1]
 
-    print(playerXindex,playerYindex)
+    # print(playerXindex,playerYindex)
 
     labeled = measure.label(availiablePath, background=False, connectivity=1)
     # reversed X,Y why ?
@@ -410,7 +410,8 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
 
     # props.bbox  # (min_row, min_col, max_row, max_col)
     # props.image  # array matching the bbox sub-image
-    print(len(props.coords))  # list of (row,col) pixel indices
+    # print(len(props.coords))  # list of (row,col) pixel indices
+    regionSize = len(props.coords)
 
     availiablePathRet = np.zeros((15,20))
 
@@ -418,7 +419,7 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     for coord in connectedCoords:
         availiablePathRet[coord[0],coord[1]] = 1
 
-    return connectedCoords,availiablePathRet
+    return regionSize,connectedCoords,availiablePathRet
 
 # support player 1, 2
 def GetPlayerPosition(screen, number):
@@ -526,8 +527,8 @@ def ScreenAveraging(screen):
 def tilePositionGenerator():
     # tile of 32 piwel
     tileWidth = 32
-    for i in range(20):
-        for ii in range(15):
+    for ii in range(15):
+        for i in range(20):
             # print(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
             yield(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
 
@@ -586,22 +587,25 @@ while True:
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
     print()
-    print("getPlayerPosition:",getPlayerPosition)
+    # print("getPlayerPosition:",getPlayerPosition)
 
     screenAveraged = ScreenAveraging(screen)
 
+    # print("screenAveraged:",screenAveraged)
+
     listOfBombs = listBombsPositions(screenAveraged)
 
-    print("listOfBombs:",listOfBombs)
+    # print("listOfBombs:",listOfBombs)
 
     availiablePath = AvailiablePath(screen,screenAveraged, 1)
 
-    # print(availiablePath)
+    # print("availiablePath:\n",availiablePath)
 
-    potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
+    regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
     # DONE: remove the bottom line
-    print("potentialPath:\n",potentialPath)
+    # print("regionSize:",regionSize)
+    # print("potentialPath:\n",potentialPath)
 
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
     player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
@@ -612,10 +616,7 @@ while True:
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs)
 
-
-
     # time.sleep(1)
-
 
     if (keyboard.is_pressed('p') == True):
         paused = True
