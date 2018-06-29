@@ -28,6 +28,8 @@ import time
 def MapMaskGenerator():
     pass
 
+previousPlayer1Position = (0,0)
+
 # Author: Christian Careaga (christian.careaga7@gmail.com)
 # A* Pathfinding in Python (2.7)
 # Please give credit if used
@@ -146,11 +148,6 @@ def sort_uniq(sequence):
 # TODO: implement this
 def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes):
 
-    # MoveToTheTileNextToMe(player1indexes,node)
-    # rightward (0,1)
-    # left (0,-1)
-    # downward (1,0)
-    # upward (-1,0)
 
     listOfAdjacents = []
 
@@ -217,6 +214,8 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
         for i in range(4):
             xTmp = xBomb
             yTmp = yBomb
+            # TODO: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
+            # TODO: IndexError: index 15 is out of bounds for axis 0 with size 15
             while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
                 pathInBlasts[xTmp, yTmp] = 1
                 if(i==0):
@@ -237,18 +236,19 @@ previousBombPlacedPosition =(0,0)
 currentBombPlacedPosition =(0,0)
 
 # TODO:implement this
-def putBombAndStartToRunAway(node,player1indexes,potentialPath):
+def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     print("putBombAndStartToRunAway")
     # keyboard.press_and_release('ctrl')
     keyboard.press('ctrl')
     time.sleep(0.15)
     keyboard.release('ctrl')
+    time.sleep(0.2)
 
     currentBombPlacedPosition = player1indexes
 
 
     # TODO: detect bomb position
-    MoveToTheTileNextToMe(node, player1indexes)
+    MoveToTheTileNextToMe(player1indexes, node)
 
 
 def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
@@ -260,28 +260,25 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
     print("nextSteps:",nextSteps)
 
+    global previousPlayer1Position
     # TODO: implement
     if(nextSteps!=False):
         if(len(nextSteps)!=0):
             nextStep = nextSteps[len(nextSteps)-1]
             print("nextStep:",nextStep)
             MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(nextStep[0],nextStep[1]))
+            previousPlayer1Position = (player1indexes[1],player1indexes[0])
         else:
             pass
 
     print("player1indexes,closestNodeToEnemy:",player1indexes,closestNodeToEnemy)
     if(player1indexes[1]==closestNodeToEnemy[0]):
-        print("111")
+        print("=============================111=============================")
         if(player1indexes[0]==closestNodeToEnemy[1]):
-            print("222")
-            putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
-                                 (player1indexes[1], player1indexes[0]),potentialPath)
-    else:
-        if(nextSteps==False):
-            print("333")
-            putBombAndStartToRunAway((nextStep[0], nextStep[1]),
-                                 (player1indexes[1], player1indexes[0]),potentialPath)
+            print("=============================222=============================")
 
+            putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
+                                 (previousPlayer1Position[0], previousPlayer1Position[1]),potentialPath)
 
 
 # MoveToTheTileNextToMe(player1indexes,node)
@@ -290,13 +287,14 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
 # downward (1,0)
 # upward (-1,0)
 def MoveToTheTileNextToMe(playerPos, nextStepPos):
+
     print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
     # timePress = 0.15
-    timePress = 0.10+random.randint(5)*0.01
-    # timePress = 0.10+random.randint(10)*0.01
+    # timePress = 0.10+random.randint(5)*0.01
+    timePress = 0.10+random.randint(10)*0.01
     # timePress = random.randint(5)*0.01
+
     # upward
-    time.sleep(timePress)
     if(playerPos[0]>nextStepPos[0]):
         keyboard.press('e')
         time.sleep(timePress)
@@ -316,6 +314,8 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
         keyboard.press('s')
         time.sleep(timePress)
         keyboard.release('s')
+
+    time.sleep(timePress)
 
     # time.sleep(0.05)
     # keyboard.release('s')
@@ -450,6 +450,7 @@ def GetPlayerPosition(screen, number):
     # return pos3D
 
 # DONE: fix the "filled" (even though clear) bottom path issue
+# TODO: make it so it could process any player
 def AvailiablePath(screen,screenAveraged,number):
     crate = [65,151,191]
     hardBlock = [156,156,156]
