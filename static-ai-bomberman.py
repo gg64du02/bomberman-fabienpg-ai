@@ -169,11 +169,11 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     for checkingAdjacentTile in tp:
         x = int( checkingAdjacentTile[0] / 32 )
         y = int( checkingAdjacentTile[1] / 32 )
-        print("====================")
-        print("[y,x]     :",[y,x])
 
         # next to a bomb blast
         if(blastinPositions[y,x]==1):
+            print("====================")
+            print("[y,x]     :",[y,x])
 
             # check every neighboors
             for neighboor in neighboors:
