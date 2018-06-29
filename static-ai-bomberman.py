@@ -153,6 +153,8 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
 
     blastinPositions = potentialPathWithinBlasts(listOfBombs,potentialPath)
 
+    print("blastinPositions.shape:",blastinPositions.shape)
+
     print("blastinPositions:\n",blastinPositions)
 
     neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
@@ -167,34 +169,24 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     for checkingAdjacentTile in tp:
         x = int( checkingAdjacentTile[0] / 32 )
         y = int( checkingAdjacentTile[1] / 32 )
+        print("====================")
+        print("[y,x]     :",[y,x])
 
-        # if (potentialPath[y, x] == 0):
-        #     AdajacentNodesArray[y, x] = 0
-        # ff
         # next to a bomb blast
         if(blastinPositions[y,x]==1):
-            print("====================")
-            print("[y,x]     :",[y,x])
-            # AdajacentNodesArray[y, x] = 0
 
             # check every neighboors
             for neighboor in neighboors:
                 print("neighboor:",neighboor)
-                nodeTested = np.subtract([x,y], neighboor)
+                # nodeTested = np.subtract([x,y], neighboor)
+                nodeTested = np.subtract([y,x], neighboor)
                 print("nodeTested:",nodeTested)
                 inRange = isIndexesRange(nodeTested)
                 if(inRange==True):
                     # 7th iter
                     if(potentialPath[nodeTested[0],nodeTested[1]]==1):
                         if(blastinPositions[nodeTested[0],nodeTested[1]]==0):
-                            if(blastinPositions[x,y]==1):
-                                listOfAdjacents.append(nodeTested)
-
-                    # 8th iter
-                    # if(potentialPath[nodeTested[1],nodeTested[0]]==1):
-                    #     if(blastinPositions[nodeTested[1],nodeTested[0]]==0):
-                    #         if(blastinPositions[x,y]==1):
-                    #             listOfAdjacents.append(nodeTested)
+                            listOfAdjacents.append(nodeTested)
                 else:
                     # print("!if(isIndexesRange==True):")
                     pass
@@ -262,19 +254,14 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
 previousBombPlacedPosition =(0,0)
 currentBombPlacedPosition =(0,0)
 
-# TODO:implement this
 def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     print("putBombAndStartToRunAway")
-    # keyboard.press_and_release('ctrl')
     keyboard.press('ctrl')
     time.sleep(0.15)
     keyboard.release('ctrl')
-    # time.sleep(0.2)
 
     currentBombPlacedPosition = player1indexes
 
-
-    # TODO: detect bomb position
     MoveToTheTileNextToMe(player1indexes, node)
 
 
