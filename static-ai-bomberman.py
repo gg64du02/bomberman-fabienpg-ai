@@ -236,36 +236,6 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
 previousBombPlacedPosition =(0,0)
 currentBombPlacedPosition =(0,0)
 
-# TODO: implement this
-def closestNodeOutOfDanger(player1indexes,potentialPath):
-    # player1indexes is onto bomb position
-    print("closestNodeOutOfDanger")
-
-    notPotentialPath = np.ones_like(potentialPath)
-    np.place(notPotentialPath,potentialPath>0,0)
-
-    # nextSteps = astar(notPotentialPath, (player1indexes[1], player1indexes[0]),
-    #                   (previousBombPlacedPosition[0], previousBombPlacedPosition[1]))
-
-    nextSteps = astar(notPotentialPath, (player1indexes[1], player1indexes[0]),
-                      (previousBombPlacedPosition[0], previousBombPlacedPosition[1]))
-
-    if(nextSteps!=False):
-        print("nextSStep:",nextSteps[len(nextSteps)-1])
-
-    # notPotentialPath[player1indexes[0],player1indexes[1]] = 3
-    # notPotentialPath[:,player1indexes[1]] = 2
-    # notPotentialPath[player1indexes[0],:] = 2
-
-    # print("notPotentialPath:\n",notPotentialPath)
-    # TODO: closest nodes
-
-
-    # nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
-
-    return (0,0)
-    pass
-
 # TODO:implement this
 def putBombAndStartToRunAway(node,player1indexes,potentialPath):
     print("putBombAndStartToRunAway")
@@ -276,25 +246,9 @@ def putBombAndStartToRunAway(node,player1indexes,potentialPath):
 
     currentBombPlacedPosition = player1indexes
 
-    # MoveToTheTileNextToMe(player1indexes,node)
-    # rightward (0,1)
-    # left (0,-1)
-    # downward (1,0)
-    # upward (-1,0)
-    neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
-    for i in neighboors:
-        ii = np.subtract(player1indexes, i)
-        print("ii:",ii)
-        if(ii[0]>=0):
-            if(ii[0]<=19):
-                if(ii[1]>=0):
-                    if(ii[1]<=15):
-                        # print("ii[0] in [0-19]")
-                        # print("ii[1] in [0-15]")
-                        print("ii in (0,0) and (19,15)")
 
     # TODO: detect bomb position
-    closestNodeOutOfDanger(player1indexes,potentialPath)
+    MoveToTheTileNextToMe(node, player1indexes)
 
 
 def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
@@ -325,11 +279,16 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     else:
         if(nextSteps==False):
             print("333")
-            putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
+            putBombAndStartToRunAway((nextStep[0], nextStep[1]),
                                  (player1indexes[1], player1indexes[0]),potentialPath)
 
 
 
+# MoveToTheTileNextToMe(player1indexes,node)
+# rightward (0,1)
+# left (0,-1)
+# downward (1,0)
+# upward (-1,0)
 def MoveToTheTileNextToMe(playerPos, nextStepPos):
     print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
     # timePress = 0.15
@@ -337,6 +296,7 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
     # timePress = 0.10+random.randint(10)*0.01
     # timePress = random.randint(5)*0.01
     # upward
+    time.sleep(timePress)
     if(playerPos[0]>nextStepPos[0]):
         keyboard.press('e')
         time.sleep(timePress)
@@ -393,10 +353,11 @@ def oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2index
         print("aligned_with_bomb_blast==True")
         nearestRunAwayNodes = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
         print("nearestRunAwayNodes:",nearestRunAwayNodes)
-        # if(nearestRunAwayNodes!=[]):
-        # Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
-        print()
-        # GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
+        if(nearestRunAwayNodes!=[]):
+            Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
+            GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
+        else:
+            print("!nearestRunAwayNodes!=[]")
 
     pass
 
