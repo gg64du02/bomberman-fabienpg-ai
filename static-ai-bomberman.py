@@ -397,10 +397,24 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     playerYindex = playerIndexPos[0]
     playerXindex = playerIndexPos[1]
 
-    # print(playerXindex,playerYindex)
+    # print(playerYindex,playerXindex)
+    # print("getPlayerPosition:",getPlayerPosition)
+
+    # print("availiablePath.shape:",availiablePath.shape)
 
     labeled = measure.label(availiablePath, background=False, connectivity=1)
     # reversed X,Y why ?
+
+    # print("labeled.shape:",labeled.shape)
+    # TODO: managed when we can't see the player (memorize is last position to use it ?)
+    # TODO: bug: playerYindex is out of index bound ?
+    # TODO: because getPlayerPosition[0] would be > 480
+    # if player1 and 2 cross each other
+    # on the bottom line
+    if(playerYindex>14):
+        playerYindex = 14
+    if(playerXindex>19):
+        playerXindex = 19
     label = labeled[playerYindex, playerXindex]  # known pixel location
 
     rp = measure.regionprops(labeled)
