@@ -189,6 +189,12 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
                         if(blastinPositions[nodeTested[0],nodeTested[1]]==0):
                             if(blastinPositions[x,y]==1):
                                 listOfAdjacents.append(nodeTested)
+
+                    # 8th iter
+                    # if(potentialPath[nodeTested[1],nodeTested[0]]==1):
+                    #     if(blastinPositions[nodeTested[1],nodeTested[0]]==0):
+                    #         if(blastinPositions[x,y]==1):
+                    #             listOfAdjacents.append(nodeTested)
                 else:
                     # print("!if(isIndexesRange==True):")
                     pass
@@ -205,6 +211,8 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
     for bombPosition in listOfBombs:
         xBomb = bombPosition[0]
         yBomb = bombPosition[1]
+
+        outOfBounds = False
         # notsorted
         #
         # upwward
@@ -216,7 +224,7 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
             yTmp = yBomb
             # TODO: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
             # TODO: IndexError: index 15 is out of bounds for axis 0 with size 15
-            while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
+            while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True)):
                 pathInBlasts[xTmp, yTmp] = 1
                 if(i==0):
                     xTmp += 1
@@ -226,6 +234,25 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
                     yTmp += 1
                 if(i==3):
                     yTmp -= 1
+
+            # while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True) & (outOfBounds == False)):
+            #     pathInBlasts[xTmp, yTmp] = 1
+            #     if (i == 0):
+            #         xTmp += 1
+            #         if(isIndexesRange((xTmp,0))==False):
+            #             outOfBounds = True
+            #     if (i == 1):
+            #         xTmp -= 1
+            #         if(isIndexesRange((xTmp,0))==False):
+            #             outOfBounds = True
+            #     if (i == 2):
+            #         yTmp += 1
+            #         if(isIndexesRange((0,yTmp))==False):
+            #             outOfBounds = True
+            #     if (i == 3):
+            #         yTmp -= 1
+            #         if(isIndexesRange((0,yTmp))==False):
+            #             outOfBounds = True
 
 
     return pathInBlasts
@@ -242,7 +269,7 @@ def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     keyboard.press('ctrl')
     time.sleep(0.15)
     keyboard.release('ctrl')
-    time.sleep(0.2)
+    # time.sleep(0.2)
 
     currentBombPlacedPosition = player1indexes
 
@@ -290,8 +317,8 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 
     print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
     # timePress = 0.15
-    # timePress = 0.10+random.randint(5)*0.01
-    timePress = 0.10+random.randint(10)*0.01
+    timePress = 0.10+random.randint(5)*0.01
+    # timePress = 0.10+random.randint(10)*0.01
     # timePress = random.randint(5)*0.01
 
     # upward
@@ -315,7 +342,7 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
         time.sleep(timePress)
         keyboard.release('s')
 
-    time.sleep(timePress)
+    # time.sleep(timePress)
 
     # time.sleep(0.05)
     # keyboard.release('s')
