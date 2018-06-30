@@ -359,17 +359,12 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     if(blastinPositions[closest_node1[0],closest_node1[1]]==0):
         print("if(blastinPositions[closest_node1[0],closest_node1[1]]==0):")
-    #     if(closest_node1==player1indexes):
         print(closest_node1,player1indexes)
         if(np.array_equal(closest_node1,player1indexes)):
             print("if(closest_node1==player1indexes):")
             # putBomb
             putBombAndStartToRunAway(player1indexes,closest_node1,potentialPath)
             # runAway
-            # nearestRunAwayNodes = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
-            # print("nearestRunAwayNodes:",nearestRunAwayNodes)
-            # Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
-            # GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
             GoToPositionOneStep(player1indexes,previousPlayer1Position,potentialPath)
         else:
             print("!if(closest_node1==player1indexes):")
@@ -386,72 +381,6 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
 
     previousPlayer1Position = player1indexes
-
-        # #
-        # if([y,x]==closest_node1):
-        #     print("if([y,x]==closest_node1):")
-        #     if (blastinPositions[y, x] == 1):
-        #         print("if (blastinPositions[y, x] == 1):")
-        #         runAway = True
-        #         stayWhereYouAre = True
-        #         break
-
-
-
-    # if(runAway==True):
-    #     print("aligned_with_bomb_blast==True")
-    #     nearestRunAwayNodes = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
-    #     print("nearestRunAwayNodes:",nearestRunAwayNodes)
-    #     if(nearestRunAwayNodes!=[]):
-    #         Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
-    #         GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
-    #     else:
-    #         print("!nearestRunAwayNodes!=[]")
-    #     pass
-    # else:
-    #     print("aligned_with_bomb_blast==False")
-    #     GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
-    #
-    # print("player1indexes,closestNodeToEnemy:",player1indexes,closestNodeToEnemy)
-    # # if(player1indexes[1]==closestNodeToEnemy[0]):
-    # if(player1indexes[0]==closestNodeToEnemy[0]):
-    #     print("=============================111=============================")
-    #     # if(player1indexes[0]==closestNodeToEnemy[1]):
-    #     if (player1indexes[1] == closestNodeToEnemy[1]):
-    #         print("=============================222=============================")
-    #         putBombAndStartToRunAway((closestNodeToEnemy[0], closestNodeToEnemy[1]),
-    #                              (previousPlayer1Position[0], previousPlayer1Position[1]),potentialPath)
-
-
-    # for bombsPosition in listOfBombs:
-    #     print("bombsPosition:",bombsPosition)
-    #     if(bombsPosition==player1indexes):
-    #         print("if(bombsPosition==player1indexes):")
-    #         break
-
-
-    # # TODO: detected if a bomb is aligned with the controlled player
-    # aligned_with_bomb_blast = False
-    # for bombsPosition in listOfBombs:
-    #     print("bombsPosition:",bombsPosition)
-    #     # if(player1indexes[1]==bombsPosition[0]):
-    #     if(player1indexes[0]==bombsPosition[0]):
-    #         aligned_with_bomb_blast = True
-    #     # if (player1indexes[0] == bombsPosition[1]):
-    #     if (player1indexes[1] == bombsPosition[1]):
-    #         aligned_with_bomb_blast = True
-    # if(aligned_with_bomb_blast==False):
-    #     print("aligned_with_bomb_blast==False")
-    #     GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
-    # else:
-    #     print("aligned_with_bomb_blast==True")
-    #     nearestRunAwayNodes = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
-    #     print("nearestRunAwayNodes:",nearestRunAwayNodes)
-    #     if(nearestRunAwayNodes!=[]):
-    #         Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
-    #         GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
-    #     else:
-    #         print("!nearestRunAwayNodes!=[]")
 
     pass
 
