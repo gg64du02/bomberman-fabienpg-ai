@@ -123,7 +123,9 @@ def listBombsPositions(screenAvged):
             if(screenAveraged[y,x,0]>40):
                 if(screenAveraged[y,x,1]<=66):
                     if(screenAveraged[y,x,1]>48):
-                        if(screenAveraged[y,x,2]<=68):
+                        # if(screenAveraged[y,x,2]<=68):
+                        #     if(screenAveraged[y,x,2]>49):
+                        if(screenAveraged[y,x,2]<=125):
                             if(screenAveraged[y,x,2]>49):
                                 # print("bomb decteted")
                                 list.append([y,x])
@@ -213,8 +215,8 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
         for i in range(4):
             xTmp = xBomb
             yTmp = yBomb
-            # DONE bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
-            # DONE bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
+            # TODO bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
+            # TODO bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
             outOfBounds = False
             while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True) & (outOfBounds == False)):
                 pathInBlasts[xTmp, yTmp] = 1
@@ -313,7 +315,6 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
         keyboard.release('s')
 
     # time.sleep(timePress)
-
     # time.sleep(0.05)
     # keyboard.release('s')
     # keyboard.release('f')
@@ -337,8 +338,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # potentialPath.shape Out[2]: (15, 20)
     # objective to bomb
     closest_node1=closest_node(player2indexes,potentialPathList)
-    print("closest_node1:",closest_node1)
-    print("potentialPath.shape:",potentialPath.shape)
+    # print("closest_node1:",closest_node1)
+    # print("potentialPath.shape:",potentialPath.shape)
 
 
     global previousPlayer1Position
@@ -347,25 +348,25 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     blastinPositions = potentialPathWithinBlasts(listOfBombs, potentialPath)
 
     if(blastinPositions[closest_node1[0],closest_node1[1]]==0):
-        print("if(blastinPositions[closest_node1[0],closest_node1[1]]==0):")
-        print(closest_node1,player1indexes)
+        # print("if(blastinPositions[closest_node1[0],closest_node1[1]]==0):")
+        # print(closest_node1,player1indexes)
         if(np.array_equal(closest_node1,player1indexes)):
-            print("if(closest_node1==player1indexes):")
+            # print("if(closest_node1==player1indexes):")
             # putBomb
             putBombAndStartToRunAway(player1indexes,closest_node1,potentialPath)
             # runAway
             GoToPositionOneStep(player1indexes,previousPlayer1Position,potentialPath)
         else:
-            print("!if(closest_node1==player1indexes):")
+            # print("!if(closest_node1==player1indexes):")
             # goToTile
             GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
 
     if(blastinPositions[player1indexes[0],player1indexes[1]]==1):
-        print("if(blastinPositions[player1indexes[0],player1indexes[1]]):")
+        # print("if(blastinPositions[player1indexes[0],player1indexes[1]]):")
         # go at a adjacent position
         # runAway
         nearestRunAwayNodes = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
-        print("nearestRunAwayNodes:",nearestRunAwayNodes)
+        # print("nearestRunAwayNodes:",nearestRunAwayNodes)
         Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
         GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
 
@@ -523,6 +524,9 @@ def ScreenAveraging(screen):
     tileWidth = 32
     screenAveragedRet = np.zeros((15,20,3))
     tilePositons = tilePositionGenerator()
+
+    print("np.average:",np.average(screen[0:31,0:31,0]),np.average(screen[0:31,0:31,1]),np.average(screen[0:31,0:31,2]))
+
     for tilePos in tilePositons:
         # print(tilePos)
         tp = tilePos
@@ -614,8 +618,8 @@ while True:
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
     player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
 
-    print("player1indexes:",player1indexes)
-    print("player2indexes:",player2indexes)
+    # print("player1indexes:",player1indexes)
+    # print("player2indexes:",player2indexes)
 
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs)
