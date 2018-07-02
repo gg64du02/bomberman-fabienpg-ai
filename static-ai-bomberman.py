@@ -213,19 +213,8 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
         for i in range(4):
             xTmp = xBomb
             yTmp = yBomb
-            # TODO: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
-            # TODO: IndexError: index 15 is out of bounds for axis 0 with size 15
-            # while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True)):
-            #     pathInBlasts[xTmp, yTmp] = 1
-            #     if(i==0):
-            #         xTmp += 1
-            #     if(i==1):
-            #         xTmp -= 1
-            #     if(i==2):
-            #         yTmp += 1
-            #     if(i==3):
-            #         yTmp -= 1
-
+            # DONE bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
+            # DONE bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
             outOfBounds = False
             while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True) & (outOfBounds == False)):
                 pathInBlasts[xTmp, yTmp] = 1
@@ -484,6 +473,13 @@ def GetPlayerPosition(screen, number):
     # print(sum_x,sum_y)
 
     # y,x convention
+
+    # bigfixe for out of bound output...
+    if(sum_y>480-1):
+        sum_y = 480-1
+    if(sum_x>640-1):
+        sum_x = 640-1
+
     return (sum_y,sum_x)
     # return (sum_x,sum_y)
 
