@@ -28,62 +28,6 @@ import time
 def MapMaskGenerator():
     pass
 
-
-# TODO: implement this
-def isItABomb(pixel):
-    if (pixel[0] <= 55):
-        if (pixel[0] > 40):
-            if (pixel[1] <= 66):
-                if (pixel[1] > 48):
-                    if (pixel[2] <= 68):
-                        if (pixel[2] > 49):
-                            # print("bomb detected")
-                            return True
-    if (pixel[0] <= 107 + 1):
-        if (pixel[0] > 107):
-            if (pixel[1] <= 163 + 1):
-                if (pixel[1] > 163):
-                    if (pixel[2] <= 181 + 1):
-                        if (pixel[2] > 181):
-                            # print("bomb detected")
-                            return True
-    if (pixel[0] <= 91 + 1):
-        if (pixel[0] > 91):
-            if (pixel[1] <= 169 + 1):
-                if (pixel[1] > 169):
-                    if (pixel[2] <= 193 + 1):
-                        if (pixel[2] > 193):
-                            # print("bomb detected")
-                            return True
-    if (pixel[0] <= 74 + 1):
-        if (pixel[0] > 74):
-            if (pixel[1] <= 176 + 1):
-                if (pixel[1] > 176):
-                    if (pixel[2] <= 204 + 1):
-                        if (pixel[2] > 204):
-                            # print("bomb detected")
-                            return True
-    return False
-
-    # if (screenAveraged[y, x, 0] <= 55):
-    #     if (screenAveraged[y, x, 0] > 40):
-    #         if (screenAveraged[y, x, 1] <= 66):
-    #             if (screenAveraged[y, x, 1] > 48):
-    #                 if (screenAveraged[y, x, 2] <= 68):
-    #                     if (screenAveraged[y, x, 2] > 49):
-    #                         # print("bomb decteted")
-    #                         list.append([y, x])
-    # if (screenAveraged[y, x, 0] <= 107 + 1):
-    #     if (screenAveraged[y, x, 0] > 107):
-    #         if (screenAveraged[y, x, 1] <= 163 + 1):
-    #             if (screenAveraged[y, x, 1] > 163):
-    #                 if (screenAveraged[y, x, 2] <= 181 + 1):
-    #                     if (screenAveraged[y, x, 2] > 181):
-    #                         # print("bomb decteted")
-    #                         list.append([y, x])
-    pass
-
-
 previousPlayer1Position = (0,0)
 
 # Author: Christian Careaga (christian.careaga7@gmail.com)
@@ -585,9 +529,6 @@ def AvailiablePath(screen,screenAveraged,number):
                 availiableSpots[y,x] = False
             # else:
             #     print("!True\n")
-        if(isItABomb(screenAveragedToInt[y,x])==True):
-            availiableSpots[y,x] = False
-
     return availiableSpots
 
 def ScreenAveraging(screen):
@@ -599,7 +540,7 @@ def ScreenAveraging(screen):
     screenAveragedRet = np.zeros((15,20,3))
     tilePositons = tilePositionGenerator()
 
-    # print("np.average:",np.average(screen[0:31,0:31,0]),np.average(screen[0:31,0:31,1]),np.average(screen[0:31,0:31,2]))
+    print("np.average:",np.average(screen[0:31,0:31,0]),np.average(screen[0:31,0:31,1]),np.average(screen[0:31,0:31,2]))
 
     for tilePos in tilePositons:
         # print(tilePos)
@@ -649,6 +590,9 @@ for i in list(range(4))[::-1]:
     print(i+1)
     time.sleep(1)
 
+# TODO: implement this
+def isItABomb(tile):
+    pass
 
 while True:
 
