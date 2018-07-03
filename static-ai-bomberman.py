@@ -244,6 +244,7 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
 
 previousBombPlacedPosition =(0,0)
 currentBombPlacedPosition =(0,0)
+pathLength = 0
 
 def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     print("putBombAndStartToRunAway")
@@ -267,6 +268,7 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     print("nextSteps:",nextSteps)
 
     global previousPlayer1Position
+    global pathLength
     # TODO: implement
     if(nextSteps!=False):
         if(len(nextSteps)!=0):
@@ -274,8 +276,13 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
             print("nextStep:",nextStep)
             # MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(nextStep[0],nextStep[1]))
             MoveToTheTileNextToMe(player1indexes,nextStep)
+            # if(pathLength == len(nextSteps)):
+            #
+            # else:
+            #     MoveToTheTileNextToMe(player1indexes,nextStep)
             # previousPlayer1Position = (player1indexes[1],player1indexes[0])
             previousPlayer1Position = player1indexes
+            pathLength = len(nextSteps)
         else:
             pass
 
@@ -334,7 +341,7 @@ previousPlayer1Position = (0,0)
 # DONE:implement this
 # do one step toward to bomb something
 def oneStepToPutBomb(potentialPath,potentialPathList,
-                     player1indexes,player2indexes,listOfBombs):
+                     player1indexes,player2indexes,listOfBombs,getPlayerPosition):
     # potentialPath.shape Out[2]: (15, 20)
     # objective to bomb
     closest_node1=closest_node(player2indexes,potentialPathList)
@@ -369,6 +376,32 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # print("nearestRunAwayNodes:",nearestRunAwayNodes)
         Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
         GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
+
+    # print("getPlayerPosition:", getPlayerPosition)
+    tmpCoincoin = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
+    # print("tmpCoincoin:", tmpCoincoin)
+
+    timeToUnstuck = 0.05
+    if(tmpCoincoin[0]<5):
+        # print("stuck?")
+        keyboard.press('d')
+        time.sleep(timeToUnstuck)
+        keyboard.release('d')
+    if(tmpCoincoin[0]>27):
+        # print("stuck?")
+        keyboard.press('e')
+        time.sleep(timeToUnstuck)
+        keyboard.release('e')
+    if(tmpCoincoin[1]<5):
+        # print("stuck?")
+        keyboard.press('f')
+        time.sleep(timeToUnstuck)
+        keyboard.release('f')
+    if(tmpCoincoin[1]>27):
+        # print("stuck?")
+        keyboard.press('s')
+        time.sleep(timeToUnstuck)
+        keyboard.release('s')
 
     previousPlayer1Position = player1indexes
 
@@ -525,7 +558,7 @@ def ScreenAveraging(screen):
     screenAveragedRet = np.zeros((15,20,3))
     tilePositons = tilePositionGenerator()
 
-    print("np.average:",np.average(screen[0:31,0:31,0]),np.average(screen[0:31,0:31,1]),np.average(screen[0:31,0:31,2]))
+    # print("np.average:",np.average(screen[0:31,0:31,0]),np.average(screen[0:31,0:31,1]),np.average(screen[0:31,0:31,2]))
 
     for tilePos in tilePositons:
         # print(tilePos)
@@ -622,7 +655,7 @@ while True:
     # print("player2indexes:",player2indexes)
 
 
-    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs)
+    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
     # time.sleep(1)
 
