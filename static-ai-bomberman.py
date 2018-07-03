@@ -179,7 +179,7 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
 
             # check every neighboors
             for neighboor in neighboors:
-                print("neighboor:",neighboor)
+                # print("neighboor:",neighboor)
                 # nodeTested = np.subtract([x,y], neighboor)
                 nodeTested = np.subtract([y,x], neighboor)
                 print("nodeTested:",nodeTested)
@@ -217,30 +217,23 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
             yTmp = yBomb
             # DONE bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
             # DONE bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
-            outOfBounds = False
-            while ((outOfBounds == False) and (potentialPath[yTmp, xTmp] == 1) and (isIndexesRange((yTmp, xTmp))==True)):
-            # while ((outOfBounds == False) & (potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True)):
+            while ((potentialPath[yTmp, xTmp] == 1) and (isIndexesRange((yTmp, xTmp))==True)):
                 pathInBlasts[yTmp, xTmp] = 1
                 if (i == 0):
                     xTmp += 1
                     if(isIndexesRange((0,xTmp))==False):
-                        outOfBounds = True
                         break
                 if (i == 1):
                     xTmp -= 1
                     if(isIndexesRange((0,xTmp))==False):
-                        outOfBounds = True
                         break
                 if (i == 2):
                     yTmp += 1
                     if(isIndexesRange((yTmp,0))==False):
-                        outOfBounds = True
-                        # print("if(isIndexesRange((0,yTmp))==False):")
                         break
                 if (i == 3):
                     yTmp -= 1
                     if(isIndexesRange((yTmp,0))==False):
-                        outOfBounds = True
                         break
                 # print("[yTmp, xTmp]:",[yTmp, xTmp])
 
@@ -268,8 +261,7 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
     # potentialPath.shape Out[2]: (15, 20)
     notPotentialPath = np.ones_like(potentialPath)
     np.place(notPotentialPath,potentialPath>0,0)
-    # print(                       (player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
-    # nextSteps = astar(notPotentialPath,(player1indexes[1],player1indexes[0]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
+
     nextSteps = astar(notPotentialPath,(player1indexes[0],player1indexes[1]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
     print("nextSteps:",nextSteps)
 
@@ -280,13 +272,7 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
         if(len(nextSteps)!=0):
             nextStep = nextSteps[len(nextSteps)-1]
             print("nextStep:",nextStep)
-            # MoveToTheTileNextToMe((player1indexes[1],player1indexes[0]),(nextStep[0],nextStep[1]))
             MoveToTheTileNextToMe(player1indexes,nextStep)
-            # if(pathLength == len(nextSteps)):
-            #
-            # else:
-            #     MoveToTheTileNextToMe(player1indexes,nextStep)
-            # previousPlayer1Position = (player1indexes[1],player1indexes[0])
             previousPlayer1Position = player1indexes
             pathLength = len(nextSteps)
         else:
@@ -327,12 +313,6 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
         time.sleep(timePress)
         keyboard.release('s')
 
-    # time.sleep(timePress)
-    # time.sleep(0.05)
-    # keyboard.release('s')
-    # keyboard.release('f')
-    # keyboard.release('d')
-    # keyboard.release('f')
     pass
 
 
@@ -352,8 +332,6 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # objective to bomb
     closest_node1=closest_node(player2indexes,potentialPathList)
     # print("closest_node1:",closest_node1)
-    # print("potentialPath.shape:",potentialPath.shape)
-
 
     global previousPlayer1Position
 
@@ -421,8 +399,6 @@ def convertToIndexesGetPlayerPosition(getPlayerPosition):
 
 def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     playerIndexPos = convertToIndexesGetPlayerPosition(getPlayerPosition)
-    # playerXindex = playerIndexPos[0]
-    # playerYindex = playerIndexPos[1]
     playerYindex = playerIndexPos[0]
     playerXindex = playerIndexPos[1]
 
@@ -435,15 +411,7 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
     # reversed X,Y why ?
 
     # print("labeled.shape:",labeled.shape)
-    # TODO: managed when we can't see the player (memorize is last position to use it ?)
-    # TODO: bug: playerYindex is out of index bound ?
-    # TODO: because getPlayerPosition[0] would be > 480
-    # if player1 and 2 cross each other
     # on the bottom line
-    if(playerYindex>14):
-        playerYindex = 14
-    if(playerXindex>19):
-        playerXindex = 19
     label = labeled[playerYindex, playerXindex]  # known pixel location
 
     rp = measure.regionprops(labeled)
@@ -514,6 +482,7 @@ def GetPlayerPosition(screen, number):
 
     # y,x convention
 
+    # if player1 and 2 cross each other
     # bigfixe for out of bound output...
     if(sum_y>480-1):
         sum_y = 480-1
