@@ -135,10 +135,10 @@ def listBombsPositions(screenAvged):
 
 def isIndexesRange(point):
     isInsideIndexRange = False
-    if (point[0] >= 0):
-        if (point[0] <= 19):
-            if (point[1] >= 0):
-                if (point[1] <= 15):
+    if (point[1] >= 0):
+        if (point[1] < 20):
+            if (point[0] >= 0):
+                if (point[0] < 15):
                     # print("ii in (0,0) and (19,15)")
                     isInsideIndexRange = True
     return isInsideIndexRange
@@ -203,8 +203,8 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
 def potentialPathWithinBlasts(listOfBombs,potentialPath):
     pathInBlasts = np.zeros_like(potentialPath)
     for bombPosition in listOfBombs:
-        xBomb = bombPosition[0]
-        yBomb = bombPosition[1]
+        yBomb = bombPosition[0]
+        xBomb = bombPosition[1]
 
         # notsorted
         #
@@ -215,28 +215,34 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
         for i in range(4):
             xTmp = xBomb
             yTmp = yBomb
-            # DONE? bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
-            # DONE? bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
+            # DONE bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
+            # DONE bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
             outOfBounds = False
-            while ((outOfBounds == False) & (potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True)):
-                pathInBlasts[xTmp, yTmp] = 1
+            while ((outOfBounds == False) and (potentialPath[yTmp, xTmp] == 1) and (isIndexesRange((yTmp, xTmp))==True)):
+            # while ((outOfBounds == False) & (potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True)):
+                pathInBlasts[yTmp, xTmp] = 1
                 if (i == 0):
                     xTmp += 1
-                    if(isIndexesRange((xTmp,0))==False):
+                    if(isIndexesRange((0,xTmp))==False):
                         outOfBounds = True
+                        break
                 if (i == 1):
                     xTmp -= 1
-                    if(isIndexesRange((xTmp,0))==False):
+                    if(isIndexesRange((0,xTmp))==False):
                         outOfBounds = True
+                        break
                 if (i == 2):
                     yTmp += 1
-                    if(isIndexesRange((0,yTmp))==False):
+                    if(isIndexesRange((yTmp,0))==False):
                         outOfBounds = True
+                        # print("if(isIndexesRange((0,yTmp))==False):")
+                        break
                 if (i == 3):
                     yTmp -= 1
-                    if(isIndexesRange((0,yTmp))==False):
+                    if(isIndexesRange((yTmp,0))==False):
                         outOfBounds = True
-
+                        break
+                # print("[yTmp, xTmp]:",[yTmp, xTmp])
 
     return pathInBlasts
     # return []
