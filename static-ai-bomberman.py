@@ -215,10 +215,10 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
         for i in range(4):
             xTmp = xBomb
             yTmp = yBomb
-            # TODO bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
-            # TODO bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
+            # DONE? bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
+            # DONE? bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
             outOfBounds = False
-            while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True) & (outOfBounds == False)):
+            while ((outOfBounds == False) & (potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp))==True)):
                 pathInBlasts[xTmp, yTmp] = 1
                 if (i == 0):
                     xTmp += 1
