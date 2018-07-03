@@ -119,29 +119,14 @@ def listBombsPositions(screenAvged):
         # [46.15608741 54.89281998 56.05827263]
         # [45.29032258 53.87721124 54.82622268]
 
-        # if(screenAveraged[y,x,0]<=55):
-        #     if(screenAveraged[y,x,0]>40):
-        #         if(screenAveraged[y,x,1]<=66):
-        #             if(screenAveraged[y,x,1]>48):
-        #                 if(screenAveraged[y,x,2]<=68):
-        #                     if(screenAveraged[y,x,2]>49):
-        #                         # print("bomb decteted")
-        #                         list.append([y,x])
-
         if(screenAveraged[y,x,0]<=55):
             if(screenAveraged[y,x,0]>40):
                 if(screenAveraged[y,x,1]<=66):
                     if(screenAveraged[y,x,1]>48):
-                        if(screenAveraged[y,x,2]<=68):
+                        # if(screenAveraged[y,x,2]<=68):
+                        #     if(screenAveraged[y,x,2]>49):
+                        if(screenAveraged[y,x,2]<=125):
                             if(screenAveraged[y,x,2]>49):
-                                # print("bomb decteted")
-                                list.append([y,x])
-        if(screenAveraged[y,x,0]<=107+1):
-            if(screenAveraged[y,x,0]>107):
-                if(screenAveraged[y,x,1]<=163+1):
-                    if(screenAveraged[y,x,1]>163):
-                        if(screenAveraged[y,x,2]<=181+1):
-                            if(screenAveraged[y,x,2]>181):
                                 # print("bomb decteted")
                                 list.append([y,x])
 
