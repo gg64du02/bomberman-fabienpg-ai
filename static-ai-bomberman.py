@@ -115,6 +115,8 @@ def listBombsPositions(screenAvged):
         #  91.69198751300729 169.4901144640999 193.06555671175857
         #  107.4588969823101 163.92924037460978 181.86056191467222
 
+        screenAveraged = screenAvged.astype(int)
+
         if (screenAveraged[y, x, 0] > 40):
             if(screenAveraged[y,x,0]<=55):
                 if (screenAveraged[y, x, 1] > 48):
@@ -385,22 +387,26 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # print("tmpCoincoin:", tmpCoincoin)
 
     timeToUnstuck = 0.05
-    if(tmpCoincoin[0]<5):
+    # if(tmpCoincoin[0]<5):
+    if(tmpCoincoin[0]<6):
         # print("stuck?")
         keyboard.press('d')
         time.sleep(timeToUnstuck)
         keyboard.release('d')
-    if(tmpCoincoin[0]>27):
+    # if(tmpCoincoin[0]>27):
+    if(tmpCoincoin[0]>26):
         # print("stuck?")
         keyboard.press('e')
         time.sleep(timeToUnstuck)
         keyboard.release('e')
-    if(tmpCoincoin[1]<5):
+    # if(tmpCoincoin[1]<5):
+    if(tmpCoincoin[0]<6):
         # print("stuck?")
         keyboard.press('f')
         time.sleep(timeToUnstuck)
         keyboard.release('f')
-    if(tmpCoincoin[1]>27):
+    # if(tmpCoincoin[1]>27):
+    if(tmpCoincoin[0]>26):
         # print("stuck?")
         keyboard.press('s')
         time.sleep(timeToUnstuck)
