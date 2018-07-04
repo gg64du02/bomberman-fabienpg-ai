@@ -115,38 +115,38 @@ def listBombsPositions(screenAvged):
         #  91.69198751300729 169.4901144640999 193.06555671175857
         #  107.4588969823101 163.92924037460978 181.86056191467222
 
-        # if (screenAveraged[y, x, 0] > 40):
-        #     if(screenAveraged[y,x,0]<=55):
-        #         if (screenAveraged[y, x, 1] > 48):
-        #             if(screenAveraged[y,x,1]<=66):
-        #                 if(screenAveraged[y,x,2]>49):
-        #                     if(screenAveraged[y,x,2]<=68):
-        #                 # if (screenAveraged[y, x, 2] > 49):
-        #                 #     if(screenAveraged[y,x,2]<=125):
-        #                         # print("bomb decteted")
-        #                         list.append([y,x])
-        #
-        # if (int(screenAveraged[y, x, 0]) == 74):
-        #     if (int(screenAveraged[y, x, 0]) == 176):
-        #         if (int(screenAveraged[y, x, 0]) == 204):
-        #             list.append([y,x])
-        #             print("74.52653485952133 176.08324661810613 204.88657648283038")
-        #
-        # if (int(screenAveraged[y, x, 0]) == 91):
-        #     if (int(screenAveraged[y, x, 0]) == 169):
-        #         if (int(screenAveraged[y, x, 0]) == 193):
-        #             list.append([y, x])
-        #             print("91.69198751300729 169.4901144640999 193.06555671175857")
-        #
-        # if (int(screenAveraged[y, x, 0]) == 107):
-        #     if (int(screenAveraged[y, x, 0]) == 163):
-        #         if (int(screenAveraged[y, x, 0]) == 181):
-        #             list.append([y, x])
-        #             print("107.4588969823101 163.92924037460978 181.86056191467222")
+        if (screenAveraged[y, x, 0] > 40):
+            if(screenAveraged[y,x,0]<=55):
+                if (screenAveraged[y, x, 1] > 48):
+                    if(screenAveraged[y,x,1]<=66):
+                        if(screenAveraged[y,x,2]>49):
+                            if(screenAveraged[y,x,2]<=68):
+                        # if (screenAveraged[y, x, 2] > 49):
+                        #     if(screenAveraged[y,x,2]<=125):
+                                # print("bomb decteted")
+                                list.append([y,x])
+
+        if (int(screenAveraged[y, x, 0]) == 74):
+            if (int(screenAveraged[y, x, 0]) == 176):
+                if (int(screenAveraged[y, x, 0]) == 204):
+                    list.append([y,x])
+                    # print("74.52653485952133 176.08324661810613 204.88657648283038")
+
+        if (int(screenAveraged[y, x, 0]) == 91):
+            if (int(screenAveraged[y, x, 0]) == 169):
+                if (int(screenAveraged[y, x, 0]) == 193):
+                    list.append([y, x])
+                    # print("91.69198751300729 169.4901144640999 193.06555671175857")
+
+        if (int(screenAveraged[y, x, 0]) == 107):
+            if (int(screenAveraged[y, x, 0]) == 163):
+                if (int(screenAveraged[y, x, 0]) == 181):
+                    list.append([y, x])
+                    # print("107.4588969823101 163.92924037460978 181.86056191467222")
 
 
-        if (IsItABomb((screenAveraged[y, x]).astype(int)) == True):
-            list.append([y, x])
+        # if (IsItABomb((screenAveraged[y, x]).astype(int)) == True):
+        #     list.append([y, x])
 
 
     return list
@@ -644,10 +644,10 @@ def IsItABomb(pixel):
         if (pixel[0] <= 55):
             if (pixel[1] > 48):
                 if (pixel[1] <= 66):
-                    if (pixel[2] > 49):
-                        if (pixel[2] <= 68):
-                            # if (screenAveraged[y, x, 2] > 49):
-                            #     if(screenAveraged[y,x,2]<=125):
+                    # if (pixel[2] > 49):
+                    #     if (pixel[2] <= 68):
+                    if (screenAveraged[y, x, 2] > 49):
+                        if(screenAveraged[y,x,2]<=125):
                             # print("bomb decteted")
                             # list.append([y, x])
                             return True
