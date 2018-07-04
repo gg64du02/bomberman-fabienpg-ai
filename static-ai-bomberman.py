@@ -517,20 +517,20 @@ def AvailiablePath(screen,screenAveraged,number):
     crate = [65,151,191]
     hardBlock = [156,156,156]
 
-    bomb01 = [45,55,62]
-    bomb02 = [45,53,54]
-    bomb03 = [46,56,57]
-    bomb04 = [46,54,56]
+    # bomb01 = [45,55,62]
+    # bomb02 = [45,53,54]
+    # bomb03 = [46,56,57]
+    # bomb04 = [46,54,56]
 
     bomb   = [46,56,58]
 
-    bomb05 = [47,57,59]
-    bomb06 = [48,58,60]
-    bomb07 = [48,58,60]
-    bomb08 = [49,60,61]
-    bomb09 = [74,176,204]
-    bomb10 = [91,169,193]
-    bomb11 = [107,163,181]
+    # bomb05 = [47,57,59]
+    # bomb06 = [48,58,60]
+    # bomb07 = [48,58,60]
+    # bomb08 = [49,60,61]
+    # bomb09 = [74,176,204]
+    # bomb10 = [91,169,193]
+    # bomb11 = [107,163,181]
 
     # [45.29032258 55.72528616 62.90114464]
     # [45.29032258 53.87721124 54.82622268]
@@ -546,9 +546,10 @@ def AvailiablePath(screen,screenAveraged,number):
 
     screenAveragedToInt = screenAveraged.astype(int)
 
+    allBlocking = [crate,hardBlock]
     # allBlocking = [crate,hardBlock,bomb]
-    allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
-                   bomb06,bomb07,bomb08,bomb09,bomb10,bomb11]
+    # allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
+    #                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11]
 
     availiableSpots = np.ones((15,20))
 
@@ -565,6 +566,10 @@ def AvailiablePath(screen,screenAveraged,number):
                 availiableSpots[y,x] = False
             # else:
             #     print("!True\n")
+        if(IsItABomb((screenAveraged[y,x]).astype(int))==True):
+            availiableSpots[y,x] = False
+            print("here")
+
     return availiableSpots
 
 def ScreenAveraging(screen):
@@ -644,10 +649,10 @@ def IsItABomb(pixel):
         if (pixel[0] <= 55):
             if (pixel[1] > 48):
                 if (pixel[1] <= 66):
-                    if (pixel[2] > 49):
-                        if (pixel[2] <= 68):
-                            # if (screenAveraged[y, x, 2] > 49):
-                            #     if(screenAveraged[y,x,2]<=125):
+                    # if (pixel[2] > 49):
+                    #     if (pixel[2] <= 68):
+                    if(pixel[2] > 49):
+                        if(pixel[2]<=125):
                             # print("bomb decteted")
                             # list.append([y, x])
                             return True
