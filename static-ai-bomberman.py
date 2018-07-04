@@ -25,8 +25,6 @@ import itertools
 from heapq import *
 import time
 
-def MapMaskGenerator():
-    pass
 
 previousPlayer1Position = (0,0)
 
@@ -90,12 +88,7 @@ def astar(array, start, goal):
     return False
 
 
-# TODO: implement this
-def isThereABombAtThisPosition(position):
-
-    pass
-
-# TODO: fixes thresholds
+# TODO: fixes thresholds?
 def listBombsPositions(screenAvged):
     # print("listBombsPostions")
     tp = tilePositionGenerator()
@@ -490,11 +483,7 @@ def GetPlayerPosition(screen, number):
         sum_x = 640-1
 
     return (sum_y,sum_x)
-    # return (sum_x,sum_y)
 
-    # pos3D = ndimage.measurements.center_of_mass(np.asarray(cnts))
-    #
-    # return pos3D
 
 # DONE: fix the "filled" (even though clear) bottom path issue
 # TODO: make it so it could process any player
@@ -584,7 +573,8 @@ for i in list(range(4))[::-1]:
     time.sleep(1)
 
 # TODO: implement this
-def isItABomb(tile):
+def IsItABomb(pixel):
+
     pass
 
 while True:
