@@ -490,11 +490,39 @@ def GetPlayerPosition(screen, number):
 def AvailiablePath(screen,screenAveraged,number):
     crate = [65,151,191]
     hardBlock = [156,156,156]
-    bomb = [46,56,58]
+
+    bomb01 = [45,55,62]
+    bomb02 = [45,53,54]
+    bomb03 = [46,56,57]
+    bomb04 = [46,54,56]
+
+    bomb   = [46,56,58]
+
+    bomb05 = [47,57,59]
+    bomb06 = [48,58,60]
+    bomb07 = [48,58,60]
+    bomb08 = [49,60,61]
+    bomb09 = [74,176,204]
+    bomb10 = [91,169,193]
+    bomb11 = [107,163,181]
+
+    # [45.29032258 55.72528616 62.90114464]
+    # [45.29032258 53.87721124 54.82622268]
+    # [46.27263267 56.09157128 57.52341311]
+    # [46.15608741 54.89281998 56.05827263]
+    # [47.421436  57.3735692 59.2049948]
+    # [48.4037461  58.98855359 60.85327784]
+    # [48.08740895 58.87200832 60.35379813]
+    # [49.06971904 60.13735692 61.8855359]
+    #  74.52653485952133 176.08324661810613 204.88657648283038
+    #  91.69198751300729 169.4901144640999 193.06555671175857
+    #  107.4588969823101 163.92924037460978 181.86056191467222
 
     screenAveragedToInt = screenAveraged.astype(int)
 
-    allBlocking = [crate,hardBlock,bomb]
+    # allBlocking = [crate,hardBlock,bomb]
+    allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
+                   bomb06,bomb07,bomb08,bomb09,bomb10,bomb11]
 
     availiableSpots = np.ones((15,20))
 
