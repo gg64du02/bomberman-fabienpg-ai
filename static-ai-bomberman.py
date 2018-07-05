@@ -554,6 +554,7 @@ def AvailiablePath(screen,screenAveraged,number):
     crate08 = [88, 167, 191]
     crate09 = [93, 170, 193]
 
+    # from the top line
     blast01_01 = [104, 162, 180]
     blast01_02 = [109, 165, 183]
     blast01_03 = [107, 163, 181]
@@ -566,6 +567,16 @@ def AvailiablePath(screen,screenAveraged,number):
     blast03_01 = [ 37, 200, 228]
     blast03_02 = [ 36, 199, 227]
     blast03_03 = [ 36, 199, 228]
+
+    # from a vertical line
+    blast04_01 = [111, 165, 183]
+    blast04_02 = [104, 162, 180]
+
+    blast05_01 = [ 93, 170, 194]
+    blast05_02 = [ 88, 167, 191]
+
+    blast06_01 = [ 37, 200, 228]
+    blast06_02 = [ 35, 199, 227]
 
     # [45.29032258 55.72528616 62.90114464]
     # [45.29032258 53.87721124 54.82622268]
@@ -594,7 +605,10 @@ def AvailiablePath(screen,screenAveraged,number):
                     bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
                     blast01_01,blast01_02,blast01_03,
                     blast02_01,blast02_02,blast02_03,blast02_04,
-                    blast03_01,blast03_02,blast03_03]
+                    blast03_01,blast03_02,blast03_03
+                    ,blast04_01,blast04_02
+                    ,blast05_01,blast05_02
+                    ,blast06_01,blast06_02]
 
 
     availiableSpots = np.ones((15,20))
@@ -724,7 +738,7 @@ def IsItABomb(pixel):
                 return True
     return False
 
-camera = cv2.VideoCapture("Bomber 2018-07-05 21-35-23-13.avi")
+# camera = cv2.VideoCapture("Bomber 2018-07-05 21-35-23-13.avi")
 
 while True:
 
@@ -737,8 +751,8 @@ while True:
     # screen = cv2.resize(screen, (int(WIDTH / 8), int(HEIGTH / 8)))
 
     # run a color convert:
-    # screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
-    ret, screen = camera.read()
+    screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
+    # ret, screen = camera.read()
 
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
@@ -755,9 +769,10 @@ while True:
 
     availiablePath = AvailiablePath(screen,screenAveraged, 1)
 
-    print("availiablePath:\n",availiablePath)
+    # print("availiablePath:\n",availiablePath)
 
     # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
+    # print("screenAveraged[:,8].astype(int):\n",screenAveraged[:,8].astype(int))
 
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
@@ -772,7 +787,7 @@ while True:
     # print("player2indexes:",player2indexes)
 
 
-    # oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
+    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
     # time.sleep(1)
 
