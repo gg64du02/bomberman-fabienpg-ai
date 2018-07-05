@@ -538,6 +538,37 @@ def AvailiablePath(screen,screenAveraged,number):
     bomb10 = [91,169,193]
     bomb11 = [107,163,181]
 
+    # (screenAveraged[6, 3]).astype(int): [65 151 191]
+    # (screenAveraged[6, 3]).astype(int): [65 151 191]
+
+    # (screenAveraged[6, 3]).astype(int): [46 152 211]
+    # (screenAveraged[6, 3]).astype(int): [46 152 211]
+
+    # (screenAveraged[6, 3]).astype(int): [65 151 191]
+
+    # (screenAveraged[6, 3]).astype(int): [46 152 211]
+    # (screenAveraged[6, 3]).astype(int): [12 188 243]
+    # (screenAveraged[6, 3]).astype(int): [0 220 252]
+    # (screenAveraged[6, 3]).astype(int): [140 164 164]
+    # (screenAveraged[6, 3]).astype(int): [140 164 164]
+    # (screenAveraged[6, 3]).astype(int): [140 164 164]
+
+    # crate01 = [46, 152, 211]
+    # crate02 = [65, 151, 191]
+    # crate03 = [12, 188, 243]
+    # crate04 = [0,  220, 252]
+
+    crate01 = [46, 152, 211]
+    crate02 = [65, 151, 191]
+    crate03 = [12, 188, 243]
+    crate04 = [0,  220, 252]
+    crate05 = [32, 154, 225]
+
+    crate06 = [71, 174, 202]
+    crate07 = [74, 176, 205]
+    crate08 = [88, 167, 191]
+    crate09 = [93, 170, 193]
+
     # [45.29032258 55.72528616 62.90114464]
     # [45.29032258 53.87721124 54.82622268]
     # [46.27263267 56.09157128 57.52341311]
@@ -552,9 +583,14 @@ def AvailiablePath(screen,screenAveraged,number):
 
     screenAveragedToInt = screenAveraged.astype(int)
 
+    # allBlocking = [crate,hardBlock]
     # allBlocking = [crate,hardBlock,bomb]
+    # allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
+    #                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
+    #                crate01,crate02,crate03,crate04]
     allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
-                   bomb06,bomb07,bomb08,bomb09,bomb10,bomb11]
+                   bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
+                   crate01,crate02,crate03,crate04,crate05,crate06,crate07,crate08,crate09]
 
     availiableSpots = np.ones((15,20))
 
@@ -571,6 +607,8 @@ def AvailiablePath(screen,screenAveraged,number):
                 availiableSpots[y,x] = False
             # else:
             #     print("!True\n")
+        # if(IsItABomb(screenAveragedToInt[y,x])==True):
+        #     availiableSpots[y,x] = False
     return availiableSpots
 
 def ScreenAveraging(screen):
@@ -652,8 +690,8 @@ def IsItABomb(pixel):
                 if (pixel[1] <= 66):
                     # if (pixel[2] > 49):
                     #     if (pixel[2] <= 68):
-                    if (screenAveraged[y, x, 2] > 49):
-                        if(screenAveraged[y,x,2]<=125):
+                    if (pixel[2] > 49):
+                        if(pixel[2]<=125):
                             # print("bomb decteted")
                             # list.append([y, x])
                             return True
@@ -680,6 +718,9 @@ def IsItABomb(pixel):
                 return True
     return False
 
+# camera = cv2.VideoCapture("Bomber 2018-07-04 23-56-35-83.avi")
+# camera = cv2.VideoCapture("Bomber 2018-07-04 23-56-24-55.avi")
+# camera = cv2.VideoCapture("Bomber 2018-07-05 14-42-13-36.avi")
 while True:
 
     # getting the window mode screen
@@ -692,15 +733,25 @@ while True:
 
     # run a color convert:
     screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
+    # ret, screen = camera.read()
 
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
     print()
-    # print("getPlayerPosition:",getPlayerPosition)
+    print("getPlayerPosition:",getPlayerPosition)
 
     screenAveraged = ScreenAveraging(screen)
 
-    # print("screenAveraged:",screenAveraged)
+    # print("(screenAveraged[6,2]).astype(int):",
+    #       (screenAveraged[6,2]).astype(int))
+    print("(screenAveraged[6,3]).astype(int):",
+          (screenAveraged[6,3]).astype(int))
+    print("(screenAveraged[6,2]).astype(int):",
+          (screenAveraged[6,2]).astype(int))
+    print("(screenAveraged[6,1]).astype(int):",
+          (screenAveraged[6,1]).astype(int))
+
+    # print("screenAveraged:",screenAveraged)f
 
     listOfBombs = listBombsPositions(screenAveraged)
 
@@ -708,7 +759,11 @@ while True:
 
     availiablePath = AvailiablePath(screen,screenAveraged, 1)
 
-    # print("availiablePath:\n",availiablePath)
+    print("availiablePath:\n",availiablePath)
+    if(availiablePath[5,2]==1):
+        print()
+    if(availiablePath[6,2]==0):
+        print()
 
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
