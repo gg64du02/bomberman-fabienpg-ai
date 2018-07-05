@@ -1,4 +1,6 @@
-# TODO: check AvailiablePath and IsItABlock
+# TODO: static ai: in AvailiablePath: make better awareness with listOfBommbs
+
+# TODO: static ai: check AvailiablePath for execution time (make avariables global?)
 
 # TODO: in static ai: check the bombs listing coords function
 
@@ -31,3 +33,5 @@
 
 # DONE: in static ai: switch all the script to [y,x] convention, because potentialPath.shape: (15, 20)
 It will help debugging on the long run.
+
+# DONE: static ai: make AvailiablePath blast aware
