@@ -569,6 +569,19 @@ def AvailiablePath(screen,screenAveraged,number):
     crate08 = [88, 167, 191]
     crate09 = [93, 170, 193]
 
+    blast01_01 = [104, 162, 180]
+    blast01_02 = [109, 165, 183]
+    blast01_03 = [107, 163, 181]
+
+    blast02_01 = [ 91, 169, 193]
+    blast02_02 = [ 89, 168, 191]
+    blast02_03 = [ 93, 170, 193]
+    blast02_04 = [ 90, 168, 192]
+
+    blast03_01 = [ 37, 200, 228]
+    blast03_02 = [ 36, 199, 227]
+    blast03_03 = [ 36, 199, 228]
+
     # [45.29032258 55.72528616 62.90114464]
     # [45.29032258 53.87721124 54.82622268]
     # [46.27263267 56.09157128 57.52341311]
@@ -588,9 +601,15 @@ def AvailiablePath(screen,screenAveraged,number):
     # allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
     #                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
     #                crate01,crate02,crate03,crate04]
-    allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
-                   bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
-                   crate01,crate02,crate03,crate04,crate05,crate06,crate07,crate08,crate09]
+    # allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
+    #                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
+    #                crate01,crate02,crate03,crate04,crate05,crate06,crate07,crate08,crate09]
+    allBlocking = [crate, hardBlock, bomb, bomb01, bomb02, bomb03, bomb04, bomb05,
+                                  bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
+                   blast01_01,blast01_02,blast01_03,
+                   blast02_01,blast02_02,blast02_03,blast02_04,
+                   blast03_01,blast03_02,blast03_03]
+
 
     availiableSpots = np.ones((15,20))
 
@@ -721,6 +740,8 @@ def IsItABomb(pixel):
 # camera = cv2.VideoCapture("Bomber 2018-07-04 23-56-35-83.avi")
 # camera = cv2.VideoCapture("Bomber 2018-07-04 23-56-24-55.avi")
 # camera = cv2.VideoCapture("Bomber 2018-07-05 14-42-13-36.avi")
+camera = cv2.VideoCapture("Bomber 2018-07-05 21-35-23-13.avi")
+
 while True:
 
     # getting the window mode screen
@@ -732,8 +753,8 @@ while True:
     # screen = cv2.resize(screen, (int(WIDTH / 8), int(HEIGTH / 8)))
 
     # run a color convert:
-    screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
-    # ret, screen = camera.read()
+    # screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
+    ret, screen = camera.read()
 
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
@@ -760,10 +781,12 @@ while True:
     availiablePath = AvailiablePath(screen,screenAveraged, 1)
 
     print("availiablePath:\n",availiablePath)
-    if(availiablePath[5,2]==1):
-        print()
-    if(availiablePath[6,2]==0):
-        print()
+    # if(availiablePath[5,2]==1):
+    #     print()
+    # if(availiablePath[6,2]==0):
+    #     print()
+    # print("screenAveraged[0,:]:\n",screenAveraged[0,:])
+    # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
 
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
@@ -778,7 +801,7 @@ while True:
     # print("player2indexes:",player2indexes)
 
 
-    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
+    # oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
     # time.sleep(1)
 
