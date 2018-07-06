@@ -97,12 +97,6 @@ def listBombsPositions(screenAvged):
         x = int( potentialBombs[0] / 32 )
         y = int( potentialBombs[1] / 32 )
 
-        # for debugging
-        # if(x==0):
-        #     if(y==0):
-        #         print("potentialBombs:",potentialBombs)
-        #         print("screenAveraged[y,x]:",screenAveraged[y,x])
-
         # [45.29032258 55.72528616 62.90114464]
         # [45.29032258 53.87721124 54.82622268]
         # [46.27263267 56.09157128 57.52341311]
@@ -132,24 +126,16 @@ def listBombsPositions(screenAvged):
             if (int(screenAveraged[y, x, 0]) == 176):
                 if (int(screenAveraged[y, x, 0]) == 204):
                     list.append([y,x])
-                    # print("74.52653485952133 176.08324661810613 204.88657648283038")
 
         if (int(screenAveraged[y, x, 0]) == 91):
             if (int(screenAveraged[y, x, 0]) == 169):
                 if (int(screenAveraged[y, x, 0]) == 193):
                     list.append([y, x])
-                    # print("91.69198751300729 169.4901144640999 193.06555671175857")
 
         if (int(screenAveraged[y, x, 0]) == 107):
             if (int(screenAveraged[y, x, 0]) == 163):
                 if (int(screenAveraged[y, x, 0]) == 181):
                     list.append([y, x])
-                    # print("107.4588969823101 163.92924037460978 181.86056191467222")
-
-
-        # if (IsItABomb((screenAveraged[y, x]).astype(int)) == True):
-        #     list.append([y, x])
-
 
     return list
 
@@ -168,25 +154,19 @@ def isIndexesRange(point):
 def sort_uniq(sequence):
     return (x[0] for x in itertools.groupby(sorted(sequence)))
 
+
 # DONE: implement this
 def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes):
-
 
     listOfAdjacents = []
 
     blastinPositions = potentialPathWithinBlasts(listOfBombs,potentialPath)
-
-    print("blastinPositions.shape:",blastinPositions.shape)
 
     print("blastinPositions:\n",blastinPositions)
 
     neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
 
     tp = tilePositionGenerator()
-
-    # create everything as one
-    # AdajacentNodesArray = np.ones_like(potentialPath)
-    AdajacentNodesArray = potentialPath
 
     # set to zero: bomb blast and blocked tile
     for checkingAdjacentTile in tp:
@@ -228,11 +208,8 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
         xBomb = bombPosition[1]
 
         # notsorted
-        #
-        # upwward
-        # downward
-        # rightward
-        # leftward
+        # TODO: sort the result
+        # upwward, downward, rightward, leftward
         for i in range(4):
             xTmp = xBomb
             yTmp = yBomb
@@ -519,7 +496,7 @@ def GetPlayerPosition(screen, number):
 
 # DONE: fix the "filled" (even though clear) bottom path issue
 # TODO: make it so it could process any player
-def AvailiablePath(screen,screenAveraged,number):
+def AvailiablePath(screen,screenAveraged,number,listOfBombs):
     crate = [65,151,191]
     hardBlock = [156,156,156]
 
@@ -629,6 +606,12 @@ def AvailiablePath(screen,screenAveraged,number):
             #     print("!True\n")
         # if(IsItABomb(screenAveragedToInt[y,x])==True):
         #     availiableSpots[y,x] = False
+    # for bomb in listOfBombs:
+    #     print("bomb:",bomb)
+    #     y = bomb[0]
+    #     x = bomb[1]
+    #     availiableSpots[y,x] = False
+
     return availiableSpots
 
 def ScreenAveraging(screen):
@@ -679,13 +662,6 @@ anchorWidthBotRight = anchorHWidthTopLeft + WIDTH - 1
 
 stop = False
 
-if 0:
-    tilePositons = tilePositionGenerator()
-    for tilePos in tilePositons:
-        print(tilePos)
-    print()
-    # break
-
 for i in list(range(4))[::-1]:
     print(i+1)
     time.sleep(1)
@@ -712,29 +688,24 @@ def IsItABomb(pixel):
                     #     if (pixel[2] <= 68):
                     if (pixel[2] > 49):
                         if(pixel[2]<=125):
-                            # print("bomb decteted")
-                            # list.append([y, x])
                             return True
 
     if (pixel[0] == 74):
         if(pixel[1] == 176):
             if(pixel[2] == 204):
-                # list.append([y, x])
                 print("here 74.52653485952133 176.08324661810613 204.88657648283038")
                 return True
 
     if(pixel[0] == 91):
         if(pixel[1] == 169):
             if(pixel[2] == 193):
-                # list.append([y, x])
                 print("here 91.69198751300729 169.4901144640999 193.06555671175857")
                 return True
 
     if(pixel[0] == 107):
         if(pixel[1] == 163):
             if(pixel[2] == 181):
-                # list.append([y, x])
-                print("here d107.4588969823101 163.92924037460978 181.86056191467222")
+                print("here 107.4588969823101 163.92924037460978 181.86056191467222")
                 return True
     return False
 
@@ -767,7 +738,8 @@ while True:
 
     # print("listOfBombs:",listOfBombs)
 
-    availiablePath = AvailiablePath(screen,screenAveraged, 1)
+    # availiablePath = AvailiablePath(screen,screenAveraged, 1)
+    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
     # print("availiablePath:\n",availiablePath)
 
