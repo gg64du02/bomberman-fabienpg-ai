@@ -23,6 +23,13 @@ import sys
 
 from IPython.utils.capture import capture_output
 
+# convnet
+
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+from keras.callbacks import TensorBoard
+
 
 # https://keras.io/losses/
 # https://keras.io/optimizers/
@@ -38,13 +45,13 @@ WIDTH = int( 640 / 2 )
 HEIGHT = int( 480 / 2 )
 # 320 * 240
 
-LR = 1e-3
+LR = 1e-4
 # LR = 1e-4
 # EPOCHS = 30
 # EPOCHS = 1
 # EPOCHS = 10
 # EPOCHS = 120
-EPOCHS = 1
+EPOCHS = 10
 
 MODEL_NAME = 'bomberman-nn-keras_v13_5classes.h5'
 PREV_MODEL = MODEL_NAME
@@ -71,29 +78,67 @@ shift = [0,0,0,0,0,1]
 
 from keras.layers.core import Activation
 
-# # ============================================================
-# https://keras.io/getting-started/sequential-model-guide/
-# 320 * 240 = 76800
-model = Sequential()
-# Input tensor for sequences of 32 timesteps,
-model.add(Dense(200, activation='relu', input_dim=76800))
-# model.add(Activation('relu'));
-# grid is 15*20 32 pixels
-# make it so it would be 30*40
-# /64
-model.add(Dense(1200, activation='relu', input_dim=1200))
-keras.layers.Dropout(0.5)
-# model.add(Activation('relu'));
-# 6 is probably the number of classes
-model.add(Dense(5, activation='softmax'))
-# model.add(Activation('relu'));
-model.compile(optimizer='rmsprop',
-              loss='categorical_crossentropy',
-              metrics=['accuracy'])
-# model.compile(optimizer='adagrad',
+# # # ============================================================
+# # https://keras.io/getting-started/sequential-model-guide/
+# # 320 * 240 = 76800
+# model = Sequential()
+# # Input tensor for sequences of 32 timesteps,
+# model.add(Dense(200, activation='relu', input_dim=76800))
+# # model.add(Activation('relu'));
+# # grid is 15*20 32 pixels
+# # make it so it would be 30*40
+# # /64
+# model.add(Dense(1200, activation='relu', input_dim=1200))
+# keras.layers.Dropout(0.5)
+# # model.add(Activation('relu'));
+# # 6 is probably the number of classes
+# model.add(Dense(5, activation='softmax'))
+# # model.add(Activation('relu'));
+# model.compile(optimizer='rmsprop',
 #               loss='categorical_crossentropy',
 #               metrics=['accuracy'])
-# # ============================================================
+# # model.compile(optimizer='adagrad',
+# #               loss='categorical_crossentropy',
+# #               metrics=['accuracy'])
+# # # ============================================================
+
+
+model = Sequential()
+# model.add(Conv2D(32, (3, 3), padding='same',
+#                  input_shape=(176, 200, 3),
+#                  activation='relu'))
+model.add(Conv2D(32, (3, 3), padding='same',
+                 input_shape=(240, 320, 3),
+                 activation='relu'))
+model.add(Conv2D(32, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.2))
+
+model.add(Conv2D(64, (3, 3), padding='same',
+                 activation='relu'))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.2))
+
+model.add(Conv2D(128, (3, 3), padding='same',
+                 activation='relu'))
+model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.2))
+
+model.add(Flatten())
+model.add(Dense(512, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(5, activation='softmax'))
+
+learning_rate = 0.0001
+opt = keras.optimizers.adam(lr=learning_rate, decay=1e-6)
+
+model.compile(loss='categorical_crossentropy',
+              optimizer=opt,
+              metrics=['accuracy'])
+
+tensorboard = TensorBoard(log_dir="logs/STAGE1")
 
 
 # a = Input(shape=(76800,))
@@ -203,7 +248,19 @@ def generate_arrays_from_folder(folder):
                 # model.fit(data, one_hot_labels, epochs=1, verbose=0,steps_per_epoch=55)
 
                 # yield(data,one_hot_labels)
-                yield(data/255, one_hot_labels)
+
+
+                # yield(data/255, one_hot_labels)
+
+                print("data.shape:",data.shape)
+                # data.shape: (3225, 76800)
+                print("len(one_hot_labels):",len(one_hot_labels))
+                # len(one_hot_labels): 3225
+                print("len(one_hot_labels[0]):",len(one_hot_labels[0]))
+                # len(one_hot_labels[0]): 5
+
+                for i in range(len(one_hot_labels)):
+                    yield (train_data[i,0], train_data[i,1])
 
                 pass
             except Exception as e:
