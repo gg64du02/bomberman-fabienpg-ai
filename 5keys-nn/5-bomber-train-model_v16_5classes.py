@@ -259,8 +259,23 @@ def generate_arrays_from_folder(folder):
                 print("len(one_hot_labels[0]):",len(one_hot_labels[0]))
                 # len(one_hot_labels[0]): 5
 
+                # # nope: ValueError: Error when checking input: expected conv2d_1_input to have 4 dimensions, but got array with shape (240, 320, 3)
+                # for i in range(len(one_hot_labels)):
+                #     yield (train_data[i,0], train_data[i,1])
+                # # nope:  ValueError: Error when checking target: expected dense_2 to have shape (5,) but got array with shape (1,)
+                # for i in range(len(one_hot_labels)):
+                #     yield (train_data[i,0].reshape(-1, 240, 320, 3), np.asarray(train_data[i,1]))
+                # nope:
+                # for i in range(len(one_hot_labels)):
+                #     yield (train_data[i,0].reshape(-
+
+                print()
+
+                # next try:(np.asarray([[ii] for ii in train_data[i, 1]]).reshape(5, -1)).shape
                 for i in range(len(one_hot_labels)):
-                    yield (train_data[i,0], train_data[i,1])
+                    yield (train_data[i,0].reshape(-1, 240, 320, 3), np.asarray([[ii] for ii in train_data[i, 1]]).reshape( -1,5))
+                    # yield (train_data[i,0].reshape(-1, 240, 320, 3), one_hot_labels[i])
+
 
                 pass
             except Exception as e:
