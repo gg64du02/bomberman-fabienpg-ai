@@ -277,8 +277,8 @@ def generate_arrays_from_folder(folder):
 
                 # next try:(np.asarray([[ii] for ii in train_data[i, 1]]).reshape(5, -1)).shape
                 for i in range(len(one_hot_labels)):
+                    print("\none picture\n")
                     yield (train_data[i,0].reshape(-1, 240, 320, 3), np.asarray([[ii] for ii in train_data[i, 1]]).reshape( -1,5))
-                    # yield (train_data[i,0].reshape(-1, 240, 320, 3), one_hot_labels[i])
 
 
                 pass
