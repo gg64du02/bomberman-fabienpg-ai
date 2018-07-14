@@ -1,5 +1,9 @@
 import numpy as np
 
+# forcing tf-cpu put this before tf and keras import
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+
 import cv2
 import time
 import os
