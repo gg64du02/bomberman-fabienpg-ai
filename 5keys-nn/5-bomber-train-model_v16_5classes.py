@@ -55,7 +55,7 @@ LR = 1e-4
 # EPOCHS = 1
 # EPOCHS = 10
 # EPOCHS = 120
-EPOCHS = 10
+EPOCHS = 44
 
 MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
 PREV_MODEL = MODEL_NAME
@@ -278,8 +278,11 @@ def generate_arrays_from_folder(folder):
 
                 # next try:(np.asarray([[ii] for ii in train_data[i, 1]]).reshape(5, -1)).shape
                 for i in range(len(one_hot_labels)):
-                    print("\none picture\n")
+                    print("\npicture:",i,"\n")
                     yield (train_data[i,0].reshape(-1, 240, 320, 3), np.asarray([[ii] for ii in train_data[i, 1]]).reshape( -1,5))
+                    # model.fit(train_data[i, 0].reshape(-1, 240, 320, 3),
+                    #        np.asarray([[ii] for ii in train_data[i, 1]]).reshape(-1, 5),shuffle=True, verbose=1,
+                    #           callbacks=[tensorboard])
 
 
                 pass
@@ -303,3 +306,4 @@ model.fit_generator(generate_arrays_from_folder('phase-3'),
 
 model.save(MODEL_NAME)
 
+# generate_arrays_from_folder('phase-3')

@@ -1,5 +1,6 @@
 5keys-nn/phase-*
 5keys-nn/trained*
+5keys-nn/logs*
 
 6keys-nn/data/*
 6keys-nn/dataset/*
