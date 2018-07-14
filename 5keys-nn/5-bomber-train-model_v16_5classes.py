@@ -1,8 +1,8 @@
 import numpy as np
 
-# forcing tf-cpu put this before tf and keras import
-import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# # forcing tf-cpu put this before tf and keras import
+# import os
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 import cv2
 import time
@@ -57,7 +57,7 @@ LR = 1e-4
 # EPOCHS = 120
 EPOCHS = 10
 
-MODEL_NAME = 'bomberman-nn-keras_v13_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = False
@@ -131,7 +131,8 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.2))
 
 model.add(Flatten())
-model.add(Dense(512, activation='relu'))
+# model.add(Dense(512, activation='relu'))
+model.add(Dense(25, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(5, activation='softmax'))
 
@@ -291,8 +292,14 @@ def generate_arrays_from_folder(folder):
 # model.fit_generator(generate_arrays_from_folder('phase-3'),
 #                     steps_per_epoch=EPOCHS*FILE_I_END, epochs=1)
 
+# model.fit_generator(generate_arrays_from_folder('phase-3'),
+#                     steps_per_epoch=FILE_I_END, epochs=EPOCHS)
+
+# model.fit_generator(generate_arrays_from_folder('phase-3'),
+#                     steps_per_epoch=5000, epochs=EPOCHS)
+
 model.fit_generator(generate_arrays_from_folder('phase-3'),
-                    steps_per_epoch=FILE_I_END, epochs=EPOCHS)
+                    steps_per_epoch=5000, epochs=EPOCHS, callbacks=[tensorboard])
 
 model.save(MODEL_NAME)
 
