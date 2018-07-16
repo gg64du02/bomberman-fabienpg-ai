@@ -300,11 +300,8 @@ def generate_arrays_from_folder(folder):
 # model.fit_generator(generate_arrays_from_folder('phase-3'),
 #                     steps_per_epoch=FILE_I_END, epochs=EPOCHS)
 
-# model.fit_generator(generate_arrays_from_folder('phase-3'),
-#                     steps_per_epoch=5000, epochs=EPOCHS)
-
 model.fit_generator(generate_arrays_from_folder('phase-3'),
-                    steps_per_epoch=5000, epochs=EPOCHS, callbacks=[tensorboard])
+                    steps_per_epoch=30000, epochs=EPOCHS)
 
 model.save(MODEL_NAME)
 
