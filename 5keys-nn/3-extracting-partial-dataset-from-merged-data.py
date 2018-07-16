@@ -152,7 +152,24 @@ while(iii<FILE_I_END+1):
     # np.save(file_name_partial_extraction_dataset, extractedNumpyFromTrainData)
 
     # extractedNumpyFromTrainData is a list
-    np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainData))
+    # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainData))
+
+    extractedNumpyFromTrainDataTmp = [[] for i in range(len(extractedNumpyFromTrainData))]
+
+    offset = int( len(extractedNumpyFromTrainData) / len(extractedNumpyFromTrainData[0][1]) )
+    lineNum = 0
+
+    for indexOffset in range(offset):
+        for outputKind in range(len(extractedNumpyFromTrainData[0][1])):
+            index = int( offset * outputKind ) + indexOffset
+            extractedNumpyFromTrainDataTmp[lineNum] = np.asarray(extractedNumpyFromTrainData)[index]
+            lineNum += 1
+
+    # print()
+
+    # extractedNumpyFromTrainData is a list
+    np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainDataTmp))
+
 
     iii += 1
 
