@@ -95,7 +95,7 @@ if 0:
 
 starting_value = 1
 while True:
-    file_name = './phase-1/training_data-{}.npy'.format(starting_value)
+    file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
     if os.path.isfile(file_name):
         print('File exists, moving along', starting_value)
         starting_value += 1
@@ -111,99 +111,105 @@ def main(file_name, starting_value):
         print(i+1)
         time.sleep(1)
 
-    paused = False
+    stop = False
     print('STARTING!!!')
 
     intI = 0
 
     while(True):
-        if(paused == True):
-            time.sleep(1)
-            paused = False
-        # DONE: find the proper anchor
-        while paused==False:
-            print("========================")
+        print("========================")
 
-            numberOfKeys = len(all_keys)
+        numberOfKeys = len(all_keys)
 
-            print("numberOfKeys",numberOfKeys)
+        print("numberOfKeys",numberOfKeys)
 
-            roundEnded = False
+        roundEnded = False
 
-            i = 0
+        i = 0
 
-            # screenshotTaken = []
-            # keyIssued = []
+        # screenshotTaken = []
+        # keyIssued = []
 
-            game_data = []
+        if(stop == True):
+            break
 
-            while(roundEnded == False):
+        game_data = []
 
-                choosedKey = random.randint(numberOfKeys)
+        while(roundEnded == False):
 
-                print("choosedKey",choosedKey)
+            choosedKey = random.randint(numberOfKeys)
 
-                # getting the window mode screen
-                screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
-                                             anchorWidthBotRight, anchorHeightBotRight))
+            print("choosedKey",choosedKey)
 
-                # pixels characters 2
-                # resize to something a bit more acceptable for a CNN
-                screen = cv2.resize(screen, (int(WIDTH / 2), int(HEIGTH / 2)))
-                # run a color convert:
-                screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
+            # getting the window mode screen
+            screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
+                                         anchorWidthBotRight, anchorHeightBotRight))
+
+            # pixels characters 2
+            # resize to something a bit more acceptable for a CNN
+            screen = cv2.resize(screen, (int(WIDTH / 2), int(HEIGTH / 2)))
+            # run a color convert:
+            screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
 
 
-                timePress = 0.05 + 0.01 * random.randint(7)
+            timePress = 0.05 + 0.01 * random.randint(7)
 
-                # e =     [1,0,0,0,0,0]
-                # d =     [0,1,0,0,0,0]
-                # s =     [0,0,1,0,0,0]
-                # f =     [0,0,0,1,0,0]
-                # ctrl =  [0,0,0,0,1,0]
-                # none =  [0,0,0,0,0,1]
-                # all_keys = [e,d,s,f,ctrl,none]
-                if(choosedKey == 0):
-                    keyboard.press('e')
-                    time.sleep(timePress)
-                    keyboard.release('e')
-                if(choosedKey == 1):
-                    keyboard.press('d')
-                    time.sleep(timePress)
-                    keyboard.release('d')
-                if(choosedKey == 2):
-                    keyboard.press('s')
-                    time.sleep(timePress)
-                    keyboard.release('s')
-                if(choosedKey == 3):
-                    keyboard.press('f')
-                    time.sleep(timePress)
-                    keyboard.release('f')
-                if(choosedKey == 4):
-                    keyboard.press('ctrl')
-                    time.sleep(timePress)
-                    keyboard.release('ctrl')
-                if (choosedKey == 5):
-                    print("none")
+            # e =     [1,0,0,0,0,0]
+            # d =     [0,1,0,0,0,0]
+            # s =     [0,0,1,0,0,0]
+            # f =     [0,0,0,1,0,0]
+            # ctrl =  [0,0,0,0,1,0]
+            # none =  [0,0,0,0,0,1]
+            # all_keys = [e,d,s,f,ctrl,none]
+            if(choosedKey == 0):
+                keyboard.press('e')
+                time.sleep(timePress)
+                keyboard.release('e')
+            if(choosedKey == 1):
+                keyboard.press('d')
+                time.sleep(timePress)
+                keyboard.release('d')
+            if(choosedKey == 2):
+                keyboard.press('s')
+                time.sleep(timePress)
+                keyboard.release('s')
+            if(choosedKey == 3):
+                keyboard.press('f')
+                time.sleep(timePress)
+                keyboard.release('f')
+            if(choosedKey == 4):
+                keyboard.press('ctrl')
+                time.sleep(timePress)
+                keyboard.release('ctrl')
+            if (choosedKey == 5):
+                print("none")
 
-                if (keyboard.is_pressed('n') == True):
-                    roundEnded = True
+            if (keyboard.is_pressed('n') == True):
+                stop = True
 
-                # screenshotTaken.append(screen)
-                # keyIssued.append(choosedKey)
+                keyboard.release('ctrl')
+                keyboard.release('e')
+                keyboard.release('d')
+                keyboard.release('s')
+                keyboard.release('f')
 
-                game_data.append([screen, choosedKey])
+                break
+
+            # screenshotTaken.append(screen)
+            # keyIssued.append(choosedKey)
+
+            game_data.append([screen, choosedKey])
 
 
-                # TODO: check for variable set to one in memory
-                #  when the round is restarting/ending
-                i+=1
-                if(i == 500):
-                    roundEnded = True
-                    file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
-                    np.save(file_name, game_data)
-                    print('SAVED')
-                    starting_value += 1
+            # TODO: check for variable set to one in memory
+            #  when the round is restarting/ending
+            i+=1
+            if(i == 500):
+                roundEnded = True
+                file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+                np.save(file_name, game_data)
+                print('SAVED')
+                starting_value += 1
 
 main(file_name, starting_value)
 
