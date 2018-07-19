@@ -132,8 +132,10 @@ def main(file_name, starting_value):
 
             i = 0
 
-            screenshotTaken = []
-            keyIssued = []
+            # screenshotTaken = []
+            # keyIssued = []
+
+            game_data = []
 
             while(roundEnded == False):
 
@@ -141,7 +143,18 @@ def main(file_name, starting_value):
 
                 print("choosedKey",choosedKey)
 
-                timePress = 0.05 + random.randint(0.07)
+                # getting the window mode screen
+                screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
+                                             anchorWidthBotRight, anchorHeightBotRight))
+
+                # pixels characters 2
+                # resize to something a bit more acceptable for a CNN
+                screen = cv2.resize(screen, (int(WIDTH / 2), int(HEIGTH / 2)))
+                # run a color convert:
+                screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
+
+
+                timePress = 0.05 + 0.01 * random.randint(7)
 
                 # e =     [1,0,0,0,0,0]
                 # d =     [0,1,0,0,0,0]
@@ -176,33 +189,21 @@ def main(file_name, starting_value):
                 if (keyboard.is_pressed('n') == True):
                     roundEnded = True
 
-                # getting the window mode screen
-                screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
-                                             anchorWidthBotRight, anchorHeightBotRight))
+                # screenshotTaken.append(screen)
+                # keyIssued.append(choosedKey)
 
-                # pixels characters 2
-                # resize to something a bit more acceptable for a CNN
-                screen = cv2.resize(screen, (int(WIDTH / 2), int(HEIGTH / 2)))
-                # run a color convert:
-                screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
-
-                screenshotTaken.append(screen)
-                keyIssued.append(choosedKey)
-
+                game_data.append([screen, choosedKey])
 
 
                 # TODO: check for variable set to one in memory
-                #  when the game is restarting/ending
+                #  when the round is restarting/ending
                 i+=1
                 if(i == 500):
                     roundEnded = True
-
-
-            #                 np.save(file_name, training_data)
-            #                 print('SAVED')
-            #                 training_data = []
-            #                 starting_value += 1
-            #                 file_name = './phase-1/training_data-{}.npy'.format(starting_value)
+                    file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+                    np.save(file_name, game_data)
+                    print('SAVED')
+                    starting_value += 1
 
 main(file_name, starting_value)
 
