@@ -108,6 +108,7 @@ addresses_list = range(startAddress,endAddress,0x4)
 
 # ============================================================
 
+SPEEDHACK_SPEED = 5
 
 def main(file_name, starting_value):
     file_name = file_name
@@ -143,7 +144,8 @@ def main(file_name, starting_value):
 
         while(roundEnded == False):
 
-            choosedKey = random.randint(numberOfKeys)
+            # choosedKey = random.randint(numberOfKeys)
+            choosedKey = random.randint(300000) % 6
 
             print("choosedKey",choosedKey)
 
@@ -158,7 +160,7 @@ def main(file_name, starting_value):
             screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
 
 
-            timePress = 0.05 + 0.01 * random.randint(7)
+            timePress = ( 0.05 + 0.01 * random.randint(7) ) / SPEEDHACK_SPEED
 
             # e =     [1,0,0,0,0,0]
             # d =     [0,1,0,0,0,0]
@@ -206,31 +208,54 @@ def main(file_name, starting_value):
 
             game_data.append([screen, choosedKey])
 
-
+            # TODO: check when player2 is dead
             # TODO: check for variable set to one in memory
             #  when the round is restarting/ending
 
+            # 1 if a players in the lasts seconds
             tmpOffset = int(0x4440B0)
             print("tmpOffset", '%s' % hex(tmpOffset))
 
             ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
-            value = unpack('I', buff)[0]
-            print("value", value)
+            aplayerDown = unpack('I', buff)[0]
+            print("playerDown", aplayerDown)
 
-            # TODO: check if player1 is dead and not the player2:
-            # if(value == 1 and 1)
 
-            # stop the recording if it is too long (and kill the player ?)
-            if(i == 50000):
+            # 1 or >1 if a players in the lasts seconds
+            tmpOffset = int(0x455C9C)
+            print("tmpOffset", '%s' % hex(tmpOffset))
+
+            ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
+            numbersOFDeathInLastSeconds = unpack('I', buff)[0]
+            print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
+
+            # drop the current capture if p1 and p2 died
+            if(numbersOFDeathInLastSeconds==1):
+                roundEnded = True
                 break
 
-            i+=1
-            if(i == 500):
+            # p1 and p2 are dead (including both killed themself)
+            if(numbersOFDeathInLastSeconds>1):
                 roundEnded = True
                 file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
                 np.save(file_name, game_data)
                 print('SAVED')
                 starting_value += 1
+
+            # stop the recording if it is too long (and kill the player ?)
+            if(i == 50000):
+                roundEnded = True
+                break
+
+
+
+            i+=1
+            # if(i == 500):
+            #     roundEnded = True
+            #     # file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+            #     # np.save(file_name, game_data)
+            #     # print('SAVED')
+            #     # starting_value += 1
 
 main(file_name, starting_value)
 

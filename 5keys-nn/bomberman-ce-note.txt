@@ -70,9 +70,8 @@ vert pos of player 1:
 </CheatTable>
 
 
-sub_2B4D0 is writing the vert pos of player 2
-
-1 when the round is finnished:
+==============================================
+1 when a player just died (in the last moments) (correct)
 <?xml version="1.0" encoding="utf-8"?>
 <CheatTable>
   <CheatEntries>
@@ -81,12 +80,12 @@ sub_2B4D0 is writing the vert pos of player 2
       <Description>"No description"</Description>
       <LastState Value="0" RealAddress="004440B0"/>
       <VariableType>4 Bytes</VariableType>
-      <Address>Bomber.exe+440B0</Address>
+      <Address>Bomber.exe+4440B0</Address>
     </CheatEntry>
   </CheatEntries>
 </CheatTable>
 
-1 when the round is finnished:
+1 when a player just died (in the last moments) (correct)
 <?xml version="1.0" encoding="utf-8"?>
 <CheatTable>
   <CheatEntries>
@@ -95,12 +94,12 @@ sub_2B4D0 is writing the vert pos of player 2
       <Description>"No description"</Description>
       <LastState Value="1" RealAddress="00455C9C"/>
       <VariableType>4 Bytes</VariableType>
-      <Address>Bomber.exe+55C9C</Address>
+      <Address>Bomber.exe+455C9C</Address>
     </CheatEntry>
   </CheatEntries>
 </CheatTable>
 
-1 when the round is finnished:
+1 when a player just died (in the last moments) (correct)
 <?xml version="1.0" encoding="utf-8"?>
 <CheatTable>
   <CheatEntries>
@@ -109,12 +108,12 @@ sub_2B4D0 is writing the vert pos of player 2
       <Description>"No description"</Description>
       <LastState Value="0" RealAddress="004440B0"/>
       <VariableType>4 Bytes</VariableType>
-      <Address>Bomber.exe+440B0</Address>
+      <Address>Bomber.exe+4440B0</Address>
     </CheatEntry>
   </CheatEntries>
 </CheatTable>
 
-number of dead players ?
+number of dead players (in the last moments) :yep (correct)
 <?xml version="1.0" encoding="utf-8"?>
 <CheatTable>
   <CheatEntries>
@@ -123,8 +122,64 @@ number of dead players ?
       <Description>"No description"</Description>
       <LastState Value="1" RealAddress="00455C9C"/>
       <VariableType>4 Bytes</VariableType>
-      <Address>Bomber.exe+55C9C</Address>
+      <Address>Bomber.exe+455C9C</Address>
     </CheatEntry>
   </CheatEntries>
 </CheatTable>
+
+is != 0 when p1 or p2 is dead
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="0009E614"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0009E614</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+============================
+getting player 1 score:-1 suicide +3 for a kill (correct)
+updated when tab is pressed
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState RealAddress="0043FD49"/>
+      <VariableType>String</VariableType>
+      <Length>2</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>Bomber.exe+43FD49</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+getting player 1 score:-1 suicide +3 for a kill (correct)
+updated when tab is pressed
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState RealAddress="0044FD47"/>
+      <VariableType>String</VariableType>
+      <Length>2</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>Bomber.exe+4FD47</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
 
