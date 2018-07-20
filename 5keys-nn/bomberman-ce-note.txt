@@ -1,0 +1,102 @@
+number of vertical steps
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="194" RealAddress="00020020"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00020020</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+number of horizontal steps
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="266" RealAddress="0002001C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0002001C</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+key pushed: or animation ?
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="200" RealAddress="0636FDE8"/>
+      <VariableType>Byte</VariableType>
+      <Address>0636FDE8</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+hor pos of player 2:
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"No description"</Description>
+      <LastState Value="416" RealAddress="0019F7D0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0019F7D0</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+vert pos of player 1:
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="352" RealAddress="0019F7A4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0019F7A4</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+sub_2B4D0 is writing the vert pos of player 2
+
+1 when the round is finnished:
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="004440B0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+440B0</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+1 when the round is finnished:
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"No description"</Description>
+      <LastState Value="1" RealAddress="00455C9C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+55C9C</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
