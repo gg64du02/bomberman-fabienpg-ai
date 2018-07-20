@@ -100,3 +100,31 @@ sub_2B4D0 is writing the vert pos of player 2
   </CheatEntries>
 </CheatTable>
 
+1 when the round is finnished:
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="004440B0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+440B0</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+number of dead players ?
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"No description"</Description>
+      <LastState Value="1" RealAddress="00455C9C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+55C9C</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
