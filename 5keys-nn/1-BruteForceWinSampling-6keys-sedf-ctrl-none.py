@@ -21,6 +21,9 @@ import datetime
 import sys
 import time
 
+# getting PID
+import psutil
+
 
 # ============================================
 e =     [1,0,0,0,0,0]
@@ -77,7 +80,20 @@ while True:
 
 # ==================MEMORY READING PREP======================
 # TODO: please set this or automate it
-pid = 1960
+
+# get last Bomber.exe PID
+PROCNAME = "Bomber.exe"
+
+pid = -1
+
+for proc in psutil.process_iter():
+    if proc.name() == PROCNAME:
+        print(proc)
+        pid = proc.pid
+        # pid = 1960
+if(pid<0):
+    exit()
+print("pid",pid)
 
 k32 = c.windll.kernel32
 
@@ -108,7 +124,7 @@ addresses_list = range(startAddress,endAddress,0x4)
 
 # ============================================================
 
-SPEEDHACK_SPEED = 5
+SPEEDHACK_SPEED = 1
 
 def main(file_name, starting_value):
     file_name = file_name
@@ -228,6 +244,11 @@ def main(file_name, starting_value):
             ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
             numbersOFDeathInLastSeconds = unpack('I', buff)[0]
             print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
+
+            if(numbersOFDeathInLastSeconds==1):
+                print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            else:
+                print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
             # drop the current capture if p1 and p2 died
             if(numbersOFDeathInLastSeconds==1):
