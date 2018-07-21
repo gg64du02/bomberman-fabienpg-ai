@@ -252,13 +252,15 @@ def main(file_name, starting_value):
 
 
             # It finally read the string
+            buff2 = c.create_string_buffer(32)
+            bufferSize2 = (c.sizeof(buff2))
+            print("bufferSize2",bufferSize2)
+            bytesRead2 = c.c_ulonglong(0)
             tmpOffset = int(0x43FD49)
             print("tmpOffset", '%s' % hex(tmpOffset))
 
-            ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
-            # scoreStr = unpack('I', buff)[0]
-            scoreStr = unpack('BBBB', buff)
-            # scoreStr = unpack('BBBBBBBBBB', buff)
+            ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+            scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
             # 45 is -
             print("\n\nscoreStr", scoreStr)
 
