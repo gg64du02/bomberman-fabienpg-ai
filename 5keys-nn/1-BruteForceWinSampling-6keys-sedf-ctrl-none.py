@@ -57,6 +57,7 @@ anchorHWidthTopLeft = int( ( desktopWidth - WIDTH ) / 2 )
 anchorHeightBotRight = anchorHeightTopLeft + HEIGTH
 anchorWidthBotRight = anchorHWidthTopLeft + WIDTH
 
+
 if 0:
     print("desktopHeight:"+str(desktopHeight))
     print("desktopWidth:"+str(desktopWidth))
@@ -263,6 +264,24 @@ def main(file_name, starting_value):
             scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
             # 45 is -
             print("\n\nscoreStr", scoreStr)
+            test3 = [chr(i) for i in scoreStr]
+            test4 = ""
+            test5 = test4.join(test3)
+            print("test3",test3)
+            print("test4",test4)
+            print("test5",test5)
+            test6 = test5.replace('\n',' ')
+            print("test6",test6)
+            test7 = test6.split(' ')
+            print("test7",test7)
+            p1score = int(test7[0])
+            print("p1score",p1score)
+            p1kill = int(test7[4])
+            print("p1kill",p1kill)
+            p1death = int( test7[5].split('/')[1] )
+            print("p1death",p1death)
+
+            print()
 
 
 
