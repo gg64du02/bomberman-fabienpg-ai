@@ -250,6 +250,20 @@ def main(file_name, starting_value):
             else:
                 print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
+
+            # It finally read the string
+            tmpOffset = int(0x43FD49)
+            print("tmpOffset", '%s' % hex(tmpOffset))
+
+            ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
+            # scoreStr = unpack('I', buff)[0]
+            scoreStr = unpack('BBBB', buff)
+            # scoreStr = unpack('BBBBBBBBBB', buff)
+            # 45 is -
+            print("\n\nscoreStr", scoreStr)
+
+
+
             # drop the current capture if p1 and p2 died
             if(numbersOFDeathInLastSeconds==1):
                 roundEnded = True
