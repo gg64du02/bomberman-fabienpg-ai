@@ -237,6 +237,7 @@ def main(file_name, starting_value):
             # ctrl =  [0,0,0,0,1,0]
             # none =  [0,0,0,0,0,1]
             # all_keys = [e,d,s,f,ctrl,none]
+
             if(choosedKey == 0):
                 keyboard.press('e')
                 time.sleep(timePress)
@@ -261,7 +262,7 @@ def main(file_name, starting_value):
                 print("none")
 
             # debugging to test before firing the script for hours
-            # time.sleep(timePress)
+            time.sleep(timePress)
 
             if (keyboard.is_pressed('n') == True):
                 stop = True
@@ -322,6 +323,11 @@ def main(file_name, starting_value):
                     print('SAVED')
                     starting_value += 1
 
+                    keyboard.press('tab')
+                    time.sleep(0.01/SPEEDHACK_SPEED)
+                    keyboard.release('tab')
+                    time.sleep(0.01/SPEEDHACK_SPEED)
+
                     # updating infos about the game state, a break is required to work properly
                     p1killAS = p1killNew
                     p1kdeathAS = p1deathNew
@@ -341,10 +347,17 @@ def main(file_name, starting_value):
                 print('SAVED')
                 starting_value += 1
 
+                keyboard.press('tab')
+                time.sleep(0.01/SPEEDHACK_SPEED)
+                keyboard.release('tab')
+                time.sleep(0.01/SPEEDHACK_SPEED)
+
                 # updating infos about the game state, a break is required to work properly
                 p1killAS = p1killNew
                 p1kdeathAS = p1deathNew
                 p1scoreAS = p1killNew
+
+                break
 
 
             # stop the recording if it is too long (and kill the player ?)
