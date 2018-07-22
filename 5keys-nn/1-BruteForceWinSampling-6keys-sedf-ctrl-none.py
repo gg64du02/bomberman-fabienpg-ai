@@ -125,6 +125,40 @@ addresses_list = range(startAddress,endAddress,0x4)
 
 # ============================================================
 
+def getScoreKillsDeaths():
+
+    # It finally read the string
+    buff2 = c.create_string_buffer(32)
+    bufferSize2 = (c.sizeof(buff2))
+    # print("bufferSize2", bufferSize2)
+    bytesRead2 = c.c_ulonglong(0)
+    tmpOffset = int(0x43FD49)
+    print("tmpOffset", '%s' % hex(tmpOffset))
+
+    ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+    scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
+    # 45 is -
+    # print("\n\nscoreStr", scoreStr)
+    test3 = [chr(i) for i in scoreStr]
+    test4 = ""
+    test5 = test4.join(test3)
+    # print("test3", test3)
+    # print("test4", test4)
+    # print("test5", test5)
+    test6 = test5.replace('\n', ' ')
+    # print("test6", test6)
+    test7 = test6.split(' ')
+    # print("test7", test7)
+    p1score = int(test7[0])
+    # print("p1score", p1score)
+    p1kill = int(test7[4])
+    # print("p1kill", p1kill)
+    p1death = int(test7[5].split('/')[1])
+    # print("p1death", p1death)
+
+    return p1score,p1kill,p1death
+
+
 SPEEDHACK_SPEED = 1
 
 def main(file_name, starting_value):
@@ -252,37 +286,9 @@ def main(file_name, starting_value):
                 print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
 
-            # It finally read the string
-            buff2 = c.create_string_buffer(32)
-            bufferSize2 = (c.sizeof(buff2))
-            print("bufferSize2",bufferSize2)
-            bytesRead2 = c.c_ulonglong(0)
-            tmpOffset = int(0x43FD49)
-            print("tmpOffset", '%s' % hex(tmpOffset))
+            p1score, p1kill, p1death = getScoreKillsDeaths()
 
-            ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
-            scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
-            # 45 is -
-            print("\n\nscoreStr", scoreStr)
-            test3 = [chr(i) for i in scoreStr]
-            test4 = ""
-            test5 = test4.join(test3)
-            print("test3",test3)
-            print("test4",test4)
-            print("test5",test5)
-            test6 = test5.replace('\n',' ')
-            print("test6",test6)
-            test7 = test6.split(' ')
-            print("test7",test7)
-            p1score = int(test7[0])
-            print("p1score",p1score)
-            p1kill = int(test7[4])
-            print("p1kill",p1kill)
-            p1death = int( test7[5].split('/')[1] )
-            print("p1death",p1death)
-
-            print()
-
+            print("p1score, p1kill, p1death",p1score, p1kill, p1death)
 
 
             # drop the current capture if p1 and p2 died
