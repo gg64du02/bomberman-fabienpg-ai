@@ -174,6 +174,9 @@ def main(file_name, starting_value):
 
     intI = 0
 
+    # supposed to be at least not a dead player at the start
+    numbersOFDeathInLastSeconds = 0
+
     while(True):
         print("========================")
 
@@ -192,6 +195,15 @@ def main(file_name, starting_value):
             break
 
         game_data = []
+
+        while(numbersOFDeathInLastSeconds==1):
+            # 1 or >1 if a players in the lasts seconds
+            tmpOffset = int(0x455C9C)
+            print("tmpOffset", '%s' % hex(tmpOffset))
+
+            ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
+            numbersOFDeathInLastSeconds = unpack('I', buff)[0]
+            print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
 
         while(roundEnded == False):
 
@@ -280,21 +292,23 @@ def main(file_name, starting_value):
             numbersOFDeathInLastSeconds = unpack('I', buff)[0]
             print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
 
-            if(numbersOFDeathInLastSeconds==1):
-                print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            else:
-                print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
 
-            p1score, p1kill, p1death = getScoreKillsDeaths()
+            if(numbersOFDeathInLastSeconds!=0):
+                p1score, p1kill, p1death = getScoreKillsDeaths()
 
-            print("p1score, p1kill, p1death",p1score, p1kill, p1death)
+                print("p1score, p1kill, p1death", p1score, p1kill, p1death)
 
 
             # drop the current capture if p1 and p2 died
             if(numbersOFDeathInLastSeconds==1):
+                print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+
                 roundEnded = True
+
                 break
+            else:
+                print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
             # p1 and p2 are dead (including both killed themself)
             if(numbersOFDeathInLastSeconds>1):
