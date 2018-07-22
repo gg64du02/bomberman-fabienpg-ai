@@ -177,6 +177,11 @@ def main(file_name, starting_value):
     # supposed to be at least not a dead player at the start
     numbersOFDeathInLastSeconds = 0
 
+    p1scoreAS, p1killAS, p1deathAS = getScoreKillsDeaths()
+
+    # AS: At Start
+    print("at start p1scoreAS, p1killAS, p1deathAS", p1scoreAS, p1killAS, p1deathAS)
+
     while(True):
         print("========================")
 
@@ -255,6 +260,9 @@ def main(file_name, starting_value):
             if (choosedKey == 5):
                 print("none")
 
+            # debugging to test before firing the script for hours
+            # time.sleep(timePress)
+
             if (keyboard.is_pressed('n') == True):
                 stop = True
 
@@ -295,9 +303,9 @@ def main(file_name, starting_value):
 
 
             if(numbersOFDeathInLastSeconds!=0):
-                p1score, p1kill, p1death = getScoreKillsDeaths()
+                p1scoreNew, p1killNew, p1deathNew = getScoreKillsDeaths()
 
-                print("p1score, p1kill, p1death", p1score, p1kill, p1death)
+                print("p1scoreNew, p1killNew, p1deathNew", p1scoreNew, p1killNew, p1deathNew)
 
 
             # drop the current capture if p1 and p2 died
@@ -305,6 +313,21 @@ def main(file_name, starting_value):
                 print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
                 roundEnded = True
+
+                # Mean the controlled player kill count changed
+                if(p1killNew!=p1killAS):
+
+                    file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+                    np.save(file_name, game_data)
+                    print('SAVED')
+                    starting_value += 1
+
+                    # updating infos about the game state, a break is required to work properly
+                    p1killAS = p1killNew
+                    p1kdeathAS = p1deathNew
+                    p1scoreAS = p1killNew
+
+                    pass
 
                 break
             else:
@@ -317,6 +340,12 @@ def main(file_name, starting_value):
                 np.save(file_name, game_data)
                 print('SAVED')
                 starting_value += 1
+
+                # updating infos about the game state, a break is required to work properly
+                p1killAS = p1killNew
+                p1kdeathAS = p1deathNew
+                p1scoreAS = p1killNew
+
 
             # stop the recording if it is too long (and kill the player ?)
             if(i == 50000):
