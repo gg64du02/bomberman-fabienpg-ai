@@ -199,6 +199,9 @@ def main(file_name, starting_value):
         if(stop == True):
             break
 
+        if(starting_value > 100):
+            exit()
+
         game_data = []
 
         while(numbersOFDeathInLastSeconds==1):
