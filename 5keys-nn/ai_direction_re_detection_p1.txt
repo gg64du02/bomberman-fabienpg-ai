@@ -1,0 +1,165 @@
+
+p2 vert
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="0019F7D0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0019F7D0</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+p2 hor
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"No description"</Description>
+      <LastState Value="608" RealAddress="0019F994"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0019F994</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+p1 controlled appuie sur la gauche ?
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00445C3C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+445C3C</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+====================================
+p1 controlled appuie sur la gauche ?
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00455B50"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+455B50</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+p1 controlled appuie sur la droite ?
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00455B50"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+455B50</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+====================================
+
+p1 controlled appuie sur le bas 
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00445C40"/>
+      <VariableType>Byte</VariableType>
+      <Address>00445C40</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+p1 controlled appuie sur le droite 
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00445C41"/>
+      <VariableType>Byte</VariableType>
+      <Address>00445C41</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+p1 controlled appuie sur le gauche 
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00445C3F"/>
+      <VariableType>Byte</VariableType>
+      <Address>00445C3F</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+p1 controlled appuie sur le haut 
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00445C32"/>
+      <VariableType>Byte</VariableType>
+      <Address>00445C32</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+VALUE W/ 4 bytes EQUAL 6
+
+p1 ai va sur la droite
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00455B50"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Bomber.exe+455B50</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+p1 ai va sur la bas
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"No description"</Description>
+      <LastState Value="0" RealAddress="00455B54"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00455B54</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
