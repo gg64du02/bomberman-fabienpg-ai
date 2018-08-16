@@ -49,8 +49,10 @@ WIDTH = int( 640 / 2 )
 HEIGHT = int( 480 / 2 )
 # 320 * 240
 
-LR = 1e-3
-EPOCHS = 1
+# LR = 1e-3
+LR = 1e-4
+# EPOCHS = 1
+EPOCHS = 5
 
 MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
 PREV_MODEL = MODEL_NAME
@@ -102,8 +104,8 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.2))
 
 model.add(Flatten())
-model.add(Dense(256, activation='relu'))
-# model.add(Dense(512, activation='relu'))
+# model.add(Dense(256, activation='relu'))
+model.add(Dense(512, activation='relu'))
 # model.add(Dense(25, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(5, activation='softmax'))

@@ -17,3 +17,5 @@ link_tensorboard.txt
 *.avi
 
 5keys-nn/BasicCNN*
+
+5keys-nn/*.CT
