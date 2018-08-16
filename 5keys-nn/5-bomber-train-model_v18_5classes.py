@@ -235,7 +235,7 @@ def generate_arrays_from_folder(folder):
 
                 model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-.h5".format(EPOCHS, learning_rate, e))
 
-                print("lol")
+                print("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-.h5".format(EPOCHS, learning_rate, e),"saved")
 
                 pass
             except Exception as e:
