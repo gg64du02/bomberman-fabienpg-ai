@@ -54,7 +54,7 @@ LR = 1e-4
 # EPOCHS = 1
 EPOCHS = 5
 
-MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v18_5classes.h5'
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = False
@@ -117,7 +117,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer=opt,
               metrics=['accuracy'])
 
-tensorboard = TensorBoard(log_dir="logs/STAGE1")
+# tensorboard = TensorBoard(log_dir="logs/STAGE1")
 
 
 if LOAD_MODEL:
@@ -154,6 +154,9 @@ def generate_arrays_from_folder(folder):
 
                 # full file info
                 train_data = np.load(file_name)
+
+                # # testing if putting a memory stick might help
+                # train_data = train_data[0:int(len(train_data)/10)]
 
                 print("train_data[0,0].shape:",train_data[0,0].shape)
                 print("train_data[0,1]:",train_data[0,1])
@@ -221,11 +224,16 @@ def generate_arrays_from_folder(folder):
                 # test_size = len(train_data)
                 test_size = 100
 
-                x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3)
+                x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3) / 255
                 y_train = np.array([i[1] for i in train_data[:-test_size]]).reshape(-1,5)
 
-                x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3)
+
+                x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3) / 255
                 y_test = np.array([i[1] for i in train_data[-test_size:]]).reshape(-1,5)
+
+                # # normalization: make it easier for the CNN to learn ?
+                # x_train = tf.keras.utils.normalize(x_train, axis=1)
+                # x_test = tf.keras.utils.normalize(x_test, axis=1)
 
                 model.fit(x_train, y_train,
                           batch_size=100,
