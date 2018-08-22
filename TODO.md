@@ -1,3 +1,7 @@
+# TODO: 5keys-nn: modify to store image as grey scale (collecting, merging, training)
+
+# TODO: 5keys-nn: check CNN's pattern
+
 # TODO: static ai: in AvailiablePath: make better awareness with listOfBommbs
 
 # TODO: static ai: check AvailiablePath for execution time (make avariables global?)
