@@ -117,7 +117,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer=opt,
               metrics=['accuracy'])
 
-# tensorboard = TensorBoard(log_dir="logs/STAGE1")
+tensorboard = TensorBoard(log_dir="logs/STAGE1")
 
 
 if LOAD_MODEL:
@@ -224,11 +224,13 @@ def generate_arrays_from_folder(folder):
                 # test_size = len(train_data)
                 test_size = 100
 
-                x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3) / 255
+                x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3)
+                # x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3) / 255
                 y_train = np.array([i[1] for i in train_data[:-test_size]]).reshape(-1,5)
 
 
-                x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3) / 255
+                x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3)
+                # x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3) / 255
                 y_test = np.array([i[1] for i in train_data[-test_size:]]).reshape(-1,5)
 
                 # # normalization: make it easier for the CNN to learn ?
