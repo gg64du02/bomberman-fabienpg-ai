@@ -39,6 +39,7 @@ from keras.callbacks import TensorBoard
 # https://keras.io/optimizers/
 # https://keras.io/models/model/
 
+from keras.layers import Cropping2D
 
 # FILE_I_END = 19
 FILE_I_END = 10
@@ -81,32 +82,36 @@ from keras.layers.core import Activation
 
 
 model = Sequential()
-# model.add(Conv2D(32, (3, 3), padding='same',
-#                  input_shape=(176, 200, 3),
+# model.add(Conv2D(32, (16, 16), padding='same',
+#                  input_shape=(240, 320, 3),
 #                  activation='relu'))
-model.add(Conv2D(32, (3, 3), padding='same',
-                 input_shape=(240, 320, 3),
-                 activation='relu'))
-model.add(Conv2D(32, (3, 3), activation='relu'))
+# model.add(Conv2D(2, (3, 3), padding='same',
+#                  input_shape=(240, 320, 3),
+#                  activation='relu'))
+# model.add(Conv2D(4, (8, 8), padding='same',
+#                  input_shape=(240, 320, 3),
+#                  activation='relu'))
+model.add(Cropping2D(cropping=(16, 16),
+                     input_shape=(240, 320, 3)))
+model.add(Conv2D(16, (8, 8), activation='relu'))
+# model.add(Conv2D(32, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.2))
 
-model.add(Conv2D(64, (3, 3), padding='same',
-                 activation='relu'))
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.2))
-
-model.add(Conv2D(128, (3, 3), padding='same',
-                 activation='relu'))
-model.add(Conv2D(128, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.2))
+# model.add(Conv2D(64, (3, 3), padding='same',
+#                  activation='relu'))
+# model.add(Conv2D(64, (3, 3), activation='relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Dropout(0.2))
+#
+# model.add(Conv2D(128, (3, 3), padding='same',
+#                  activation='relu'))
+# model.add(Conv2D(128, (3, 3), activation='relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Dropout(0.2))
 
 model.add(Flatten())
-# model.add(Dense(256, activation='relu'))
 model.add(Dense(512, activation='relu'))
-# model.add(Dense(25, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(5, activation='softmax'))
 
@@ -117,25 +122,10 @@ model.compile(loss='categorical_crossentropy',
               optimizer=opt,
               metrics=['accuracy'])
 
-# tensorboard = TensorBoard(log_dir="logs/STAGE1")
-
 
 if LOAD_MODEL:
     keras.models.load_model(PREV_MODEL)
     print('We have loaded a previous model!!!!')
-
-# iterates through the training files
-# init callback function fro tensor board
-# use: tensorboard --logdir path_to_current_dir/Graph
-# tbCallBack = keras.callbacks.TensorBoard(log_dir='./Graph',
-#         histogram_freq=0, write_graph=True, write_images=True)
-# tbCallBack = keras.callbacks.TensorBoard(log_dir='D:/Graph',
-#         histogram_freq=0, write_graph=True, write_images=True)
-# tbCallBack = print("tbCallBack:")
-
-# use tensorboard on those
-# dense_3_loss
-# acc
 
 
 def generate_arrays_from_folder(folder):
@@ -147,8 +137,6 @@ def generate_arrays_from_folder(folder):
         for count, i in enumerate(data_order):
 
             try:
-                # file_name = './'+folder+'/bomberman-dataset-0.npy'
-                # file_name = './'+folder+'/bomberman-dataset-{}.npy'.format(i)
                 file_name = './'+folder+'/training_data_merged-partial-dataset-{}.npy'.format(i)
                 print("file_name:",file_name)
 
@@ -215,7 +203,7 @@ def generate_arrays_from_folder(folder):
                 # yield(data/255, one_hot_labels)
 
                 print("data.shape:",data.shape)
-                # data.shape: (3225, 76800)
+
                 print("len(one_hot_labels):",len(one_hot_labels))
                 # len(one_hot_labels): 3225
                 print("len(one_hot_labels[0]):",len(one_hot_labels[0]))
@@ -225,12 +213,10 @@ def generate_arrays_from_folder(folder):
                 test_size = 100
 
                 x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3)
-                # x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3) / 255
                 y_train = np.array([i[1] for i in train_data[:-test_size]]).reshape(-1,5)
 
 
                 x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3)
-                # x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3) / 255
                 y_test = np.array([i[1] for i in train_data[-test_size:]]).reshape(-1,5)
 
                 # # normalization: make it easier for the CNN to learn ?
@@ -255,7 +241,8 @@ def generate_arrays_from_folder(folder):
 
 # model.fit_generator(generate_arrays_from_folder('phase-3'),
 #                     steps_per_epoch=5, epochs=EPOCHS)
-#
-# model.save(MODEL_NAME)
+
 
 generate_arrays_from_folder('phase-3')
+
+model.save(MODEL_NAME)
