@@ -91,9 +91,11 @@ model = Sequential()
 # model.add(Conv2D(4, (8, 8), padding='same',
 #                  input_shape=(240, 320, 3),
 #                  activation='relu'))
-model.add(Cropping2D(cropping=(16, 16),
+# model.add(Cropping2D(cropping=(16, 16),
+#                      input_shape=(240, 320, 3)))
+model.add(Cropping2D(cropping=8,
                      input_shape=(240, 320, 3)))
-model.add(Conv2D(16, (8, 8), activation='relu'))
+model.add(Conv2D(8, (8, 8), activation='softmax'))
 # model.add(Conv2D(32, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.2))
@@ -143,8 +145,8 @@ def generate_arrays_from_folder(folder):
                 # full file info
                 train_data = np.load(file_name)
 
-                # # testing if putting a memory stick might help
-                # train_data = train_data[0:int(len(train_data)/10)]
+                # testing if putting a memory stick might help
+                train_data = train_data[0:int(len(train_data)/10)]
 
                 print("train_data[0,0].shape:",train_data[0,0].shape)
                 print("train_data[0,1]:",train_data[0,1])
