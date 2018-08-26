@@ -147,6 +147,9 @@ def generate_arrays_from_folder(folder):
 
                 # # testing if putting a memory stick might help
                 # train_data = train_data[0:int(len(train_data)/2)]
+                # train_data = train_data[0:int(len(train_data)/2)]
+                # lol = int( ( len(train_data) - len(train_data) % 100 ) / 100 )
+                train_data = train_data[0: 2000 ]
 
                 print("train_data[0,0].shape:",train_data[0,0].shape)
                 print("train_data[0,1]:",train_data[0,1])
