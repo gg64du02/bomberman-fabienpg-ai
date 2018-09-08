@@ -435,6 +435,10 @@ def availiablePathToControlledPlayer(availiablePath, getPlayerPosition):
 # support player 1, 2
 def GetPlayerPosition(screen, number):
     # number 1 2 3 4
+    #DONE: fix position detection when the red player is underneath (same tile)
+    # the green player
+    # TODO: see to remember the last known position or ajust level to get more
+    # fiting threshold
 
     if(number==1):
         H_min = 0
@@ -481,6 +485,12 @@ def GetPlayerPosition(screen, number):
         sum_x = sum_x / len(i)
         sum_y = sum_y / len(i)
     # print(sum_x,sum_y)
+
+    if(len(cnts)==0):
+        print("if(len(cnts)==0):\nred player is hidden underneath green ?\n")
+        # returning green player position
+        return GetPlayerPosition(screen, 2)
+
 
     # y,x convention
 
