@@ -723,6 +723,11 @@ def IsItABomb(pixel):
 
 while True:
 
+    # TODO: smarter logic about bomb location/placement to kill enemy
+    # TODO: And bomb timing
+    # TODO: bomb route clipping? (to avoid trying to go to somewhere
+    #  unavailable because of bombs)
+
     # getting the window mode screen
     screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
                                  anchorWidthBotRight, anchorHeightBotRight))
