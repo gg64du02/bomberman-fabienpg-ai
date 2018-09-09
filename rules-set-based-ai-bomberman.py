@@ -318,7 +318,6 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 def closest_node(node, nodes):
     # todo: make a cross pattern around the enemy and select the best spot to put the bomb
     # the ideal would be to make the green player stuck....
-    # neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     closest_index = distance.cdist([node], nodes).argmin()
     return nodes[closest_index]
 
@@ -333,6 +332,26 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # objective to bomb
     closest_node1=closest_node(player2indexes,potentialPathList)
     # print("closest_node1:",closest_node1)
+
+
+    neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    best_bomb_spot = []
+    for i, j in neighbors:
+        neighbor = player1indexes[0] + i, player1indexes[1] + j
+        point_around_enemy = neighbor
+        path_point_around_enemy = astar(potentialPath, point_around_enemy, player1indexes)
+        if (path_point_around_enemy != False):
+            best_bomb_spot.append(len(path_point_around_enemy))
+        else:
+            print("if (path_point_around_enemy == False):")
+    print("best_bomb_spot:",best_bomb_spot)
+    if(best_bomb_spot!=[]):
+        mightbe_best_target = min(best_bomb_spot)
+        print("mightbe_best_target:",mightbe_best_target)
+    else:
+        print("if(best_bomb_spot==[]):")
+
+
 
     global previousPlayer1Position
 
