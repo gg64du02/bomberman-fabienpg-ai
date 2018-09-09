@@ -316,6 +316,9 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 
 
 def closest_node(node, nodes):
+    # todo: make a cross pattern around the enemy and select the best spot to put the bomb
+    # the ideal would be to make the green player stuck....
+    # neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     closest_index = distance.cdist([node], nodes).argmin()
     return nodes[closest_index]
 
