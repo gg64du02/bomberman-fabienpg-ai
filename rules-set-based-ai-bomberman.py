@@ -338,18 +338,54 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     best_bomb_spot = []
     for i, j in neighbors:
         neighbor = player1indexes[0] + i, player1indexes[1] + j
-        point_around_enemy = neighbor
-        path_point_around_enemy = astar(potentialPath, point_around_enemy, player1indexes)
-        if (path_point_around_enemy != False):
-            best_bomb_spot.append(len(path_point_around_enemy))
+        print("neighbor:",neighbor)
+        # print("potentialPath[neighbor]:",potentialPath[neighbor])
+        # one is available to go into zero is blocked
+        currentTileState = potentialPath[neighbor]
+        # testing if we can walk into the tile (to put a bomb)
+        if(int(currentTileState)==1):
+            # print("if(int(currentTileState)==1):")
+
+            # supposing we put a bomb
+            potentialPath[neighbor] = 0
+
+            playerYindex = player2indexes[0]
+            playerXindex = player2indexes[1]
+
+            labeled = measure.label(availiablePath, background=False, connectivity=1)
+            # reversed X,Y why ?
+
+            # print("labeled.shape:",labeled.shape)
+            # on the bottom line
+            label = labeled[playerYindex, playerXindex]  # known pixel location
+
+            rp = measure.regionprops(labeled)
+            props = rp[label - 1]  # background is labeled 0, not in rp
+
+            # props.bbox  # (min_row, min_col, max_row, max_col)
+            # props.image  # array matching the bbox sub-image
+            # print(len(props.coords))  # list of (row,col) pixel indices
+            regionSize = len(props.coords)
+
+            print("regionSize:",regionSize)
+
+            best_bomb_spot.append(regionSize)
+
+            # restoring the tilef
+            potentialPath[neighbor] = 1
         else:
-            print("if (path_point_around_enemy == False):")
+            print("!if(int(currentTileState)==1):")
+            pass
+
     print("best_bomb_spot:",best_bomb_spot)
-    if(best_bomb_spot!=[]):
-        mightbe_best_target = min(best_bomb_spot)
-        print("mightbe_best_target:",mightbe_best_target)
-    else:
-        print("if(best_bomb_spot==[]):")
+    # if(best_bomb_spot!=[]):
+    #     mightbe_best_target = min(best_bomb_spot)
+    #     print("mightbe_best_target:",mightbe_best_target)
+    #     whichIsTheBestPoint = best_bomb_spot.index(mightbe_best_target)
+    #     print("whichIsTheBestPoint:",whichIsTheBestPoint)
+    #
+    # else:
+    #     print("if(best_bomb_spot==[]):")
 
 
 
