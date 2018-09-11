@@ -291,25 +291,25 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
     # timePress = random.randint(5)*0.01
 
     # upward
-    if(playerPos[0]>nextStepPos[0]):
-        keyboard.press('e')
-        time.sleep(timePress)
-        keyboard.release('e')
-    # downward
-    if(playerPos[0]<nextStepPos[0]):
-        keyboard.press('d')
-        time.sleep(timePress)
-        keyboard.release('d')
-    # rightward
-    if(playerPos[1]<nextStepPos[1]):
-        keyboard.press('f')
-        time.sleep(timePress)
-        keyboard.release('f')
-    # leftward
-    if (playerPos[1] > nextStepPos[1]):
-        keyboard.press('s')
-        time.sleep(timePress)
-        keyboard.release('s')
+    # if(playerPos[0]>nextStepPos[0]):
+    #     keyboard.press('e')
+    #     time.sleep(timePress)
+    #     keyboard.release('e')
+    # # downward
+    # if(playerPos[0]<nextStepPos[0]):
+    #     keyboard.press('d')
+    #     time.sleep(timePress)
+    #     keyboard.release('d')
+    # # rightward
+    # if(playerPos[1]<nextStepPos[1]):
+    #     keyboard.press('f')
+    #     time.sleep(timePress)
+    #     keyboard.release('f')
+    # # leftward
+    # if (playerPos[1] > nextStepPos[1]):
+    #     keyboard.press('s')
+    #     time.sleep(timePress)
+    #     keyboard.release('s')
 
     pass
 
@@ -341,41 +341,56 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         print("neighbor:",neighbor)
         # print("potentialPath[neighbor]:",potentialPath[neighbor])
         # one is available to go into zero is blocked
-        currentTileState = potentialPath[neighbor]
-        # testing if we can walk into the tile (to put a bomb)
-        if(int(currentTileState)==1):
-            # print("if(int(currentTileState)==1):")
+        if(isIndexesRange(neighbor)):
+            print("if(isIndexesRange(neighbor)):")
+            currentTileState = potentialPath[neighbor]
+            # testing if we can walk into the tile (to put a bomb)
+            if(int(currentTileState)==1):
+                # print("if(int(currentTileState)==1):")
 
-            # supposing we put a bomb
-            potentialPath[neighbor] = 0
+                # supposing we put a bomb
+                potentialPath[neighbor] = 0
 
-            playerYindex = player2indexes[0]
-            playerXindex = player2indexes[1]
+                print("availiablePath:",availiablePath)
 
-            labeled = measure.label(availiablePath, background=False, connectivity=1)
-            # reversed X,Y why ?
+                for k in listOfBombs:
+                    print("k:",k)
+                    # if(isIndexesRange(k)):
+                    #     availiablePath[k] = 0
 
-            # print("labeled.shape:",labeled.shape)
-            # on the bottom line
-            label = labeled[playerYindex, playerXindex]  # known pixel location
+                playerYindex = player2indexes[0]
+                playerXindex = player2indexes[1]
 
-            rp = measure.regionprops(labeled)
-            props = rp[label - 1]  # background is labeled 0, not in rp
+                labeled = measure.label(availiablePath, background=False, connectivity=1)
+                # reversed X,Y why ?
 
-            # props.bbox  # (min_row, min_col, max_row, max_col)
-            # props.image  # array matching the bbox sub-image
-            # print(len(props.coords))  # list of (row,col) pixel indices
-            regionSize = len(props.coords)
+                # print("labeled.shape:",labeled.shape)
+                # on the bottom line
+                label = labeled[playerYindex, playerXindex]  # known pixel location
 
-            print("regionSize:",regionSize)
+                rp = measure.regionprops(labeled)
+                props = rp[label - 1]  # background is labeled 0, not in rp
 
-            best_bomb_spot.append(regionSize)
+                # props.bbox  # (min_row, min_col, max_row, max_col)
+                # props.image  # array matching the bbox sub-image
+                # print(len(props.coords))  # list of (row,col) pixel indices
+                regionSize = len(props.coords)
 
-            # restoring the tilef
-            potentialPath[neighbor] = 1
-        else:
-            print("!if(int(currentTileState)==1):")
-            pass
+                print("regionSize:",regionSize)
+
+                best_bomb_spot.append(regionSize)
+
+                # availiablePathRet = np.zeros((15, 20))
+
+                # restoring the tilef
+                potentialPath[neighbor] = 1
+
+                # for k in listOfBombs:
+                #     if(isIndexesRange(k)):
+                #         availiablePath[k] = 1
+            else:
+                print("!if(int(currentTileState)==1):")
+                pass
 
     print("best_bomb_spot:",best_bomb_spot)
     # if(best_bomb_spot!=[]):
@@ -421,31 +436,32 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     tmpCoincoin = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
     # print("tmpCoincoin:", tmpCoincoin)
 
-    timeToUnstuck = 0.05
-    # if(tmpCoincoin[0]<5):
-    if(tmpCoincoin[0]<6):
-        # print("stuck?")
-        keyboard.press('d')
-        time.sleep(timeToUnstuck)
-        keyboard.release('d')
-    # if(tmpCoincoin[0]>27):
-    if(tmpCoincoin[0]>26):
-        # print("stuck?")
-        keyboard.press('e')
-        time.sleep(timeToUnstuck)
-        keyboard.release('e')
-    # if(tmpCoincoin[1]<5):
-    if(tmpCoincoin[0]<6):
-        # print("stuck?")
-        keyboard.press('f')
-        time.sleep(timeToUnstuck)
-        keyboard.release('f')
-    # if(tmpCoincoin[1]>27):
-    if(tmpCoincoin[0]>26):
-        # print("stuck?")
-        keyboard.press('s')
-        time.sleep(timeToUnstuck)
-        keyboard.release('s')
+    timeToUnstuck = 0.5
+    time.sleep(timeToUnstuck)
+    # # if(tmpCoincoin[0]<5):
+    # if(tmpCoincoin[0]<6):
+    #     # print("stuck?")
+    #     keyboard.press('d')
+    #     time.sleep(timeToUnstuck)
+    #     keyboard.release('d')
+    # # if(tmpCoincoin[0]>27):
+    # if(tmpCoincoin[0]>26):
+    #     # print("stuck?")
+    #     keyboard.press('e')
+    #     time.sleep(timeToUnstuck)
+    #     keyboard.release('e')
+    # # if(tmpCoincoin[1]<5):
+    # if(tmpCoincoin[0]<6):
+    #     # print("stuck?")
+    #     keyboard.press('f')
+    #     time.sleep(timeToUnstuck)
+    #     keyboard.release('f')
+    # # if(tmpCoincoin[1]>27):
+    # if(tmpCoincoin[0]>26):
+    #     # print("stuck?")
+    #     keyboard.press('s')
+    #     time.sleep(timeToUnstuck)
+    #     keyboard.release('s')
 
     previousPlayer1Position = player1indexes
 
@@ -814,7 +830,7 @@ while True:
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
-    # print("availiablePath:\n",availiablePath)
+    print("availiablePath:\n",availiablePath)
 
     # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
     # print("screenAveraged[:,8].astype(int):\n",screenAveraged[:,8].astype(int))
@@ -823,13 +839,13 @@ while True:
 
     # DONE: remove the bottom line
     # print("regionSize:",regionSize)
-    # print("potentialPath:\n",potentialPath)
+    print("potentialPath:\n",potentialPath)
 
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
     player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
 
-    # print("player1indexes:",player1indexes)
-    # print("player2indexes:",player2indexes)
+    print("player1indexes:",player1indexes)
+    print("player2indexes:",player2indexes)
 
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
