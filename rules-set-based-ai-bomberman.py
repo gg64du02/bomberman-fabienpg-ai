@@ -280,6 +280,7 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
 # MoveToTheTileNextToMe(player1indexes,node)
 # rightward (0,1)
 # left (0,-1)
+# left (0,-1)
 # downward (1,0)
 # upward (-1,0)
 def MoveToTheTileNextToMe(playerPos, nextStepPos):
@@ -291,25 +292,25 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
     # timePress = random.randint(5)*0.01
 
     # upward
-    # if(playerPos[0]>nextStepPos[0]):
-    #     keyboard.press('e')
-    #     time.sleep(timePress)
-    #     keyboard.release('e')
-    # # downward
-    # if(playerPos[0]<nextStepPos[0]):
-    #     keyboard.press('d')
-    #     time.sleep(timePress)
-    #     keyboard.release('d')
-    # # rightward
-    # if(playerPos[1]<nextStepPos[1]):
-    #     keyboard.press('f')
-    #     time.sleep(timePress)
-    #     keyboard.release('f')
-    # # leftward
-    # if (playerPos[1] > nextStepPos[1]):
-    #     keyboard.press('s')
-    #     time.sleep(timePress)
-    #     keyboard.release('s')
+    if(playerPos[0]>nextStepPos[0]):
+        keyboard.press('e')
+        time.sleep(timePress)
+        keyboard.release('e')
+    # downward
+    if(playerPos[0]<nextStepPos[0]):
+        keyboard.press('d')
+        time.sleep(timePress)
+        keyboard.release('d')
+    # rightward
+    if(playerPos[1]<nextStepPos[1]):
+        keyboard.press('f')
+        time.sleep(timePress)
+        keyboard.release('f')
+    # leftward
+    if (playerPos[1] > nextStepPos[1]):
+        keyboard.press('s')
+        time.sleep(timePress)
+        keyboard.release('s')
 
     pass
 
@@ -333,6 +334,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     closest_node1=closest_node(player2indexes,potentialPathList)
     # print("closest_node1:",closest_node1)
 
+    # todo: add escaping when putting a bomb (disabled because availablePath is now putting bombs
+    # as unavailable spot to walk onto)
 
     neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     best_bomb_spot = []
@@ -351,10 +354,10 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # supposing we put a bomb
                 potentialPath[neighbor] = 0
 
-                print("availiablePath:",availiablePath)
+                # print("availiablePath:",availiablePath)
 
-                for k in listOfBombs:
-                    print("k:",k)
+                # for k in listOfBombs:
+                #     print("k:",k)
                     # if(isIndexesRange((k[1],k[0]))):
                     #     availiablePath[(k[1],k[0])] = 0
 
@@ -385,8 +388,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # restoring the tilef
                 potentialPath[neighbor] = 1
 
-                for k in listOfBombs:
-                    print("lol")
+                # for k in listOfBombs:
+                #     print("lol")
                     # if(isIndexesRange((k[1],k[0]))):
                     #     availiablePath[(k[1],k[0])] = 1
             else:
@@ -437,32 +440,32 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     tmpCoincoin = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
     # print("tmpCoincoin:", tmpCoincoin)
 
-    timeToUnstuck = 0
+    timeToUnstuck = 0.05
     time.sleep(timeToUnstuck)
-    # # if(tmpCoincoin[0]<5):
-    # if(tmpCoincoin[0]<6):
-    #     # print("stuck?")
-    #     keyboard.press('d')
-    #     time.sleep(timeToUnstuck)
-    #     keyboard.release('d')
-    # # if(tmpCoincoin[0]>27):
-    # if(tmpCoincoin[0]>26):
-    #     # print("stuck?")
-    #     keyboard.press('e')
-    #     time.sleep(timeToUnstuck)
-    #     keyboard.release('e')
-    # # if(tmpCoincoin[1]<5):
-    # if(tmpCoincoin[0]<6):
-    #     # print("stuck?")
-    #     keyboard.press('f')
-    #     time.sleep(timeToUnstuck)
-    #     keyboard.release('f')
-    # # if(tmpCoincoin[1]>27):
-    # if(tmpCoincoin[0]>26):
-    #     # print("stuck?")
-    #     keyboard.press('s')
-    #     time.sleep(timeToUnstuck)
-    #     keyboard.release('s')
+    # if(tmpCoincoin[0]<5):
+    if(tmpCoincoin[0]<6):
+        # print("stuck?")
+        keyboard.press('d')
+        time.sleep(timeToUnstuck)
+        keyboard.release('d')
+    # if(tmpCoincoin[0]>27):
+    if(tmpCoincoin[0]>26):
+        # print("stuck?")
+        keyboard.press('e')
+        time.sleep(timeToUnstuck)
+        keyboard.release('e')
+    # if(tmpCoincoin[1]<5):
+    if(tmpCoincoin[0]<6):
+        # print("stuck?")
+        keyboard.press('f')
+        time.sleep(timeToUnstuck)
+        keyboard.release('f')
+    # if(tmpCoincoin[1]>27):
+    if(tmpCoincoin[0]>26):
+        # print("stuck?")
+        keyboard.press('s')
+        time.sleep(timeToUnstuck)
+        keyboard.release('s')
 
     previousPlayer1Position = player1indexes
 
@@ -840,7 +843,7 @@ while True:
 
     # DONE: remove the bottom line
     # print("regionSize:",regionSize)
-    print("potentialPath:\n",potentialPath)
+    # print("potentialPath:\n",potentialPath)
 
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
     player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
