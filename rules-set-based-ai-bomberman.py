@@ -355,8 +355,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
                 for k in listOfBombs:
                     print("k:",k)
-                    # if(isIndexesRange(k)):
-                    #     availiablePath[k] = 0
+                    # if(isIndexesRange((k[1],k[0]))):
+                    #     availiablePath[(k[1],k[0])] = 0
 
                 playerYindex = player2indexes[0]
                 playerXindex = player2indexes[1]
@@ -385,9 +385,10 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # restoring the tilef
                 potentialPath[neighbor] = 1
 
-                # for k in listOfBombs:
-                #     if(isIndexesRange(k)):
-                #         availiablePath[k] = 1
+                for k in listOfBombs:
+                    print("lol")
+                    # if(isIndexesRange((k[1],k[0]))):
+                    #     availiablePath[(k[1],k[0])] = 1
             else:
                 print("!if(int(currentTileState)==1):")
                 pass
@@ -436,7 +437,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     tmpCoincoin = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
     # print("tmpCoincoin:", tmpCoincoin)
 
-    timeToUnstuck = 0.5
+    timeToUnstuck = 0
     time.sleep(timeToUnstuck)
     # # if(tmpCoincoin[0]<5):
     # if(tmpCoincoin[0]<6):
@@ -690,11 +691,11 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
             #     print("!True\n")
         # if(IsItABomb(screenAveragedToInt[y,x])==True):
         #     availiableSpots[y,x] = False
-    # for bomb in listOfBombs:
-    #     print("bomb:",bomb)
-    #     y = bomb[0]
-    #     x = bomb[1]
-    #     availiableSpots[y,x] = False
+    for bomb in listOfBombs:
+        print("bomb:",bomb)
+        y = bomb[0]
+        x = bomb[1]
+        availiableSpots[y,x] = False
 
     return availiableSpots
 
@@ -825,7 +826,7 @@ while True:
 
     listOfBombs = listBombsPositions(screenAveraged)
 
-    # print("listOfBombs:",listOfBombs)
+    print("listOfBombs:",listOfBombs)
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
