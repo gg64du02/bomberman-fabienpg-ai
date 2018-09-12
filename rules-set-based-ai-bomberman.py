@@ -175,15 +175,13 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
 
         # next to a bomb blast
         if(blastinPositions[y,x]==1):
-            print("====================")
-            print("[y,x]     :",[y,x])
+            # print("====================")
+            # print("[y,x]     :",[y,x])
 
             # check every neighboors
             for neighboor in neighboors:
-                # print("neighboor:",neighboor)
-                # nodeTested = np.subtract([x,y], neighboor)
                 nodeTested = np.subtract([y,x], neighboor)
-                print("nodeTested:",nodeTested)
+                # print("nodeTested:",nodeTested)
                 inRange = isIndexesRange(nodeTested)
                 if(inRange==True):
                     # 7th iter
@@ -341,14 +339,20 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # as unavailable spot to walk onto)
 
     neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+    # neighborTiles = np.subtract([player1indexes[0],player1indexes[1]], neighbors)
+
     best_bomb_spot = []
+
+    # bestBombSpotPos = (0,0)
+    # bestBombSpotPos = []
     for i, j in neighbors:
         neighbor = player1indexes[0] + i, player1indexes[1] + j
-        print("neighbor:",neighbor)
+        # print("neighbor:",neighbor)
         # print("potentialPath[neighbor]:",potentialPath[neighbor])
         # one is available to go into zero is blocked
         if(isIndexesRange(neighbor)):
-            print("if(isIndexesRange(neighbor)):")
+            # print("if(isIndexesRange(neighbor)):")
             currentTileState = potentialPath[neighbor]
             # testing if we can walk into the tile (to put a bomb)
             if(int(currentTileState)==1):
@@ -382,9 +386,12 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # print(len(props.coords))  # list of (row,col) pixel indices
                 regionSize = len(props.coords)
 
+                print("neighbor:", neighbor)
                 print("regionSize:",regionSize)
 
                 best_bomb_spot.append(regionSize)
+
+                # bestBombSpotPos =
 
                 # availiablePathRet = np.zeros((15, 20))
 
@@ -396,7 +403,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                     # if(isIndexesRange((k[1],k[0]))):
                     #     availiablePath[(k[1],k[0])] = 1
             else:
-                print("!if(int(currentTileState)==1):")
+                # print("!if(int(currentTileState)==1):")
                 pass
 
     print("best_bomb_spot:",best_bomb_spot)
