@@ -320,7 +320,11 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 def closest_node(node, nodes):
     # todo: make a cross pattern around the enemy and select the best spot to put the bomb
     # the ideal would be to make the green player stuck....
+    # todo: use cheat engine to pause the game to debug it and trigger the bug: xb-2 must be 2 dimensions
     closest_index = distance.cdist([node], nodes).argmin()
+    print("node", node)
+    print("nodes", nodes)
+    print("type(node):",type(node))
     return nodes[closest_index]
 
 
@@ -340,28 +344,38 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
-    # neighborTiles = np.subtract([player1indexes[0],player1indexes[1]], neighbors)
+    neighborTiles = np.subtract([player2indexes[0],player2indexes[1]], neighbors)
+
+    print("neighborTiles: ",neighborTiles)
 
     best_bomb_spot = []
 
     # bestBombSpotPos = (0,0)
-    # bestBombSpotPos = []
-    for i, j in neighbors:
-        neighbor = player1indexes[0] + i, player1indexes[1] + j
+    bestBombSpotPos = []
+
+    regionSizePrevious = 300
+
+    for i, j in neighborTiles:
+        print("i,j:",i,j)
+        # neighbor = player1indexes[0] + i, player1indexes[1] + j
         # print("neighbor:",neighbor)
         # print("potentialPath[neighbor]:",potentialPath[neighbor])
         # one is available to go into zero is blocked
-        if(isIndexesRange(neighbor)):
-            # print("if(isIndexesRange(neighbor)):")
-            currentTileState = potentialPath[neighbor]
+        if(isIndexesRange((i,j))):
+            print("if(isIndexesRange((i,j))):")
+            print("potentialPath:",potentialPath)
+            currentTileState = potentialPath[(i,j)]
             # testing if we can walk into the tile (to put a bomb)
+
             if(int(currentTileState)==1):
-                # print("if(int(currentTileState)==1):")
+                print("if(int(currentTileState)==1):")
 
                 # supposing we put a bomb
-                potentialPath[neighbor] = 0
+                potentialPath[(i,j)] = 0
 
                 # print("availiablePath:",availiablePath)
+
+                print("potentialPath(mod):", potentialPath)
 
                 # for k in listOfBombs:
                 #     print("k:",k)
@@ -371,7 +385,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 playerYindex = player2indexes[0]
                 playerXindex = player2indexes[1]
 
-                labeled = measure.label(availiablePath, background=False, connectivity=1)
+                # labeled = measure.label(availiablePath, background=False, connectivity=1)
+                labeled = measure.label(potentialPath, background=False, connectivity=1)
                 # reversed X,Y why ?
 
                 # print("labeled.shape:",labeled.shape)
@@ -386,17 +401,25 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # print(len(props.coords))  # list of (row,col) pixel indices
                 regionSize = len(props.coords)
 
-                print("neighbor:", neighbor)
+                print("(i,j):", (i,j))
                 print("regionSize:",regionSize)
 
                 best_bomb_spot.append(regionSize)
 
-                # bestBombSpotPos =
+                print("regionSizePrevious",regionSizePrevious)
+                print("regionSize",regionSize)
+                print("bestBombSpotPos",bestBombSpotPos)
+
+                if(regionSizePrevious>regionSize):
+                    regionSizePrevious = regionSize
+                    bestBombSpotPos = (i,j)
 
                 # availiablePathRet = np.zeros((15, 20))
 
                 # restoring the tilef
-                potentialPath[neighbor] = 1
+                potentialPath[(i,j)] = 1
+
+                potentialPath[(i,j)] = currentTileState
 
                 # for k in listOfBombs:
                 #     print("lol")
@@ -406,6 +429,68 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # print("!if(int(currentTileState)==1):")
                 pass
 
+
+    # for i, j in neighborTiles:
+    #     neighbor = player1indexes[0] + i, player1indexes[1] + j
+    #     # print("neighbor:",neighbor)
+    #     # print("potentialPath[neighbor]:",potentialPath[neighbor])
+    #     # one is available to go into zero is blocked
+    #     if(isIndexesRange(neighbor)):
+    #         # print("if(isIndexesRange(neighbor)):")
+    #         currentTileState = potentialPath[neighbor]
+    #         # testing if we can walk into the tile (to put a bomb)
+    #         if(int(currentTileState)==1):
+    #             # print("if(int(currentTileState)==1):")
+    #
+    #             # supposing we put a bomb
+    #             potentialPath[neighbor] = 0
+    #
+    #             # print("availiablePath:",availiablePath)
+    #
+    #             # for k in listOfBombs:
+    #             #     print("k:",k)
+    #                 # if(isIndexesRange((k[1],k[0]))):
+    #                 #     availiablePath[(k[1],k[0])] = 0
+    #
+    #             playerYindex = player2indexes[0]
+    #             playerXindex = player2indexes[1]
+    #
+    #             labeled = measure.label(availiablePath, background=False, connectivity=1)
+    #             # reversed X,Y why ?
+    #
+    #             # print("labeled.shape:",labeled.shape)
+    #             # on the bottom line
+    #             label = labeled[playerYindex, playerXindex]  # known pixel location
+    #
+    #             rp = measure.regionprops(labeled)
+    #             props = rp[label - 1]  # background is labeled 0, not in rp
+    #
+    #             # props.bbox  # (min_row, min_col, max_row, max_col)
+    #             # props.image  # array matching the bbox sub-image
+    #             # print(len(props.coords))  # list of (row,col) pixel indices
+    #             regionSize = len(props.coords)
+    #
+    #             print("neighbor:", neighbor)
+    #             print("regionSize:",regionSize)
+    #
+    #             best_bomb_spot.append(regionSize)
+    #
+    #             bestBombSpotPos = (i,j)
+    #
+    #             # availiablePathRet = np.zeros((15, 20))
+    #
+    #             # restoring the tilef
+    #             potentialPath[neighbor] = 1
+    #
+    #             # for k in listOfBombs:
+    #             #     print("lol")
+    #                 # if(isIndexesRange((k[1],k[0]))):
+    #                 #     availiablePath[(k[1],k[0])] = 1
+    #         else:
+    #             # print("!if(int(currentTileState)==1):")
+    #             pass
+
+    print("bestBombSpotPos:",bestBombSpotPos)
     print("best_bomb_spot:",best_bomb_spot)
     # if(best_bomb_spot!=[]):
     #     mightbe_best_target = min(best_bomb_spot)
@@ -864,7 +949,7 @@ while True:
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
-    # time.sleep(1)
+    time.sleep(1)
 
     if (keyboard.is_pressed('p') == True):
         paused = True
