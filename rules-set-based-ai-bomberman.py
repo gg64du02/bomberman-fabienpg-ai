@@ -384,6 +384,9 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 label = labeled[playerYindex, playerXindex]  # known pixel location
 
                 rp = measure.regionprops(labeled)
+
+                # todo: check why: props = rp[label - 1]  # background is labeled 0, not in rp IndexError: list index out of range
+
                 props = rp[label - 1]  # background is labeled 0, not in rp
 
                 # props.bbox  # (min_row, min_col, max_row, max_col)
@@ -416,6 +419,11 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     print("bestBombSpotPos:",bestBombSpotPos)
     print("best_bomb_spot:",best_bomb_spot)
 
+    if(bestBombSpotPos!=[]):
+        targetPosition = bestBombSpotPos
+    else:
+        targetPosition = closest_node1
+        # pass
 
 
     global previousPlayer1Position
@@ -423,19 +431,19 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # blast array ?
     blastinPositions = potentialPathWithinBlasts(listOfBombs, potentialPath)
 
-    if(blastinPositions[closest_node1[0],closest_node1[1]]==0):
-        # print("if(blastinPositions[closest_node1[0],closest_node1[1]]==0):")
-        # print(closest_node1,player1indexes)
-        if(np.array_equal(closest_node1,player1indexes)):
-            # print("if(closest_node1==player1indexes):")
+    if(blastinPositions[targetPosition[0],targetPosition[1]]==0):
+        # print("if(blastinPositions[targetPosition[0],targetPosition[1]]==0):")
+        # print(targetPosition,player1indexes)
+        if(np.array_equal(targetPosition,player1indexes)):
+            # print("if(targetPosition==player1indexes):")
             # putBomb
-            putBombAndStartToRunAway(player1indexes,closest_node1,potentialPath)
+            putBombAndStartToRunAway(player1indexes,targetPosition,potentialPath)
             # runAway
             GoToPositionOneStep(player1indexes,previousPlayer1Position,potentialPath)
         else:
-            # print("!if(closest_node1==player1indexes):")
+            # print("!if(targetPosition==player1indexes):")
             # goToTile
-            GoToPositionOneStep(player1indexes,closest_node1,potentialPath)
+            GoToPositionOneStep(player1indexes,targetPosition,potentialPath)
 
     if(blastinPositions[player1indexes[0],player1indexes[1]]==1):
         # print("if(blastinPositions[player1indexes[0],player1indexes[1]]):")
@@ -864,7 +872,7 @@ while True:
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
-    time.sleep(1)
+    # time.sleep(1)
 
     if (keyboard.is_pressed('p') == True):
         paused = True
