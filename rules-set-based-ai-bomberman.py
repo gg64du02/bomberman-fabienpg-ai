@@ -195,6 +195,9 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
     # sorting the points: not really usefull anymore
     listOfAdjacents = sorted(listOfAdjacents , key=lambda k: [k[1], k[0]])
 
+    if (listOfAdjacents == []):
+        print("if (listOfAdjacents == []):")
+
     return listOfAdjacents
 
 
@@ -319,10 +322,10 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 
 def closest_node(node, nodes):
     # todo: debug(crash): use cheat engine to pause the game to debug it and trigger the bug: xb-2 must be 2 dimensions
-    closest_index = distance.cdist([node], nodes).argmin()
     print("node", node)
     print("nodes", nodes)
     print("type(node):",type(node))
+    closest_index = distance.cdist([node], nodes).argmin()
     return nodes[closest_index]
 
 
@@ -452,8 +455,14 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # runAway
         nearestRunAwayNodes = adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
         # print("nearestRunAwayNodes:",nearestRunAwayNodes)
-        Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
-        GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
+        if(nearestRunAwayNodes != []):
+            Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
+            GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
+        else:
+            # todo: try to keep your distance with the bomb blocking you
+            print("oh no, I am pinned down")
+            PinnedDownClosestBombNode = closest_node(player1indexes,listOfBombs)
+            runawayFromThisTile(player1indexes,PinnedDownClosestBombNode)
 
     # print("getPlayerPosition:", getPlayerPosition)
     tmpCoincoin = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
@@ -489,6 +498,31 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     previousPlayer1Position = player1indexes
 
     pass
+
+def runawayFromThisTile(player, tile):
+    timeToUnstuck = 0.05
+
+    # upward
+    if(player[0]<tile[0]):
+        keyboard.press('e')
+        time.sleep(timeToUnstuck)
+        keyboard.release('e')
+    # downward
+    if(player[0]>tile[0]):
+        keyboard.press('d')
+        time.sleep(timeToUnstuck)
+        keyboard.release('d')
+    # rightward
+    if(player[1]>tile[1]):
+        keyboard.press('f')
+        time.sleep(timeToUnstuck)
+        keyboard.release('f')
+    # leftward
+    if (player[1]<tile[1]):
+        keyboard.press('s')
+        time.sleep(timeToUnstuck)
+        keyboard.release('s')
+
 
 def convertToIndexesGetPlayerPosition(getPlayerPosition):
     playerXindex = int( ( getPlayerPosition[0] - getPlayerPosition[0] % 32 )/32 )
