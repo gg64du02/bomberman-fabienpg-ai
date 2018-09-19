@@ -266,7 +266,7 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
 
     global previousPlayer1Position
     global pathLength
-    # TODO: implement
+
     if(nextSteps!=False):
         if(len(nextSteps)!=0):
             nextStep = nextSteps[len(nextSteps)-1]
@@ -318,9 +318,7 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 
 
 def closest_node(node, nodes):
-    # todo: make a cross pattern around the enemy and select the best spot to put the bomb
-    # the ideal would be to make the green player stuck....
-    # todo: use cheat engine to pause the game to debug it and trigger the bug: xb-2 must be 2 dimensions
+    # todo: debug(crash): use cheat engine to pause the game to debug it and trigger the bug: xb-2 must be 2 dimensions
     closest_index = distance.cdist([node], nodes).argmin()
     print("node", node)
     print("nodes", nodes)
@@ -339,8 +337,11 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     closest_node1=closest_node(player2indexes,potentialPathList)
     # print("closest_node1:",closest_node1)
 
-    # todo: add escaping when putting a bomb (disabled because availablePath is now putting bombs
+    # DONE: add escaping when putting a bomb (disabled because availablePath is now putting bombs
     # as unavailable spot to walk onto)
+    # DONE: make a cross pattern around the enemy and select the best spot to put the bomb
+    # the ideal would be to make the green player stuck....
+    # TODO: make an ai aware of bomb timing
 
     neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
@@ -385,7 +386,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
                 rp = measure.regionprops(labeled)
 
-                # todo: check why: props = rp[label - 1]  # background is labeled 0, not in rp IndexError: list index out of range
+                # todo: debug(crash): check why: props = rp[label - 1]  # background is labeled 0, not in rp IndexError: list index out of range
 
                 props = rp[label - 1]  # background is labeled 0, not in rp
 
@@ -533,7 +534,7 @@ def GetPlayerPosition(screen, number):
     # number 1 2 3 4
     #DONE: fix position detection when the red player is underneath (same tile)
     # the green player
-    # TODO: see to remember the last known position or ajust level to get more
+    # DONE: see to remember the last known position or ajust level to get more
     # fiting threshold
 
     if(number==1):
@@ -601,7 +602,6 @@ def GetPlayerPosition(screen, number):
 
 
 # DONE: fix the "filled" (even though clear) bottom path issue
-# TODO: make it so it could process any player
 def AvailiablePath(screen,screenAveraged,number,listOfBombs):
     crate = [65,151,191]
     hardBlock = [156,156,156]
@@ -772,7 +772,7 @@ for i in list(range(4))[::-1]:
     print(i+1)
     time.sleep(1)
 
-# TODO: implement this
+# testing a tile to know if it is a bomb
 def IsItABomb(pixel):
     # [45.29032258 55.72528616 62.90114464]
     # [45.29032258 53.87721124 54.82622268]
@@ -819,10 +819,8 @@ def IsItABomb(pixel):
 
 while True:
 
-    # TODO: smarter logic about bomb location/placement to kill enemy
-    # TODO: And bomb timing
-    # TODO: bomb route clipping? (to avoid trying to go to somewhere
-    #  unavailable because of bombs)
+    # DONE: smarter logic about bomb location/placement to kill enemy and bomb timing
+    # bomb route clipping? (to avoid trying to go to somewhere that will be unavailable because of bomb(s))
 
     # getting the window mode screen
     screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
