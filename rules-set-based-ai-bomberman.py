@@ -249,6 +249,7 @@ pathLength = 0
 
 def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     print("putBombAndStartToRunAway")
+    # todo: make all keypresses without sleeping
     keyboard.press('ctrl')
     time.sleep(0.15)
     keyboard.release('ctrl')
@@ -434,6 +435,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     global previousPlayer1Position
 
     # blast array ?
+    # todo: debug: fix the while line problem
     blastinPositions = potentialPathWithinBlasts(listOfBombs, potentialPath)
 
     if(blastinPositions[targetPosition[0],targetPosition[1]]==0):
@@ -471,27 +473,19 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     timeToUnstuck = 0.05
     time.sleep(timeToUnstuck)
-    # if(tmpCoincoin[0]<5):
     if(tmpCoincoin[0]<6):
-        # print("stuck?")
         keyboard.press('d')
         time.sleep(timeToUnstuck)
         keyboard.release('d')
-    # if(tmpCoincoin[0]>27):
     if(tmpCoincoin[0]>26):
-        # print("stuck?")
         keyboard.press('e')
         time.sleep(timeToUnstuck)
         keyboard.release('e')
-    # if(tmpCoincoin[1]<5):
     if(tmpCoincoin[0]<6):
-        # print("stuck?")
         keyboard.press('f')
         time.sleep(timeToUnstuck)
         keyboard.release('f')
-    # if(tmpCoincoin[1]>27):
     if(tmpCoincoin[0]>26):
-        # print("stuck?")
         keyboard.press('s')
         time.sleep(timeToUnstuck)
         keyboard.release('s')
