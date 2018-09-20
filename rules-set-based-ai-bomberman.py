@@ -219,7 +219,7 @@ def potentialPathWithinBlasts(listOfBombs,potentialPath):
             # DONE bugfix: while ((potentialPath[xTmp, yTmp] == 1) & (isIndexesRange((xTmp, yTmp)))):
             # DONE bugfix: IndexError: index 15 is out of bounds for axis 0 with size 15
             while ((potentialPath[yTmp, xTmp] == 1) and (isIndexesRange((yTmp, xTmp))==True) or tileBombOnce ==True):
-                tileBombOnce == False
+                tileBombOnce = False
                 pathInBlasts[yTmp, xTmp] = 1
                 if (i == 0):
                     xTmp += 1
