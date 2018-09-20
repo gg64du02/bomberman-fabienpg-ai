@@ -251,8 +251,8 @@ def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     print("putBombAndStartToRunAway")
     # todo: make all keypresses without sleeping
     keyboard.press('ctrl')
-    time.sleep(0.15)
-    keyboard.release('ctrl')
+    # time.sleep(0.15)
+    # keyboard.release('ctrl')
 
     currentBombPlacedPosition = player1indexes
 
@@ -299,23 +299,23 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
     # upward
     if(playerPos[0]>nextStepPos[0]):
         keyboard.press('e')
-        time.sleep(timePress)
-        keyboard.release('e')
+        # time.sleep(timePress)
+        # keyboard.release('e')
     # downward
     if(playerPos[0]<nextStepPos[0]):
         keyboard.press('d')
-        time.sleep(timePress)
-        keyboard.release('d')
+        # time.sleep(timePress)
+        # keyboard.release('d')
     # rightward
     if(playerPos[1]<nextStepPos[1]):
         keyboard.press('f')
-        time.sleep(timePress)
-        keyboard.release('f')
+        # time.sleep(timePress)
+        # keyboard.release('f')
     # leftward
     if (playerPos[1] > nextStepPos[1]):
         keyboard.press('s')
-        time.sleep(timePress)
-        keyboard.release('s')
+        # time.sleep(timePress)
+        # keyboard.release('s')
 
     pass
 
@@ -475,20 +475,20 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     time.sleep(timeToUnstuck)
     if(tmpCoincoin[0]<6):
         keyboard.press('d')
-        time.sleep(timeToUnstuck)
-        keyboard.release('d')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('d')
     if(tmpCoincoin[0]>26):
         keyboard.press('e')
-        time.sleep(timeToUnstuck)
-        keyboard.release('e')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('e')
     if(tmpCoincoin[0]<6):
         keyboard.press('f')
-        time.sleep(timeToUnstuck)
-        keyboard.release('f')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('f')
     if(tmpCoincoin[0]>26):
         keyboard.press('s')
-        time.sleep(timeToUnstuck)
-        keyboard.release('s')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('s')
 
     previousPlayer1Position = player1indexes
 
@@ -500,23 +500,23 @@ def runawayFromThisTile(player, tile):
     # upward
     if(player[0]<tile[0]):
         keyboard.press('e')
-        time.sleep(timeToUnstuck)
-        keyboard.release('e')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('e')
     # downward
     if(player[0]>tile[0]):
         keyboard.press('d')
-        time.sleep(timeToUnstuck)
-        keyboard.release('d')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('d')
     # rightward
     if(player[1]>tile[1]):
         keyboard.press('f')
-        time.sleep(timeToUnstuck)
-        keyboard.release('f')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('f')
     # leftward
     if (player[1]<tile[1]):
         keyboard.press('s')
-        time.sleep(timeToUnstuck)
-        keyboard.release('s')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('s')
 
 
 def convertToIndexesGetPlayerPosition(getPlayerPosition):
@@ -848,6 +848,8 @@ def IsItABomb(pixel):
 
 while True:
 
+    st_time = time.time()
+
     # DONE: smarter logic about bomb location/placement to kill enemy and bomb timing
     # bomb route clipping? (to avoid trying to go to somewhere that will be unavailable because of bomb(s))
 
@@ -905,6 +907,15 @@ while True:
         paused = True
         cv2.destroyAllWindows()
         break
+
+    print("time for this loop in ms:",format(time.time()-st_time))
+
+    time.sleep(0.05+random.randint(5)*0.01)
+    keyboard.release('e')
+    keyboard.release('s')
+    keyboard.release('d')
+    keyboard.release('f')
+    keyboard.release('ctrl')
 
     # too see what is capturedd
     # cv2.imshow('screen', cv2.cvtColor(screen, cv2.COLOR_BGR2RGB))
