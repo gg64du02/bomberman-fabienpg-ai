@@ -259,7 +259,7 @@ def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     MoveToTheTileNextToMe(player1indexes, node)
 
 
-def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
+def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath,blastinPositions):
 
     # potentialPath.shape Out[2]: (15, 20)
     notPotentialPath = np.ones_like(potentialPath)
@@ -275,9 +275,10 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath):
         if(len(nextSteps)!=0):
             nextStep = nextSteps[len(nextSteps)-1]
             print("nextStep:",nextStep)
-            MoveToTheTileNextToMe(player1indexes,nextStep)
-            previousPlayer1Position = player1indexes
-            pathLength = len(nextSteps)
+            if((blastinPositions[nextStep]==0)or(blastinPositions[player1indexes]==1)):
+                MoveToTheTileNextToMe(player1indexes,nextStep)
+                previousPlayer1Position = player1indexes
+                pathLength = len(nextSteps)
         else:
             pass
 
@@ -445,12 +446,13 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
             # print("if(targetPosition==player1indexes):")
             # putBomb
             putBombAndStartToRunAway(player1indexes,targetPosition,potentialPath)
-            # runAway
-            GoToPositionOneStep(player1indexes,previousPlayer1Position,potentialPath)
+            # runAway if we don't cross a blastin path
+            # print("potentialPathTest",potentialPath)
+            GoToPositionOneStep(player1indexes,previousPlayer1Position,potentialPath,blastinPositions)
         else:
             # print("!if(targetPosition==player1indexes):")
             # goToTile
-            GoToPositionOneStep(player1indexes,targetPosition,potentialPath)
+            GoToPositionOneStep(player1indexes,targetPosition,potentialPath,blastinPositions)
 
     if(blastinPositions[player1indexes[0],player1indexes[1]]==1):
         # print("if(blastinPositions[player1indexes[0],player1indexes[1]]):")
@@ -460,7 +462,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # print("nearestRunAwayNodes:",nearestRunAwayNodes)
         if(nearestRunAwayNodes != []):
             Run_AwayNode = closest_node(player1indexes,nearestRunAwayNodes)
-            GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath)
+            GoToPositionOneStep(player1indexes,Run_AwayNode,potentialPath,blastinPositions)
         else:
             # done: try to keep your distance with the bomb blocking you
             print("oh no, I am pinned down")
