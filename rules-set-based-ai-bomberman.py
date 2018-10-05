@@ -325,8 +325,8 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 def closest_node(node, nodes):
     # not done: debug(crash): use cheat engine to pause the game to debug it and trigger the bug: xb-2 must be 2 dimensions
     # nodes must not be empty
-    print("node", node)
-    print("nodes", nodes)
+    # print("node", node)
+    # print("nodes", nodes)
     # print("type(node):",type(node))
     closest_index = distance.cdist([node], nodes).argmin()
     return nodes[closest_index]
@@ -353,7 +353,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     neighborTiles = np.subtract([player2indexes[0],player2indexes[1]], neighbors)
 
-    print("neighborTiles: ",neighborTiles)
+    # print("neighborTiles: ",neighborTiles)
 
     best_bomb_spot = []
 
@@ -363,11 +363,11 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     regionSizePrevious = 300
 
     for i, j in neighborTiles:
-        print("i,j:",i,j)
+        # print("i,j:",i,j)
         # checking if the tile even exist
         if(isIndexesRange((i,j))):
-            print("if(isIndexesRange((i,j))):")
-            print("potentialPath:",potentialPath)
+            # print("if(isIndexesRange((i,j))):")
+            # print("potentialPath:",potentialPath)
             currentTileState = potentialPath[(i,j)]
             # testing if we can walk into the tile (to put a bomb)
 
@@ -379,7 +379,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
                 # print("availiablePath:",availiablePath)
 
-                print("potentialPath(mod):", potentialPath)
+                # print("potentialPath(mod):", potentialPath)
 
                 playerYindex = player2indexes[0]
                 playerXindex = player2indexes[1]
@@ -907,6 +907,13 @@ while True:
 
     if (keyboard.is_pressed('p') == True):
         paused = True
+
+        keyboard.release('e')
+        keyboard.release('s')
+        keyboard.release('d')
+        keyboard.release('f')
+        keyboard.release('ctrl')
+
         cv2.destroyAllWindows()
         break
 
