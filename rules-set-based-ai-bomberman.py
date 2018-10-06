@@ -28,6 +28,10 @@ import time
 
 previousPlayer1Position = (0,0)
 
+global previousBombPutByPlayer1
+
+previousBombPutByPlayer1 = []
+
 # Author: Christian Careaga (christian.careaga7@gmail.com)
 # A* Pathfinding in Python (2.7)
 # Please give credit if used
@@ -436,8 +440,11 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         targetPosition = closest_node1
         # pass
 
+    global previousBombPutByPlayer1
 
     global previousPlayer1Position
+
+    previousBombPutByPlayer1 = []
 
     # blast array ?
     # todo: debug: fix the while line problem
@@ -450,6 +457,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
             # print("if(targetPosition==player1indexes):")
             # putBomb
             putBombAndStartToRunAway(player1indexes,targetPosition,potentialPath)
+
+            previousBombPutByPlayer1 = player1indexes
             # runAway if we don't cross a blastin path
             # print("potentialPathTest",potentialPath)
             GoToPositionOneStep(player1indexes,previousPlayer1Position,potentialPath,blastinPositions)
@@ -852,6 +861,7 @@ def IsItABomb(pixel):
 
 # camera = cv2.VideoCapture("Bomber 2018-07-05 21-35-23-13.avi")
 
+
 while True:
 
     st_time = time.time()
@@ -878,7 +888,9 @@ while True:
 
     screenAveraged = ScreenAveraging(screen)
 
-    # print("screenAveraged:",screenAveraged)f
+    # print("screenAveraged:",screenAveraged)
+
+    # previousBombPutByPlayer1 = []
 
     listOfBombs = listBombsPositions(screenAveraged)
 
@@ -904,8 +916,13 @@ while True:
     print("player1indexes:",player1indexes)
     print("player2indexes:",player2indexes)
 
+    if(previousBombPutByPlayer1!=[]):
+        listOfBombs.append(previousBombPutByPlayer1)
+        print("listOfBombs.append(previousBombPutByPlayer1)")
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
+
+    print("previousBombPutByPlayer1",previousBombPutByPlayer1)
 
     # time.sleep(1)
 
