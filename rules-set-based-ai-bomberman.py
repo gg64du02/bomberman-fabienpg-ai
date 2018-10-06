@@ -293,7 +293,7 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
 
     print("MoveToTheTileNextToMe:",playerPos, nextStepPos)
     # timePress = 0.15
-    timePress = 0.10+random.randint(5)*0.01
+    # timePress = 0.10+random.randint(5)*0.01
     # timePress = 0.10+random.randint(10)*0.01
     # timePress = random.randint(5)*0.01
 
@@ -342,6 +342,10 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # objective to bomb
     closest_node1=closest_node(player2indexes,potentialPathList)
     # print("closest_node1:",closest_node1)
+
+    # TODO :add edge case when the controlled player got 3 bombs and trap itself in a corridor
+    # potential fix: add a bomb to the list when issued to be aware during the next frame
+
 
     # DONE: add escaping when putting a bomb (disabled because availablePath is now putting bombs
     # as unavailable spot to walk onto)
