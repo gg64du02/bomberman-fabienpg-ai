@@ -370,6 +370,9 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     regionSizePrevious = 300
 
+    st_time_oneStepToPutBomb1 = time.time()
+    # print("time for this loop in ms:",format(time.time()-st_time))
+
     for i, j in neighborTiles:
         # print("i,j:",i,j)
         # checking if the tile even exist
@@ -430,6 +433,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
             else:
                 # print("!if(int(currentTileState)==1):")
                 pass
+
+    st_time_oneStepToPutBomb2 = time.time()
 
     print("bestBombSpotPos:",bestBombSpotPos)
     print("best_bomb_spot:",best_bomb_spot)
@@ -506,6 +511,12 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # keyboard.release('s')
 
     previousPlayer1Position = player1indexes
+
+
+    st_time_oneStepToPutBomb3 = time.time()
+
+    print("2-1",format(st_time_oneStepToPutBomb2-st_time_oneStepToPutBomb1))
+    print("3-2",format(st_time_oneStepToPutBomb3-st_time_oneStepToPutBomb2))
 
     pass
 
@@ -647,6 +658,8 @@ def GetPlayerPosition(screen, number):
 
 # DONE: fix the "filled" (even though clear) bottom path issue
 def AvailiablePath(screen,screenAveraged,number,listOfBombs):
+
+    time_AvailiablePath1  = time.time()
     crate = [65,151,191]
     hardBlock = [156,156,156]
 
@@ -738,6 +751,8 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
                     ,blast06_01,blast06_02]
 
 
+    time_AvailiablePath2  = time.time()
+
     availiableSpots = np.ones((15,20))
 
     tp = tilePositionGenerator()
@@ -745,6 +760,7 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         for i in allBlocking:
             x = int(tile[0]/32)
             y = int(tile[1]/32)
+            print(i)
             # print(x,y)
             # print("i:",i)
             # print("screenAveragedToInt[y,x]:",screenAveragedToInt[y,x])
@@ -761,6 +777,11 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         y = bomb[0]
         x = bomb[1]
         availiableSpots[y,x] = False
+
+    time_AvailiablePath3 = time.time()
+
+    print("time_AvailiablePath3-time_AvailiablePath2", format(time_AvailiablePath3 - time_AvailiablePath2))
+    print("time_AvailiablePath2-time_AvailiablePath1", format(time_AvailiablePath2 - time_AvailiablePath1))
 
     return availiableSpots
 
@@ -866,6 +887,9 @@ while True:
 
     st_time = time.time()
 
+
+    loop_time_1 = time.time()
+
     # DONE: smarter logic about bomb location/placement to kill enemy and bomb timing
     # bomb route clipping? (to avoid trying to go to somewhere that will be unavailable because of bomb(s))
 
@@ -888,16 +912,24 @@ while True:
 
     screenAveraged = ScreenAveraging(screen)
 
+
+    loop_time_2 = time.time()
+
     # print("screenAveraged:",screenAveraged)
 
     # previousBombPutByPlayer1 = []
 
     listOfBombs = listBombsPositions(screenAveraged)
 
+    loop_time_3 = time.time()
+
     print("listOfBombs:",listOfBombs)
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
+
+
+    loop_time_4 = time.time()
 
     print("availiablePath:\n",availiablePath)
 
@@ -916,6 +948,9 @@ while True:
     print("player1indexes:",player1indexes)
     print("player2indexes:",player2indexes)
 
+
+    loop_time_5 = time.time()
+
     if(previousBombPutByPlayer1!=[]):
         listOfBombs.append(previousBombPutByPlayer1)
         print("listOfBombs.append(previousBombPutByPlayer1)")
@@ -923,6 +958,8 @@ while True:
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
     print("previousBombPutByPlayer1",previousBombPutByPlayer1)
+
+    loop_time_6 = time.time()
 
     # time.sleep(1)
 
@@ -939,8 +976,14 @@ while True:
         break
 
     print("time for this loop in ms:",format(time.time()-st_time))
+    print("6-5",format(loop_time_6-loop_time_5))
+    print("5-4",format(loop_time_5-loop_time_4))
+    print("4-3",format(loop_time_4-loop_time_3))
+    print("3-2",format(loop_time_3-loop_time_2))
+    print("2-1",format(loop_time_2-loop_time_1))
 
-    time.sleep(0.05+random.randint(5)*0.01)
+
+    # time.sleep(0.05+random.randint(5)*0.01)
     keyboard.release('e')
     keyboard.release('s')
     keyboard.release('d')
