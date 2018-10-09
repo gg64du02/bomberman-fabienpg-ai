@@ -772,19 +772,20 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
 
     tp = tilePositionGenerator()
 
-    # for tile in tp:
-    #     for k in allEmptyArray:
-    #         x = int(tile[0]/32)
-    #         y = int(tile[1]/32)
-    #         if(np.array_equal(k,screenAveragedToInt[y,x])==True):
-    #             emptySpots[y,x] = True
-    #             # availiableSpots[y, x] = False
-    #             break
-
+    for tile in tp:
+        for k in allEmptyArray:
+            x = int(tile[0]/32)
+            y = int(tile[1]/32)
+            if(np.array_equal(k,screenAveragedToInt[y,x])==True):
+                emptySpots[y,x] = True
+                # break
 
     print("emptySpots\n",emptySpots)
 
-    for tile in tp:
+
+    tp2 = tilePositionGenerator()
+
+    for tile in tp2:
         for i in allBlocking:
             x = int(tile[0]/32)
             y = int(tile[1]/32)
@@ -1013,7 +1014,7 @@ while True:
 
 
     time.sleep(0.05+random.randint(5)*0.01)
-    # time.sleep(0.010+random.randint(5)*0.01)
+    # time.sleep(0.015+random.randint(5)*0.01)
     keyboard.release('e')
     keyboard.release('s')
     keyboard.release('d')
