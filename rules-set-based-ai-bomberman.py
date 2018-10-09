@@ -383,7 +383,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
             # testing if we can walk into the tile (to put a bomb)
 
             if(int(currentTileState)==1):
-                print("if(int(currentTileState)==1):")
+                # print("if(int(currentTileState)==1):")
 
                 # supposing we put a bomb
                 potentialPath[(i,j)] = 0
@@ -412,14 +412,14 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # print(len(props.coords))  # list of (row,col) pixel indices
                 regionSize = len(props.coords)
 
-                print("(i,j):", (i,j))
-                print("regionSize:",regionSize)
+                # print("(i,j):", (i,j))
+                # print("regionSize:",regionSize)
 
                 best_bomb_spot.append(regionSize)
 
-                print("regionSizePrevious",regionSizePrevious)
-                print("regionSize",regionSize)
-                print("bestBombSpotPos",bestBombSpotPos)
+                # print("regionSizePrevious",regionSizePrevious)
+                # print("regionSize",regionSize)
+                # print("bestBombSpotPos",bestBombSpotPos)
 
                 if(regionSizePrevious>regionSize):
                     regionSizePrevious = regionSize
@@ -760,7 +760,7 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         for i in allBlocking:
             x = int(tile[0]/32)
             y = int(tile[1]/32)
-            print(i)
+            # print(i)
             # print(x,y)
             # print("i:",i)
             # print("screenAveragedToInt[y,x]:",screenAveragedToInt[y,x])
