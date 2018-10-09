@@ -760,15 +760,17 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
     # print("screenAveragedToInt[0,:4]",screenAveragedToInt[0,:4])
     # print("screenAveragedToInt[1,:4]",screenAveragedToInt[1,:4])
     print("screenAveragedToInt[2,:4]",screenAveragedToInt[2,:4])
+    print("screenAveragedToInt[14,:4]",screenAveragedToInt[14,:4])
     # print("screenAveragedToInt[0,:]",screenAveragedToInt[0,:])
 
     eTile0_0 = [134, 161, 161]
     eTile0_1 = [140, 164, 164]
     eTile0_2 = [132, 159, 159]
     eTile1_0 = [142, 165, 165]
-    eTile2_2 = [134, 160, 160] #test
+    eTile2_2 = [134, 160, 160]
+    eTile14_0= [137, 162, 162]
 
-    allEmptyArray = [eTile0_0,eTile0_1,eTile0_2,eTile1_0,eTile2_2]
+    allEmptyArray = [eTile0_0,eTile0_1,eTile0_2,eTile1_0,eTile2_2,eTile14_0]
 
     tp = tilePositionGenerator()
 
@@ -789,17 +791,17 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         for i in allBlocking:
             x = int(tile[0]/32)
             y = int(tile[1]/32)
-            # if(emptySpots[y,x]==False):
-            # print(i)
-            # print(x,y)
-            # print("i:",i)
-            # print("screenAveragedToInt[y,x]:",screenAveragedToInt[y,x])
-            if(np.array_equal(i,screenAveragedToInt[y,x])==True):
-                # print("True\n")
-                availiableSpots[y,x] = False
-                break
-            # else:
-            #     print("!True\n")
+            if(emptySpots[y,x]==False):
+                # print(i)
+                # print(x,y)
+                # print("i:",i)
+                # print("screenAveragedToInt[y,x]:",screenAveragedToInt[y,x])
+                if(np.array_equal(i,screenAveragedToInt[y,x])==True):
+                    # print("True\n")
+                    availiableSpots[y,x] = False
+                    break
+                # else:
+                #     print("!True\n")
         # if(IsItABomb(screenAveragedToInt[y,x])==True):
         #     availiableSpots[y,x] = False
     for bomb in listOfBombs:
