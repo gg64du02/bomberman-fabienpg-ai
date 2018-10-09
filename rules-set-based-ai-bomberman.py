@@ -759,8 +759,8 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
 
     # print("screenAveragedToInt[0,:4]",screenAveragedToInt[0,:4])
     # print("screenAveragedToInt[1,:4]",screenAveragedToInt[1,:4])
-    print("screenAveragedToInt[2,:4]",screenAveragedToInt[2,:4])
-    print("screenAveragedToInt[14,:4]",screenAveragedToInt[14,:4])
+    # print("screenAveragedToInt[2,:4]",screenAveragedToInt[2,:4])
+    # print("screenAveragedToInt[14,:4]",screenAveragedToInt[14,:4])
     # print("screenAveragedToInt[0,:]",screenAveragedToInt[0,:])
 
     eTile0_0 = [134, 161, 161]
@@ -1026,7 +1026,8 @@ while True:
     print("2-1",format(loop_time_2-loop_time_1))
 
 
-    time.sleep(0.05+random.randint(5)*0.01)
+    # time.sleep(0.05+random.randint(5)*0.01)
+    time.sleep(0.06+random.randint(5)*0.01)
     # time.sleep(0.015+random.randint(5)*0.01)
     keyboard.release('e')
     keyboard.release('s')
