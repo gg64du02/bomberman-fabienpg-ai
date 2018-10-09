@@ -755,15 +755,20 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
 
     availiableSpots = np.ones((15,20))
 
+    emptySpots = np.zeros((15,20))
+
+    # print("screenAveragedToInt[0,:4]",screenAveragedToInt[0,:4])
     # print("screenAveragedToInt[1,:4]",screenAveragedToInt[1,:4])
-    # print("screenAveragedToInt[1,:]",screenAveragedToInt[1,:])
+    print("screenAveragedToInt[2,:4]",screenAveragedToInt[2,:4])
+    # print("screenAveragedToInt[0,:]",screenAveragedToInt[0,:])
 
-    eTile01 = [142, 165, 165]
-    eTile02 = [156, 156, 156]
-    eTile03 = [101, 116, 160]
-    # eTile04 = [101 116 160]
+    eTile0_0 = [134, 161, 161]
+    eTile0_1 = [140, 164, 164]
+    eTile0_2 = [132, 159, 159]
+    eTile1_0 = [142, 165, 165]
+    eTile2_2 = [134, 160, 160] #test
 
-    allEmptyArray = [eTile01,eTile02,eTile03]
+    allEmptyArray = [eTile0_0,eTile0_1,eTile0_2,eTile1_0,eTile2_2]
 
     tp = tilePositionGenerator()
 
@@ -772,15 +777,18 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
     #         x = int(tile[0]/32)
     #         y = int(tile[1]/32)
     #         if(np.array_equal(k,screenAveragedToInt[y,x])==True):
-    #             availiableSpots[y,x] = False
+    #             emptySpots[y,x] = True
+    #             # availiableSpots[y, x] = False
     #             break
 
+
+    print("emptySpots\n",emptySpots)
 
     for tile in tp:
         for i in allBlocking:
             x = int(tile[0]/32)
             y = int(tile[1]/32)
-            # if(availiableSpots[y,x]==True):
+            # if(emptySpots[y,x]==False):
             # print(i)
             # print(x,y)
             # print("i:",i)
@@ -1005,6 +1013,7 @@ while True:
 
 
     time.sleep(0.05+random.randint(5)*0.01)
+    # time.sleep(0.010+random.randint(5)*0.01)
     keyboard.release('e')
     keyboard.release('s')
     keyboard.release('d')
