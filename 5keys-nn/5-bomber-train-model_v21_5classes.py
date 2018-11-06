@@ -55,7 +55,7 @@ LR = 1e-4
 # EPOCHS = 1
 EPOCHS = 5
 
-MODEL_NAME = 'bomberman-nn-keras_v19_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v21_5classes.h5'
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = False
@@ -80,6 +80,8 @@ shift = [0,0,0,0,0,1]
 
 from keras.layers.core import Activation
 
+import random
+random.seed(1)
 
 model = Sequential()
 # model.add(Conv2D(32, (16, 16), padding='same',
@@ -113,11 +115,15 @@ model.add(Dropout(0.2))
 # model.add(Dropout(0.2))
 
 model.add(Flatten())
+model.add(Dense(512, activation='softmax'))
+model.add(Dropout(0.5))
+model.add(Dense(512, activation='softmax'))
+model.add(Dropout(0.5))
 model.add(Dense(512, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(5, activation='softmax'))
 
-learning_rate = 0.0001
+learning_rate = 0.00001
 opt = keras.optimizers.adam(lr=learning_rate, decay=1e-6)
 
 model.compile(loss='categorical_crossentropy',
