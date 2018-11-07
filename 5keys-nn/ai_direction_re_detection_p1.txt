@@ -163,3 +163,18 @@ p1 ai va sur la bas
     </CheatEntry>
   </CheatEntries>
 </CheatTable>
+
+=====================
+
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"bomb count down"</Description>
+      <LastState Value="2" RealAddress="00455AFA"/>
+      <VariableType>Byte</VariableType>
+      <Address>00455AFA</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
