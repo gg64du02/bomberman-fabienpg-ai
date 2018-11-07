@@ -185,7 +185,7 @@ def isRightMove():
     return ''
 
 def isLeftMove():
-    # RIGHT
+    # LEFT
     # It finally read the string
     buff2 = c.create_string_buffer(1)
     bufferSize2 = (c.sizeof(buff2))
@@ -207,7 +207,7 @@ def isLeftMove():
     return ''
 
 def isUpMove():
-    # RIGHT
+    # UP
     # It finally read the string
     buff2 = c.create_string_buffer(1)
     bufferSize2 = (c.sizeof(buff2))
@@ -229,7 +229,7 @@ def isUpMove():
     return ''
 
 def isDownMove():
-    # RIGHT
+    # DOWN
     # It finally read the string
     buff2 = c.create_string_buffer(1)
     bufferSize2 = (c.sizeof(buff2))
@@ -249,6 +249,25 @@ def isDownMove():
         print()
         return 'down'
     return ''
+
+def numberOfRemainingBombs():
+    # BOMBS
+    # It finally read the string
+    buff2 = c.create_string_buffer(1)
+    bufferSize2 = (c.sizeof(buff2))
+    # print("bufferSize2", bufferSize2)
+    bytesRead2 = c.c_ulonglong(0)
+    tmpOffset = int(0x00455AFA)
+    # print("tmpOffset", '%s' % hex(tmpOffset))
+
+    ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+    scoreStr = unpack('B', buff2)
+    # 45 is -
+    # print("\n\nscoreStr", scoreStr)
+    test3 = [int(i) for i in scoreStr]
+    # print("test3",test3)
+    # debugging purpose
+    return test3[0]
 
 def getArrowDirection():
     # at 00455AFA is the number of remaining bombs on one byte
@@ -275,6 +294,7 @@ def getArrowDirection():
         return 'right'
 
 
+
 SPEEDHACK_SPEED = 1
 
 def main(file_name, starting_value):
@@ -284,6 +304,8 @@ def main(file_name, starting_value):
     for i in list(range(4))[::-1]:
         print(i+1)
         time.sleep(1)
+
+    previousnumberOfRemainingBombs = 0
 
     stop = False
     print('STARTING!!!')
@@ -356,6 +378,12 @@ def main(file_name, starting_value):
             # TODO: implement here
             print("getArrowDirection()",getArrowDirection())
 
+            print("numberOfRemainingBombs()",numberOfRemainingBombs())
+
+            # TODO: debug it
+            if(previousnumberOfRemainingBombs != numberOfRemainingBombs() ):
+                print("bombIssued")
+                previousnumberOfRemainingBombs = numberOfRemainingBombs()
 
 
             # screenshotTaken.append(screen)
