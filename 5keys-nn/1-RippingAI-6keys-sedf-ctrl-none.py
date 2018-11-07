@@ -231,53 +231,15 @@ def main(file_name, starting_value):
             # run a color convert:
             screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
 
+            # at 00455AFA is the number of remaining bombs on one byte
+            # at 00455B54 is 06 would be down  on one byte ok
+            # at 00455B54 is FA would be up    on one byte ok
+            # at 00455B51 is FF would be left  on one byte ok
+            # at 00455B50 is 06 would be right on one byte ok
+            # none
 
-            timePress = ( 0.05 + 0.01 * random.randint(7) ) / SPEEDHACK_SPEED
 
-            # e =     [1,0,0,0,0,0]
-            # d =     [0,1,0,0,0,0]
-            # s =     [0,0,1,0,0,0]
-            # f =     [0,0,0,1,0,0]
-            # ctrl =  [0,0,0,0,1,0]
-            # none =  [0,0,0,0,0,1]
-            # all_keys = [e,d,s,f,ctrl,none]
-
-            if(choosedKey == 0):
-                keyboard.press('e')
-                time.sleep(timePress)
-                keyboard.release('e')
-            if(choosedKey == 1):
-                keyboard.press('d')
-                time.sleep(timePress)
-                keyboard.release('d')
-            if(choosedKey == 2):
-                keyboard.press('s')
-                time.sleep(timePress)
-                keyboard.release('s')
-            if(choosedKey == 3):
-                keyboard.press('f')
-                time.sleep(timePress)
-                keyboard.release('f')
-            if(choosedKey == 4):
-                keyboard.press('ctrl')
-                time.sleep(timePress)
-                keyboard.release('ctrl')
-            if (choosedKey == 5):
-                print("none")
-
-            # debugging to test before firing the script for hours
-            # time.sleep(timePress)
-
-            if (keyboard.is_pressed('p') == True):
-                stop = True
-
-                keyboard.release('ctrl')
-                keyboard.release('e')
-                keyboard.release('d')
-                keyboard.release('s')
-                keyboard.release('f')
-
-                break
+            # TODO: implement here
 
             # screenshotTaken.append(screen)
             # keyIssued.append(choosedKey)

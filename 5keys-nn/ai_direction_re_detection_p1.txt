@@ -171,7 +171,7 @@ p1 ai va sur la bas
   <CheatEntries>
     <CheatEntry>
       <ID>11</ID>
-      <Description>"bomb count down"</Description>
+      <Description>"p1 ai bomb count down"</Description>
       <LastState Value="2" RealAddress="00455AFA"/>
       <VariableType>Byte</VariableType>
       <Address>00455AFA</Address>
@@ -185,10 +185,24 @@ p1 ai va sur la bas
   <CheatEntries>
     <CheatEntry>
       <ID>12</ID>
-      <Description>"total of bombs that p1 can put in total"</Description>
+      <Description>"p1 ai total of bombs that p1 can put in total"</Description>
       <LastState Value="1" RealAddress="00455AF9"/>
       <VariableType>Byte</VariableType>
       <Address>00455AF9</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>^p1 ai left"</Description>
+      <LastState Value="0" RealAddress="00455B51"/>
+      <VariableType>Byte</VariableType>
+      <Address>00455B51</Address>
     </CheatEntry>
   </CheatEntries>
 </CheatTable>
