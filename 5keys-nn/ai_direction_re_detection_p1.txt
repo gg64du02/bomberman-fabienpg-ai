@@ -178,3 +178,18 @@ p1 ai va sur la bas
     </CheatEntry>
   </CheatEntries>
 </CheatTable>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"total of bombs that p1 can put in total"</Description>
+      <LastState Value="1" RealAddress="00455AF9"/>
+      <VariableType>Byte</VariableType>
+      <Address>00455AF9</Address>
+    </CheatEntry>
+  </CheatEntries>
+</CheatTable>
+
