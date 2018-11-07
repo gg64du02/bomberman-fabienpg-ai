@@ -150,14 +150,129 @@ def getScoreKillsDeaths():
     print("test6", test6)
     test7 = test6.split(' ')
     print("test7", test7)
-    p1score = int(test7[0])
+    # p1score = int(test7[0])
+    p1score = int(test7[1])
     # print("p1score", p1score)
-    p1kill = int(test7[4])
+    # p1kill = int(test7[4])
+    p1kill = int(test7[5])
     # print("p1kill", p1kill)
-    p1death = int(test7[5].split('/')[1])
+    # p1death = int(test7[5].split('/')[1])
+    p1death = int(test7[5].split('/')[0])
     # print("p1death", p1death)
 
     return p1score,p1kill,p1death
+
+def isRightMove():
+    # RIGHT
+    # It finally read the string
+    buff2 = c.create_string_buffer(1)
+    bufferSize2 = (c.sizeof(buff2))
+    # print("bufferSize2", bufferSize2)
+    bytesRead2 = c.c_ulonglong(0)
+    tmpOffset = int(0x00455B50)
+    # print("tmpOffset", '%s' % hex(tmpOffset))
+
+    ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+    scoreStr = unpack('B', buff2)
+    # 45 is -
+    # print("\n\nscoreStr", scoreStr)
+    test3 = [int(i) for i in scoreStr]
+    # print("test3",test3)
+    # debugging purpose
+    if(test3[0] == 6):
+        print()
+        return 'right'
+    return ''
+
+def isLeftMove():
+    # RIGHT
+    # It finally read the string
+    buff2 = c.create_string_buffer(1)
+    bufferSize2 = (c.sizeof(buff2))
+    # print("bufferSize2", bufferSize2)
+    bytesRead2 = c.c_ulonglong(0)
+    tmpOffset = int(0x00455B51)
+    # print("tmpOffset", '%s' % hex(tmpOffset))
+
+    ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+    scoreStr = unpack('B', buff2)
+    # 45 is -
+    # print("\n\nscoreStr", scoreStr)
+    test3 = [int(i) for i in scoreStr]
+    # print("test3",test3)
+    # debugging purpose
+    if(test3[0] == 255):
+        print()
+        return 'left'
+    return ''
+
+def isUpMove():
+    # RIGHT
+    # It finally read the string
+    buff2 = c.create_string_buffer(1)
+    bufferSize2 = (c.sizeof(buff2))
+    # print("bufferSize2", bufferSize2)
+    bytesRead2 = c.c_ulonglong(0)
+    tmpOffset = int(0x00455B54)
+    # print("tmpOffset", '%s' % hex(tmpOffset))
+
+    ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+    scoreStr = unpack('B', buff2)
+    # 45 is -
+    # print("\n\nscoreStr", scoreStr)
+    test3 = [int(i) for i in scoreStr]
+    # print("test3",test3)
+    # debugging purpose
+    if(test3[0] == 250):
+        print()
+        return 'up'
+    return ''
+
+def isDownMove():
+    # RIGHT
+    # It finally read the string
+    buff2 = c.create_string_buffer(1)
+    bufferSize2 = (c.sizeof(buff2))
+    # print("bufferSize2", bufferSize2)
+    bytesRead2 = c.c_ulonglong(0)
+    tmpOffset = int(0x00455B54)
+    # print("tmpOffset", '%s' % hex(tmpOffset))
+
+    ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+    scoreStr = unpack('B', buff2)
+    # 45 is -
+    # print("\n\nscoreStr", scoreStr)
+    test3 = [int(i) for i in scoreStr]
+    # print("test3",test3)
+    # debugging purpose
+    if(test3[0] == 6):
+        print()
+        return 'down'
+    return ''
+
+def getArrowDirection():
+    # at 00455AFA is the number of remaining bombs on one byte
+    # at 00455B54 is 06 would be down  on one byte ok
+    # at 00455B54 is FA would be up    on one byte ok
+    # at 00455B51 is FF would be left  on one byte ok
+    # at 00455B50 is 06 would be right on one byte ok
+    strTemp = ''
+
+    isUp = isUpMove()
+    if(isUp!=''):
+        return 'up'
+
+    isDown = isDownMove()
+    if(isDown!=''):
+        return 'down'
+
+    isLeft= isLeftMove()
+    if(isLeft!=''):
+        return 'left'
+
+    isRight = isRightMove()
+    if(isRight!=''):
+        return 'right'
 
 
 SPEEDHACK_SPEED = 1
@@ -238,8 +353,10 @@ def main(file_name, starting_value):
             # at 00455B50 is 06 would be right on one byte ok
             # none
 
-
             # TODO: implement here
+            print("getArrowDirection()",getArrowDirection())
+
+
 
             # screenshotTaken.append(screen)
             # keyIssued.append(choosedKey)
