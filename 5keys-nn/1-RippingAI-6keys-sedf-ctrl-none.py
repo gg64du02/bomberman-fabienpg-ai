@@ -380,11 +380,11 @@ def main(file_name, starting_value):
 
             print("numberOfRemainingBombs()",numberOfRemainingBombs())
 
-            # TODO: debug it
-            if(previousnumberOfRemainingBombs != numberOfRemainingBombs() ):
+            # DONE:bugfix
+            if(previousnumberOfRemainingBombs > numberOfRemainingBombs() ):
                 print("bombIssued")
-                previousnumberOfRemainingBombs = numberOfRemainingBombs()
 
+            previousnumberOfRemainingBombs = numberOfRemainingBombs()
 
             # screenshotTaken.append(screen)
             # keyIssued.append(choosedKey)
