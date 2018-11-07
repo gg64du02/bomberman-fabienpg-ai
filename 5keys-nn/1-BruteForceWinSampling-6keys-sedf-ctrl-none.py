@@ -134,6 +134,7 @@ def getScoreKillsDeaths():
     bytesRead2 = c.c_ulonglong(0)
     tmpOffset = int(0x43FD49)
     print("tmpOffset", '%s' % hex(tmpOffset))
+    print("tmpOffset", '%s' % hex(tmpOffset))
 
     ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
     scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
@@ -146,9 +147,9 @@ def getScoreKillsDeaths():
     # print("test4", test4)
     # print("test5", test5)
     test6 = test5.replace('\n', ' ')
-    # print("test6", test6)
+    print("test6", test6)
     test7 = test6.split(' ')
-    # print("test7", test7)
+    print("test7", test7)
     p1score = int(test7[0])
     # print("p1score", p1score)
     p1kill = int(test7[4])
@@ -267,7 +268,7 @@ def main(file_name, starting_value):
             # debugging to test before firing the script for hours
             # time.sleep(timePress)
 
-            if (keyboard.is_pressed('n') == True):
+            if (keyboard.is_pressed('p') == True):
                 stop = True
 
                 keyboard.release('ctrl')
