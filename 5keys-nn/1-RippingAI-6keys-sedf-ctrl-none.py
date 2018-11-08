@@ -71,7 +71,7 @@ if 0:
 
 starting_value = 1
 while True:
-    file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+    file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(starting_value)
     if os.path.isfile(file_name):
         print('File exists, moving along', starting_value)
         starting_value += 1
@@ -357,10 +357,10 @@ def main(file_name, starting_value):
 
             bombsIssuedOrNot = False
 
-            # choosedKey = random.randint(numberOfKeys)
-            choosedKey = random.randint(300000) % 6
-
-            print("choosedKey",choosedKey)
+            # # choosedKey = random.randint(numberOfKeys)
+            # choosedKey = random.randint(300000) % 6
+            #
+            # print("choosedKey",choosedKey)
 
             # getting the window mode screen
             screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
@@ -407,7 +407,9 @@ def main(file_name, starting_value):
                     choosedKey = [0,0,0,1,0,0]
                 if(arrowsPressedOrNot=='none'):
                     choosedKey = [0,0,0,0,0,1]
-                
+                if(arrowsPressedOrNot==''):
+                    choosedKey = [0,0,0,0,0,1]
+
 
             screenshotTaken.append(screen)
             keyIssued.append(choosedKey)
@@ -452,7 +454,7 @@ def main(file_name, starting_value):
                 # Mean the controlled player kill count changed
                 if(p1killNew!=p1killAS):
 
-                    file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+                    file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(starting_value)
                     np.save(file_name, game_data)
                     print('SAVED')
                     starting_value += 1
@@ -500,7 +502,7 @@ def main(file_name, starting_value):
                 break
 
 
-
+            print("i",i)
             i+=1
             # if(i == 500):
             #     roundEnded = True
