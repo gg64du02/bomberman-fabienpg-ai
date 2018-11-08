@@ -293,6 +293,8 @@ def getArrowDirection():
     if(isRight!=''):
         return 'right'
 
+    return 'none'
+
 
 
 SPEEDHACK_SPEED = 1
@@ -331,8 +333,8 @@ def main(file_name, starting_value):
 
         i = 0
 
-        # screenshotTaken = []
-        # keyIssued = []
+        screenshotTaken = []
+        keyIssued = []
 
         if(stop == True):
             break
@@ -352,6 +354,8 @@ def main(file_name, starting_value):
             print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
 
         while(roundEnded == False):
+
+            bombsIssuedOrNot = False
 
             # choosedKey = random.randint(numberOfKeys)
             choosedKey = random.randint(300000) % 6
@@ -376,18 +380,37 @@ def main(file_name, starting_value):
             # none
 
             # TODO: implement here
-            print("getArrowDirection()",getArrowDirection())
+            arrowsPressedOrNot = getArrowDirection()
+            print("arrowsPressedOrNot",arrowsPressedOrNot)
 
-            print("numberOfRemainingBombs()",numberOfRemainingBombs())
+            numbersOfRemainingBombsToPlace = numberOfRemainingBombs()
+            print("numbersOfRemainingBombsToPlace",numbersOfRemainingBombsToPlace)
 
             # DONE:bugfix
-            if(previousnumberOfRemainingBombs > numberOfRemainingBombs() ):
+            if(previousnumberOfRemainingBombs > numbersOfRemainingBombsToPlace ):
                 print("bombIssued")
+                bombsIssuedOrNot = True
 
-            previousnumberOfRemainingBombs = numberOfRemainingBombs()
+            previousnumberOfRemainingBombs = numbersOfRemainingBombsToPlace
 
-            # screenshotTaken.append(screen)
-            # keyIssued.append(choosedKey)
+            if(bombsIssuedOrNot==True):
+                # bomb
+                choosedKey = [0,0,0,0,1,0]
+            else:
+                if(arrowsPressedOrNot=='up'):
+                    choosedKey = [1,0,0,0,0,0]
+                if(arrowsPressedOrNot=='down'):
+                    choosedKey = [0,1,0,0,0,0]
+                if(arrowsPressedOrNot=='left'):
+                    choosedKey = [0,0,1,0,0,0]
+                if(arrowsPressedOrNot=='right'):
+                    choosedKey = [0,0,0,1,0,0]
+                if(arrowsPressedOrNot=='none'):
+                    choosedKey = [0,0,0,0,0,1]
+                
+
+            screenshotTaken.append(screen)
+            keyIssued.append(choosedKey)
 
             game_data.append([screen, choosedKey])
 
