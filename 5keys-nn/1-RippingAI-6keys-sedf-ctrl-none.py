@@ -451,6 +451,8 @@ def main(file_name, starting_value):
 
                 roundEnded = True
 
+                print("sanity check",p1killNew,p1killAS)
+
                 # Mean the controlled player kill count changed
                 if(p1killNew!=p1killAS):
 
@@ -477,8 +479,9 @@ def main(file_name, starting_value):
 
             # # p1 and p2 are dead (including both killed themself)
             # if(numbersOFDeathInLastSeconds>1):
+            #     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             #     roundEnded = True
-            #     file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+            #     file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(starting_value)
             #     np.save(file_name, game_data)
             #     print('SAVED')
             #     starting_value += 1
@@ -497,7 +500,7 @@ def main(file_name, starting_value):
 
 
             # stop the recording if it is too long (and kill the player ?)
-            if(i == 50000):
+            if(i == 10000):
                 roundEnded = True
                 break
 
