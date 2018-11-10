@@ -202,6 +202,16 @@ def getScoreKillsDeaths2():
             p1score = int(test7[0+2])
             p1kill = int(test7[4+2])
             p1death = int(test7[5+2].split('/')[1])
+    if(test7[1]=='2'):
+        print("detected player 2 score")
+        try:
+            p1score = int(test7[1+2])
+            p1kill = int(test7[5+2])
+            p1death = int(test7[5+2 ].split('/')[0])
+        except:
+            p1score = int(test7[0+2])
+            p1kill = int(test7[4+2])
+            p1death = int(test7[5+2].split('/')[1])
 
     print("p1score", p1score)
     print("p1kill", p1kill)
@@ -407,7 +417,7 @@ def main(file_name, starting_value):
             numbersOFDeathInLastSeconds = unpack('I', buff)[0]
             # print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
 
-        print("new round started    ")
+        print("new round started")
 
         while(roundEnded == False):
 
@@ -504,6 +514,12 @@ def main(file_name, starting_value):
 
 
             if(numbersOFDeathInLastSeconds!=0):
+
+                keyboard.press('tab')
+                time.sleep(0.02 / SPEEDHACK_SPEED)
+                keyboard.release('tab')
+                time.sleep(0.02 / SPEEDHACK_SPEED)
+
                 p1scoreNew, p1killNew, p1deathNew = getScoreKillsDeaths()
                 getScoreKillsDeaths2()
 
