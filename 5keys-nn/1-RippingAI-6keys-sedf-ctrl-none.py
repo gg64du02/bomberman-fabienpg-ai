@@ -334,6 +334,7 @@ def main(file_name, starting_value):
         i = 0
 
         screenshotTaken = []
+        previousScreenshotTaken = []
         keyIssued = []
 
         if(stop == True):
@@ -371,6 +372,7 @@ def main(file_name, starting_value):
             screen = cv2.resize(screen, (int(WIDTH / 2), int(HEIGTH / 2)))
             # run a color convert:
             screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
+
 
             # at 00455AFA is the number of remaining bombs on one byte
             # at 00455B54 is 06 would be down  on one byte ok
@@ -410,11 +412,14 @@ def main(file_name, starting_value):
                 if(arrowsPressedOrNot==''):
                     choosedKey = [0,0,0,0,0,1]
 
+            if(previousScreenshotTaken!=[]):
+                # screenshotTaken.append(screen)
+                screenshotTaken.append(previousScreenshotTaken)
+                keyIssued.append(choosedKey)
 
-            screenshotTaken.append(screen)
-            keyIssued.append(choosedKey)
+                game_data.append([screen, choosedKey])
 
-            game_data.append([screen, choosedKey])
+            previousScreenshotTaken = screen
 
             # TODO: check when player2 is dead
             # TODO: check for variable set to one in memory
