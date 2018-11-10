@@ -133,8 +133,7 @@ def getScoreKillsDeaths():
     # print("bufferSize2", bufferSize2)
     bytesRead2 = c.c_ulonglong(0)
     tmpOffset = int(0x43FD49)
-    print("tmpOffset", '%s' % hex(tmpOffset))
-    print("tmpOffset", '%s' % hex(tmpOffset))
+    # print("tmpOffset", '%s' % hex(tmpOffset))
 
     ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
     scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
@@ -396,7 +395,7 @@ def main(file_name, starting_value):
             print("arrowsPressedOrNot",arrowsPressedOrNot)
 
             numbersOfRemainingBombsToPlace = numberOfRemainingBombs()
-            print("numbersOfRemainingBombsToPlace",numbersOfRemainingBombsToPlace)
+            # print("numbersOfRemainingBombsToPlace",numbersOfRemainingBombsToPlace)
 
             # DONE:bugfix
             if(previousnumberOfRemainingBombs > numbersOfRemainingBombsToPlace ):
@@ -439,16 +438,16 @@ def main(file_name, starting_value):
 
             # 1 if a players in the lasts seconds
             tmpOffset = int(0x4440B0)
-            print("tmpOffset", '%s' % hex(tmpOffset))
+            # print("tmpOffset", '%s' % hex(tmpOffset))
 
             ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
             aplayerDown = unpack('I', buff)[0]
-            print("playerDown", aplayerDown)
+            # print("playerDown", aplayerDown)
 
 
             # 1 or >1 if a players in the lasts seconds
             tmpOffset = int(0x455C9C)
-            print("tmpOffset", '%s' % hex(tmpOffset))
+            # print("tmpOffset", '%s' % hex(tmpOffset))
 
             ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
             numbersOFDeathInLastSeconds = unpack('I', buff)[0]
