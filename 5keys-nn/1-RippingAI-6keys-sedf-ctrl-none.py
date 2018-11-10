@@ -183,7 +183,6 @@ def isRightMove():
     # print("test3",test3)
     # debugging purpose
     if(test3[0] == 6):
-        print()
         return 'right'
     return ''
 
@@ -205,7 +204,6 @@ def isLeftMove():
     # print("test3",test3)
     # debugging purpose
     if(test3[0] == 255):
-        print()
         return 'left'
     return ''
 
@@ -227,7 +225,6 @@ def isUpMove():
     # print("test3",test3)
     # debugging purpose
     if(test3[0] == 250):
-        print()
         return 'up'
     return ''
 
@@ -249,7 +246,6 @@ def isDownMove():
     # print("test3",test3)
     # debugging purpose
     if(test3[0] == 6):
-        print()
         return 'down'
     return ''
 
@@ -301,6 +297,8 @@ def getArrowDirection():
 
 
 SPEEDHACK_SPEED = 1
+
+DEBUG = 0
 
 def main(file_name, starting_value):
 
@@ -357,7 +355,7 @@ def main(file_name, starting_value):
         while(numbersOFDeathInLastSeconds==1):
             # 1 or >1 if a players in the lasts seconds
             tmpOffset = int(0x455C9C)
-            print("tmpOffset", '%s' % hex(tmpOffset))
+            # print("tmpOffset", '%s' % hex(tmpOffset))
 
             ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
             numbersOFDeathInLastSeconds = unpack('I', buff)[0]
@@ -392,7 +390,8 @@ def main(file_name, starting_value):
 
             # TODO: implement here
             arrowsPressedOrNot = getArrowDirection()
-            print("arrowsPressedOrNot",arrowsPressedOrNot)
+            if(DEBUG):
+                print("arrowsPressedOrNot",arrowsPressedOrNot)
 
             numbersOfRemainingBombsToPlace = numberOfRemainingBombs()
             # print("numbersOfRemainingBombsToPlace",numbersOfRemainingBombsToPlace)
@@ -451,7 +450,8 @@ def main(file_name, starting_value):
 
             ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
             numbersOFDeathInLastSeconds = unpack('I', buff)[0]
-            print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
+            if(DEBUG):
+                print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
 
 
 
@@ -491,7 +491,8 @@ def main(file_name, starting_value):
 
                 break
             else:
-                print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+                pass
+                # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
             # p1 and p2 are dead (including both killed themself)
             if(numbersOFDeathInLastSeconds>1):
@@ -521,7 +522,7 @@ def main(file_name, starting_value):
                 break
 
 
-            print("i",i)
+            # print("i",i)
             i+=1
             # if(i == 500):
             #     roundEnded = True
