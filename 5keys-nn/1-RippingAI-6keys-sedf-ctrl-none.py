@@ -150,15 +150,19 @@ def getScoreKillsDeaths():
     print("test6", test6)
     test7 = test6.split(' ')
     print("test7", test7)
-    # p1score = int(test7[0])
-    p1score = int(test7[1])
-    # print("p1score", p1score)
-    # p1kill = int(test7[4])
-    p1kill = int(test7[5])
-    # print("p1kill", p1kill)
-    # p1death = int(test7[5].split('/')[1])
-    p1death = int(test7[5].split('/')[0])
-    # print("p1death", p1death)
+    print("test7[0]",test7[0])
+    try:
+        p1score = int(test7[1])
+        p1kill = int(test7[5])
+        p1death = int(test7[5].split('/')[0])
+    except:
+        p1score = int(test7[0])
+        p1kill = int(test7[4])
+        p1death = int(test7[5].split('/')[1])
+
+    print("p1score", p1score)
+    print("p1kill", p1kill)
+    print("p1death", p1death)
 
     return p1score,p1kill,p1death
 
@@ -490,26 +494,26 @@ def main(file_name, starting_value):
             else:
                 print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-            # # p1 and p2 are dead (including both killed themself)
-            # if(numbersOFDeathInLastSeconds>1):
-            #     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            #     roundEnded = True
-            #     file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(starting_value)
-            #     np.save(file_name, game_data)
-            #     print('SAVED')
-            #     starting_value += 1
-            #
-            #     keyboard.press('tab')
-            #     time.sleep(0.01/SPEEDHACK_SPEED)
-            #     keyboard.release('tab')
-            #     time.sleep(0.01/SPEEDHACK_SPEED)
-            #
-            #     # updating infos about the game state, a break is required to work properly
-            #     p1killAS = p1killNew
-            #     p1kdeathAS = p1deathNew
-            #     p1scoreAS = p1killNew
-            #
-            #     break
+            # p1 and p2 are dead (including both killed themself)
+            if(numbersOFDeathInLastSeconds>1):
+                print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+                roundEnded = True
+                file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+                np.save(file_name, game_data)
+                print('SAVED')
+                starting_value += 1
+
+                keyboard.press('tab')
+                time.sleep(0.01/SPEEDHACK_SPEED)
+                keyboard.release('tab')
+                time.sleep(0.01/SPEEDHACK_SPEED)
+
+                # updating infos about the game state, a break is required to work properly
+                p1killAS = p1killNew
+                p1kdeathAS = p1deathNew
+                p1scoreAS = p1killNew
+
+                break
 
 
             # stop the recording if it is too long (and kill the player ?)
