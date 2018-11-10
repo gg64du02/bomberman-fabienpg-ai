@@ -303,9 +303,9 @@ DEBUG = 0
 def main(file_name, starting_value):
 
     keyboard.press('tab')
-    time.sleep(0.01/SPEEDHACK_SPEED)
+    time.sleep(0.02/SPEEDHACK_SPEED)
     keyboard.release('tab')
-    time.sleep(0.01/SPEEDHACK_SPEED)
+    time.sleep(0.02/SPEEDHACK_SPEED)
 
     file_name = file_name
     starting_value = starting_value
@@ -478,9 +478,9 @@ def main(file_name, starting_value):
                     starting_value += 1
 
                     keyboard.press('tab')
-                    time.sleep(0.01/SPEEDHACK_SPEED)
+                    time.sleep(0.02/SPEEDHACK_SPEED)
                     keyboard.release('tab')
-                    time.sleep(0.01/SPEEDHACK_SPEED)
+                    time.sleep(0.02/SPEEDHACK_SPEED)
 
                     # updating infos about the game state, a break is required to work properly
                     p1killAS = p1killNew
@@ -504,9 +504,9 @@ def main(file_name, starting_value):
                 starting_value += 1
 
                 keyboard.press('tab')
-                time.sleep(0.01/SPEEDHACK_SPEED)
+                time.sleep(0.02/SPEEDHACK_SPEED)
                 keyboard.release('tab')
-                time.sleep(0.01/SPEEDHACK_SPEED)
+                time.sleep(0.02/SPEEDHACK_SPEED)
 
                 # updating infos about the game state, a break is required to work properly
                 p1killAS = p1killNew
