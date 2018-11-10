@@ -132,6 +132,7 @@ def getScoreKillsDeaths():
     bufferSize2 = (c.sizeof(buff2))
     # print("bufferSize2", bufferSize2)
     bytesRead2 = c.c_ulonglong(0)
+    # 44FD3E
     tmpOffset = int(0x43FD49)
     # print("tmpOffset", '%s' % hex(tmpOffset))
 
@@ -158,6 +159,49 @@ def getScoreKillsDeaths():
         p1score = int(test7[0])
         p1kill = int(test7[4])
         p1death = int(test7[5].split('/')[1])
+
+    print("p1score", p1score)
+    print("p1kill", p1kill)
+    print("p1death", p1death)
+
+    return p1score,p1kill,p1death
+
+
+def getScoreKillsDeaths2():
+
+    # It finally read the string
+    buff2 = c.create_string_buffer(32)
+    bufferSize2 = (c.sizeof(buff2))
+    # print("bufferSize2", bufferSize2)
+    bytesRead2 = c.c_ulonglong(0)
+    # 44FD3E
+    tmpOffset = int(0x43FD40)
+    # print("tmpOffset", '%s' % hex(tmpOffset))
+
+    ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
+    scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
+    # 45 is -
+    print("\n\nscoreStr", scoreStr)
+    test3 = [chr(i) for i in scoreStr]
+    test4 = ""
+    test5 = test4.join(test3)
+    print("test3", test3)
+    # print("test4", test4)
+    # print("test5", test5)
+    test6 = test5.replace('\n', ' ')
+    print("test6", test6)
+    test7 = test6.split(' ')
+    print("test7", test7)
+    print("test7[0]",test7[0])
+    if(test7[1]=='1'):
+        try:
+            p1score = int(test7[1+2])
+            p1kill = int(test7[5+2])
+            p1death = int(test7[5+2 ].split('/')[0])
+        except:
+            p1score = int(test7[0+2])
+            p1kill = int(test7[4+2])
+            p1death = int(test7[5+2].split('/')[1])
 
     print("p1score", p1score)
     print("p1kill", p1kill)
@@ -352,6 +396,8 @@ def main(file_name, starting_value):
 
         game_data = []
 
+        print("waiting for a new round")
+
         while(numbersOFDeathInLastSeconds==1):
             # 1 or >1 if a players in the lasts seconds
             tmpOffset = int(0x455C9C)
@@ -359,7 +405,9 @@ def main(file_name, starting_value):
 
             ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff, bufferSize, c.byref(bytesRead))
             numbersOFDeathInLastSeconds = unpack('I', buff)[0]
-            print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
+            # print("numbersOFDeathInLastSeconds", numbersOFDeathInLastSeconds)
+
+        print("new round started    ")
 
         while(roundEnded == False):
 
@@ -457,6 +505,7 @@ def main(file_name, starting_value):
 
             if(numbersOFDeathInLastSeconds!=0):
                 p1scoreNew, p1killNew, p1deathNew = getScoreKillsDeaths()
+                getScoreKillsDeaths2()
 
                 print("p1scoreNew, p1killNew, p1deathNew", p1scoreNew, p1killNew, p1deathNew)
 
