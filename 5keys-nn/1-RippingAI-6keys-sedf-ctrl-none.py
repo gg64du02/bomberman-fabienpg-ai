@@ -300,6 +300,12 @@ def getArrowDirection():
 SPEEDHACK_SPEED = 1
 
 def main(file_name, starting_value):
+
+    keyboard.press('tab')
+    time.sleep(0.01/SPEEDHACK_SPEED)
+    keyboard.release('tab')
+    time.sleep(0.01/SPEEDHACK_SPEED)
+
     file_name = file_name
     starting_value = starting_value
     training_data = []
