@@ -194,6 +194,8 @@ def getScoreKillsDeaths2():
     test7 = test6.split(' ')
     print("test7", test7)
     print("test7[0]",test7[0])
+    # TODO: the problem spawn everytime you check/uncheck the AI
+    # test7 ['Joueur', '2', '(IA)', '-1', 'Points', '', '', '0', 'K/1', 'AK', '', 'Joueur', '1', '(IA)', '-2', 'Points', '', '', '0', '']
     if(test7[1]=='1'):
         try:
             p1score = int(test7[1+2])
