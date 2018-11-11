@@ -170,16 +170,17 @@ def getScoreKillsDeaths():
 def getScoreKillsDeaths2():
 
     # It finally read the string
-    buff2 = c.create_string_buffer(32)
+    buff2 = c.create_string_buffer(64)
     bufferSize2 = (c.sizeof(buff2))
     # print("bufferSize2", bufferSize2)
     bytesRead2 = c.c_ulonglong(0)
     # 44FD3E
-    tmpOffset = int(0x43FD40)
+    # tmpOffset = int(0x43FD40)
+    tmpOffset = int(0x0044FD20)
     # print("tmpOffset", '%s' % hex(tmpOffset))
 
     ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
-    scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
+    scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
     # 45 is -
     print("\n\nscoreStr", scoreStr)
     test3 = [chr(i) for i in scoreStr]
@@ -197,7 +198,7 @@ def getScoreKillsDeaths2():
         try:
             p1score = int(test7[1+2])
             p1kill = int(test7[5+2])
-            p1death = int(test7[5+2 ].split('/')[0])
+            p1death = int(test7[5+2].split('/')[0])
         except:
             p1score = int(test7[0+2])
             p1kill = int(test7[4+2])
@@ -205,13 +206,15 @@ def getScoreKillsDeaths2():
     if(test7[1]=='2'):
         print("detected player 2 score")
         try:
-            p1score = int(test7[1+2])
-            p1kill = int(test7[5+2])
-            p1death = int(test7[5+2 ].split('/')[0])
+            print("test1")
+            p1score = int(test7[1+2+9])
+            p1kill = int(test7[4+2+9])
+            p1death = int(test7[5+2+9].split('/')[0])
         except:
-            p1score = int(test7[0+2])
-            p1kill = int(test7[4+2])
-            p1death = int(test7[5+2].split('/')[1])
+            print("test2")
+            p1score = int(test7[0+2+1+9])
+            p1kill = int(test7[4+2+1+9])
+            p1death = int(test7[5+2+1+9].split('/')[1])
 
     print("p1score", p1score)
     print("p1kill", p1kill)
@@ -378,7 +381,8 @@ def main(file_name, starting_value):
     # supposed to be at least not a dead player at the start
     numbersOFDeathInLastSeconds = 0
 
-    p1scoreAS, p1killAS, p1deathAS = getScoreKillsDeaths()
+    # p1scoreAS, p1killAS, p1deathAS = getScoreKillsDeaths()
+    p1scoreAS, p1killAS, p1deathAS = getScoreKillsDeaths2()
 
     # AS: At Start
     print("at start p1scoreAS, p1killAS, p1deathAS", p1scoreAS, p1killAS, p1deathAS)
@@ -520,8 +524,8 @@ def main(file_name, starting_value):
                 keyboard.release('tab')
                 time.sleep(0.02 / SPEEDHACK_SPEED)
 
-                p1scoreNew, p1killNew, p1deathNew = getScoreKillsDeaths()
-                getScoreKillsDeaths2()
+                # p1scoreNew, p1killNew, p1deathNew = getScoreKillsDeaths()
+                p1scoreNew, p1killNew, p1deathNew = getScoreKillsDeaths2()
 
                 print("p1scoreNew, p1killNew, p1deathNew", p1scoreNew, p1killNew, p1deathNew)
 
