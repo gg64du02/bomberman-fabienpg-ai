@@ -170,7 +170,7 @@ def getScoreKillsDeaths():
 def getScoreKillsDeaths2():
 
     # It finally read the string
-    buff2 = c.create_string_buffer(64)
+    buff2 = c.create_string_buffer(96)
     bufferSize2 = (c.sizeof(buff2))
     # print("bufferSize2", bufferSize2)
     bytesRead2 = c.c_ulonglong(0)
@@ -180,7 +180,7 @@ def getScoreKillsDeaths2():
     # print("tmpOffset", '%s' % hex(tmpOffset))
 
     ReadProcessMemory(ph, c.c_void_p(tmpOffset), buff2, bufferSize2, c.byref(bytesRead2))
-    scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
+    scoreStr = unpack('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', buff2)
     # 45 is -
     print("\n\nscoreStr", scoreStr)
     test3 = [chr(i) for i in scoreStr]
@@ -219,9 +219,9 @@ def getScoreKillsDeaths2():
         else:
             print("second listed is controlled by human")
 
-        p1score = int(test7[10+offset])
-        p1kill = int(test7[12+offset])
-        p1death = int(test7[12+offset].split('/')[1])
+        p1score = int(test7[12+offset])
+        p1kill = int(test7[16+offset])
+        p1death = int(test7[17+offset].split('/')[1])
 
         # if the player 2 is listed as first
         if(test7[10+offset] == '1'):
@@ -229,45 +229,6 @@ def getScoreKillsDeaths2():
 
         else:
             print('error nothing found')
-
-
-
-    #     # if the player 2 is listed as first
-    #     if(test7[11+offset] == '2'):
-    #         # checking if it is an AI
-    #         if (test7[13] == '(IA)'):
-    #             print("controlled by AI (player 2 listed first)")
-    #             p1score = int(test7[1 + 2 + 9])
-    #             p1kill = int(test7[4 + 2 + 9])
-    #             p1death = int(test7[5 + 2 + 9].split('/')[0])
-    #     pass
-    #
-    # # if the player 1 is listed as first
-    # if(test7[1]=='1'):
-    #     # checking if it is an AI
-    #     if(test7[2]=='(IA)'):
-    #         print("controlled by AI (player 1 listed first)")
-    #         p1score = int(test7[1+2])
-    #         p1kill = int(test7[5+2])
-    #         p1death = int(test7[5+2].split('/')[0])
-    #     else:
-    #         p1score = int(test7[1+1])
-    #         p1kill = int(test7[5+1])
-    #         p1death = int(test7[5+1].split('/')[0])
-    # else:
-    #     # if the player 2 is listed as first
-    #     if(test7[12] == '2'):
-    #         # checking if it is an AI
-    #         if (test7[13] == '(IA)'):
-    #             print("controlled by AI (player 2 listed first)")
-    #             p1score = int(test7[1 + 2 + 9])
-    #             p1kill = int(test7[4 + 2 + 9])
-    #             p1death = int(test7[5 + 2 + 9].split('/')[0])
-    #         else:
-    #             print("controlled by human (player 2 listed first)")
-    #             p1score = int(test7[0 + 2 + 1 + 9])
-    #             p1kill = int(test7[4 + 2 + 1 + 9])
-    #             p1death = int(test7[5 + 2 + 1 + 9].split('/')[1])
 
     # for debbugging purpose
     # p1score = 0
