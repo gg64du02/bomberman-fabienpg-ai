@@ -195,28 +195,39 @@ def getScoreKillsDeaths2():
     print("test7", test7)
     print("test7[0]",test7[0])
     # TODO: the problem spawn everytime you check/uncheck the AI
-    # test7 ['Joueur', '2', '(IA)', '-1', 'Points', '', '', '0', 'K/1', 'AK', '', 'Joueur', '1', '(IA)', '-2', 'Points', '', '', '0', '']
+    # test7 = ['Joueur', '2', '(IA)', '-1', 'Points', '', '', '0', 'K/1', 'AK', '', 'Joueur', '1', '(IA)', '-2', 'Points', '', '', '0', '']
+
+    # if the player 1 is listed as first
     if(test7[1]=='1'):
-        try:
+        # checking if it is an AI
+        if(test7[2]=='(IA)'):
+            print("controlled by AI (player 1 listed first)")
             p1score = int(test7[1+2])
             p1kill = int(test7[5+2])
             p1death = int(test7[5+2].split('/')[0])
-        except:
-            p1score = int(test7[0+2])
-            p1kill = int(test7[4+2])
-            p1death = int(test7[5+2].split('/')[1])
-    if(test7[1]=='2'):
-        print("detected player 2 score")
-        try:
-            print("test1")
-            p1score = int(test7[1+2+9])
-            p1kill = int(test7[4+2+9])
-            p1death = int(test7[5+2+9].split('/')[0])
-        except:
-            print("test2")
-            p1score = int(test7[0+2+1+9])
-            p1kill = int(test7[4+2+1+9])
-            p1death = int(test7[5+2+1+9].split('/')[1])
+        else:
+            print("controlled by human (player 1 listed first)")
+            p1score = int(test7[1+1])
+            p1kill = int(test7[5+1])
+            p1death = int(test7[5+1].split('/')[0])
+    else:   
+        # if the player 2 is listed as first
+        if(test7[12] == '2'):
+            # checking if it is an AI
+            if (test7[13] == '(IA)'):
+                print("controlled by AI (player 2 listed first)")
+                p1score = int(test7[1 + 2 + 9])
+                p1kill = int(test7[4 + 2 + 9])
+                p1death = int(test7[5 + 2 + 9].split('/')[0])
+            else:
+                print("controlled by human (player 2 listed first)")
+                p1score = int(test7[0 + 2 + 1 + 9])
+                p1kill = int(test7[4 + 2 + 1 + 9])
+                p1death = int(test7[5 + 2 + 1 + 9].split('/')[1])
+
+    p1score = 0
+    p1kill = 0
+    p1death = 0
 
     print("p1score", p1score)
     print("p1kill", p1kill)
