@@ -558,7 +558,8 @@ def main(file_name, starting_value):
                 print("sanity check",p1killNew,p1killAS)
 
                 # Mean the controlled player kill count changed
-                if(p1killNew!=p1killAS):
+                # if(p1killNew!=p1killAS):
+                if(p1killNew>p1killAS):
 
                     file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(starting_value)
                     np.save(file_name, game_data)
