@@ -501,16 +501,16 @@ def main(file_name, starting_value):
                 if(arrowsPressedOrNot==''):
                     choosedKey = [0,0,0,0,0,1]
 
-            screenshotTaken.append(screen)
-            game_data.append([screen, choosedKey]
+            # screenshotTaken.append(screen)
+            # game_data.append([screen, choosedKey]
 
-            # if(previousScreenshotTaken!=[]):
-            #     screenshotTaken.append(previousScreenshotTaken)
-            #     keyIssued.append(choosedKey)
-)
-            # game_data.append([previousScreenshotTaken, choosedKey])
+            if(previousScreenshotTaken!=[]):
+                screenshotTaken.append(previousScreenshotTaken)
+                keyIssued.append(choosedKey)
 
-            # previousScreenshotTaken = screen
+            game_data.append([previousScreenshotTaken, choosedKey])
+
+            previousScreenshotTaken = screen
 
             # TODO: check when player2 is dead
             # TODO: check for variable set to one in memory
