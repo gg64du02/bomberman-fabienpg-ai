@@ -613,12 +613,6 @@ def main(file_name, starting_value):
 
             # print("i",i)
             i+=1
-            # if(i == 500):
-            #     roundEnded = True
-            #     # file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
-            #     # np.save(file_name, game_data)
-            #     # print('SAVED')
-            #     # starting_value += 1
 
 main(file_name, starting_value)
 
