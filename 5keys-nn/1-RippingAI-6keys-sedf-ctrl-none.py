@@ -509,7 +509,7 @@ def main(file_name, starting_value):
                 screenshotTaken.append(previousScreenshotTaken)
                 keyIssued.append(choosedKey)
 
-            game_data.append([previousScreenshotTaken, choosedKey])
+                game_data.append([previousScreenshotTaken, choosedKey])
 
             previousScreenshotTaken = screen
 
@@ -600,7 +600,7 @@ def main(file_name, starting_value):
 
                         while (i6 < len(game_data)):
                             # tmpArray = np.asarray((game_data[:, 1])[i6])
-                            tmpArray = np.asarray(game_data[i6])
+                            tmpArray = np.asarray(game_data[i6][1])
                             tmpArray2 = np.asarray(Outputs)
                             # print("tmpArray:",tmpArray)
                             # print("tmpArray2:",tmpArray2)
@@ -675,7 +675,7 @@ def main(file_name, starting_value):
                     offset = int(len(extractedNumpyFromTrainData) / len(extractedNumpyFromTrainData[0][1]))
                     lineNum = 0
 
-                    for indexOffset in range(offset):
+                    for indexOffset in range(offset ):
                         for outputKind in range(len(extractedNumpyFromTrainData[0][1])):
                             index = int(offset * outputKind) + indexOffset
                             extractedNumpyFromTrainDataTmp[lineNum] = np.asarray(extractedNumpyFromTrainData)[index]
@@ -685,7 +685,7 @@ def main(file_name, starting_value):
 
                     # extractedNumpyFromTrainData is a list
                     # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainDataTmp))
-                    np.save(file_name, np.asarray(extractedNumpyFromTrainDataTmp))
+                        np.save(file_name, np.asarray(extractedNumpyFromTrainDataTmp))
 
                     # =======================
 
