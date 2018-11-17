@@ -372,7 +372,8 @@ def getArrowDirection():
 
 
 # Speedhack speed fixed with Cheat Engine
-SPEEDHACK_SPEED = 5
+SPEEDHACK_SPEED = 2
+print("SPEEDHACK_SPEED",SPEEDHACK_SPEED)
 
 DEBUG = 0
 
@@ -562,7 +563,133 @@ def main(file_name, starting_value):
                 if(p1killNew>p1killAS):
 
                     file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(starting_value)
-                    np.save(file_name, game_data)
+
+                    # =======================
+                    # lenghtInt = len((game_data[:, 1])[0])
+                    lenghtInt = len(game_data[0][1])
+
+                    possibleOutputs = np.zeros((lenghtInt, lenghtInt))
+
+                    i5 = 0
+                    while (i5 < lenghtInt):
+                        possibleOutputs[i5, i5] = 1;
+                        i5 += 1
+
+                    print("possibleOutputs:\n", possibleOutputs)
+
+                    # outputsOccurence = np.zeros((numberOfDifferentsOutput, 1))
+
+                    outputsOccurence = np.empty(lenghtInt, dtype=np.object)
+
+                    # trying to do automatic generation
+                    # outputsOccurence = [[],[],[],[],[],[]]
+                    # outputsOccurence = [[] for i in range(6)]
+                    outputsOccurence = [[] for i in range(lenghtInt)]
+
+                    NumberOfOccurenceOutput = []
+
+                    # stir everything to get a better results when extracting on the first go.
+                    # shuffle(train_data)
+
+                    outputs_number = 0
+                    for Outputs in possibleOutputs:
+                        print("Outputs:", Outputs)
+                        i6 = 0
+                        # test_argwhere = np.argwhere((train_data[:, 1])[i6]!=0)
+                        # print()
+
+                        while (i6 < len(game_data)):
+                            # tmpArray = np.asarray((game_data[:, 1])[i6])
+                            tmpArray = np.asarray(game_data[i6])
+                            tmpArray2 = np.asarray(Outputs)
+                            # print("tmpArray:",tmpArray)
+                            # print("tmpArray2:",tmpArray2)
+                            if (np.array_equal(tmpArray, tmpArray2)):
+                                # print("np.array_equal(tmpArray,tmpArray2)")
+                                # print("i6:",i6)
+                                # print("Outputs:",Outputs)
+                                outputsOccurence[outputs_number].append([i6])
+                            i6 += 1
+                        print("len(outputsOccurence[" + str(outputs_number) + "]):",
+                              len(outputsOccurence[outputs_number]))
+
+                        NumberOfOccurenceOutput.append(len(outputsOccurence[outputs_number]))
+
+                        outputs_number += 1
+
+                    # bare minimum to extract
+                    minimumToExtract = min(NumberOfOccurenceOutput)
+                    # preparing the numpy for file writing
+                    # extractedNumpyFromTrainData = np.zeros((lenghtInt*minimumToExtract,2))
+                    extractedNumpyFromTrainData = [[[], []] for line in range(int(lenghtInt * minimumToExtract))]
+                    # extractedNumpyFromTrainData = np.zeros((int(lenghtInt*minimumToExtract),2))
+
+                    print("len(extractedNumpyFromTrainData):", len(extractedNumpyFromTrainData))
+
+                    # counting remaining
+                    outputsOccurenceInOutputFile = NumberOfOccurenceOutput
+
+                    # outputsOccurence[outputs_number])
+                    print()
+                    i7 = 0
+
+                    i9 = 0
+                    print("len(outputsOccurence):", len(outputsOccurence))
+                    while (i7 < len(outputsOccurence)):
+                        # print(outputsOccurence[i7])
+                        print("i7:", i7)
+                        i8 = 0
+                        # lol (outputsOccurence[5])[0]
+                        while (i8 < minimumToExtract):
+                            print("i8:", i8)
+                            # print((outputsOccurence[i7])[i8])
+                            # print( ( (outputsOccurence[i7])[i8] )[0]      )
+                            tmpIndex = ((outputsOccurence[i7])[i8])[0]
+                            print("tmpIndex:", tmpIndex)
+
+                            extractedNumpyFromTrainData[i9] = game_data[tmpIndex]
+
+                            print("i9:", i9)
+
+                            # index for tain_data
+                            i9 += 1
+
+                            # iteration on each occurence
+                            i8 += 1
+
+                        # iteration on another output
+                        i7 += 1
+
+                    print()
+
+                    # file_name_partial_extraction_dataset = './phase-3/training_data_merged-partial-dataset-{}.npy'.format(
+                    #     iii)
+
+                    # np.save(file_name_partial_extraction_dataset, extractedNumpyFromTrainData)
+
+                    # extractedNumpyFromTrainData is a list
+                    # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainData))
+
+                    extractedNumpyFromTrainDataTmp = [[] for i in range(len(extractedNumpyFromTrainData))]
+
+                    offset = int(len(extractedNumpyFromTrainData) / len(extractedNumpyFromTrainData[0][1]))
+                    lineNum = 0
+
+                    for indexOffset in range(offset):
+                        for outputKind in range(len(extractedNumpyFromTrainData[0][1])):
+                            index = int(offset * outputKind) + indexOffset
+                            extractedNumpyFromTrainDataTmp[lineNum] = np.asarray(extractedNumpyFromTrainData)[index]
+                            lineNum += 1
+
+                    # print()
+
+                    # extractedNumpyFromTrainData is a list
+                    # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainDataTmp))
+                    np.save(file_name, np.asarray(extractedNumpyFromTrainDataTmp))
+
+                    # =======================
+
+                    # np.save(file_name, game_data)
                     print('SAVED in builtin-ai folder')
                     starting_value += 1
 
@@ -583,29 +710,31 @@ def main(file_name, starting_value):
                 pass
                 # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-            # p1 and p2 are dead (including both killed themself)
-            if(numbersOFDeathInLastSeconds>1):
-                print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-                roundEnded = True
-                file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
-
-                # implement here
-
-                # np.save(file_name, game_data)
-                print('SAVED in bruteforce folder')
-                starting_value += 1
-
-                keyboard.press('tab')
-                time.sleep(0.02/SPEEDHACK_SPEED)
-                keyboard.release('tab')
-                time.sleep(0.02/SPEEDHACK_SPEED)
-
-                # updating infos about the game state, a break is required to work properly
-                p1killAS = p1killNew
-                p1kdeathAS = p1deathNew
-                p1scoreAS = p1killNew
-
-                break
+            # # p1 and p2 are dead (including both killed themself)
+            # if(numbersOFDeathInLastSeconds>1):
+            #     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            #     roundEnded = True
+            #     file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+            #
+            #     # implement here
+            #     # =============================================================================
+            #     # =============================================================================
+            #
+            #     # np.save(file_name, game_data)
+            #     print('SAVED in bruteforce folder')
+            #     starting_value += 1
+            #
+            #     keyboard.press('tab')
+            #     time.sleep(0.02/SPEEDHACK_SPEED)
+            #     keyboard.release('tab')
+            #     time.sleep(0.02/SPEEDHACK_SPEED)
+            #
+            #     # updating infos about the game state, a break is required to work properly
+            #     p1killAS = p1killNew
+            #     p1kdeathAS = p1deathNew
+            #     p1scoreAS = p1killNew
+            #
+            #     break
 
 
             # stop the recording if it is too long (and kill the player ?)
