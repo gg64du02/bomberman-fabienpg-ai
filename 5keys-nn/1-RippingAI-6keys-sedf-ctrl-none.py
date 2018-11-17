@@ -564,6 +564,10 @@ def main(file_name, starting_value):
 
                     file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(starting_value)
 
+                    # shuffle
+                    print("random.shuffle(game_data)")
+                    random.shuffle(game_data)
+
                     # =======================
                     # lenghtInt = len((game_data[:, 1])[0])
                     lenghtInt = len(game_data[0][1])
