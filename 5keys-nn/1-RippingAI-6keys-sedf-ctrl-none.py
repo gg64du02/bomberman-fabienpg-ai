@@ -583,26 +583,29 @@ def main(file_name, starting_value):
                 pass
                 # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-            # # p1 and p2 are dead (including both killed themself)
-            # if(numbersOFDeathInLastSeconds>1):
-            #     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            #     roundEnded = True
-            #     file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
-            #     np.save(file_name, game_data)
-            #     print('SAVED in bruteforce folder')
-            #     starting_value += 1
-            #
-            #     keyboard.press('tab')
-            #     time.sleep(0.02/SPEEDHACK_SPEED)
-            #     keyboard.release('tab')
-            #     time.sleep(0.02/SPEEDHACK_SPEED)
-            #
-            #     # updating infos about the game state, a break is required to work properly
-            #     p1killAS = p1killNew
-            #     p1kdeathAS = p1deathNew
-            #     p1scoreAS = p1killNew
-            #
-            #     break
+            # p1 and p2 are dead (including both killed themself)
+            if(numbersOFDeathInLastSeconds>1):
+                print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+                roundEnded = True
+                file_name = './phase-1-bruteforce/training_data-{}.npy'.format(starting_value)
+
+                # implement here
+
+                # np.save(file_name, game_data)
+                print('SAVED in bruteforce folder')
+                starting_value += 1
+
+                keyboard.press('tab')
+                time.sleep(0.02/SPEEDHACK_SPEED)
+                keyboard.release('tab')
+                time.sleep(0.02/SPEEDHACK_SPEED)
+
+                # updating infos about the game state, a break is required to work properly
+                p1killAS = p1killNew
+                p1kdeathAS = p1deathNew
+                p1scoreAS = p1killNew
+
+                break
 
 
             # stop the recording if it is too long (and kill the player ?)
