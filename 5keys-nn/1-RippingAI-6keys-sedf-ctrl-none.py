@@ -506,8 +506,8 @@ def main(file_name, starting_value):
             # game_data.append([screen, choosedKey]
 
             if(previousScreenshotTaken!=[]):
-                screenshotTaken.append(previousScreenshotTaken)
-                keyIssued.append(choosedKey)
+                # screenshotTaken.append(previousScreenshotTaken)
+                # keyIssued.append(choosedKey)
 
                 game_data.append([previousScreenshotTaken, choosedKey])
 
