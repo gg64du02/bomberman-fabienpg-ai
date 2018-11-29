@@ -702,7 +702,7 @@ def main(file_name, starting_value):
 
                     # extractedNumpyFromTrainData is a list
                     # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainDataTmp))
-                        np.save(file_name, np.asarray(extractedNumpyFromTrainDataTmp))
+                    np.save(file_name, np.asarray(extractedNumpyFromTrainDataTmp))
 
                     # =======================
 
@@ -719,6 +719,13 @@ def main(file_name, starting_value):
                     p1killAS = p1killNew
                     p1kdeathAS = p1deathNew
                     p1scoreAS = p1killNew
+
+                    #  115646.1171875 Megabytes
+                    if (get_free_space_mb("d:/") < 20000):
+                        print("stopping generation","if (get_free_space_mb('d:/') < 20000):")
+                        exit()
+                    else:
+                        print("continuing generation","!if (get_free_space_mb('d:/') < 20000):")
 
                     pass
 
@@ -763,9 +770,6 @@ def main(file_name, starting_value):
             # print("i",i)
             i+=1
 
-            #  115646.1171875 Megabytes
-            if(get_free_space_mb("d:/")<20000):
-                break
 
 main(file_name, starting_value)
 
