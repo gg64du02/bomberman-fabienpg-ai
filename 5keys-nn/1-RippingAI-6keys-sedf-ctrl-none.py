@@ -8,6 +8,9 @@ from grabscreen import grab_screen
 import keyboard
 # import key_pressed_and_issuing
 import os
+# for checking free space
+import ctypes
+import platform
 
 # to generate alternative timing for keystroke to get around more easily
 from numpy import random
@@ -122,6 +125,16 @@ listOf680 = []
 # 0x4 : 4 bytes steps
 # addresses_list = xrange(address,0x9000000,0x4)
 addresses_list = range(startAddress,endAddress,0x4)
+
+def get_free_space_mb(dirname):
+    """Return folder/drive free space (in megabytes)."""
+    if platform.system() == 'Windows':
+        free_bytes = ctypes.c_ulonglong(0)
+        ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(dirname), None, None, ctypes.pointer(free_bytes))
+        return free_bytes.value / 1024 / 1024
+    else:
+        st = os.statvfs(dirname)
+        return st.f_bavail * st.f_frsize / 1024 / 1024
 
 # ============================================================
 
@@ -749,6 +762,10 @@ def main(file_name, starting_value):
 
             # print("i",i)
             i+=1
+
+            #  115646.1171875 Megabytes
+            if(get_free_space_mb("d:/")<20000):
+                break
 
 main(file_name, starting_value)
 
