@@ -16,5 +16,5 @@ def get_free_space_mb(dirname):
         return st.f_bavail * st.f_frsize / 1024 / 1024
 
 
-print("get_free_space_mb('c:/')",get_free_space_mb("c:/"))
-print("get_free_space_mb('d:/')",get_free_space_mb("d:/"))
+print("get_free_space_mb('c:/')",get_free_space_mb('c:/'))
+print("get_free_space_mb('d:/')",get_free_space_mb('d:/'))
