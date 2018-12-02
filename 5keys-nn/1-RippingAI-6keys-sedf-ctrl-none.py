@@ -721,11 +721,11 @@ def main(file_name, starting_value):
                     p1scoreAS = p1killNew
 
                     #  115646.1171875 Megabytes
-                    if (get_free_space_mb("d:/") < 20000):
-                        print("stopping generation","if (get_free_space_mb('d:/') < 20000):")
+                    if((get_free_space_mb('d:/') < 20000)or(get_free_space_mb('c:/') < 40000)):
+                        print("stopping generation","if((get_free_space_mb('d:/') < 20000)or(get_free_space_mb('c:/') < 40000)):")
                         exit()
                     else:
-                        print("continuing generation","!if (get_free_space_mb('d:/') < 20000):")
+                        print("continuing generation","!if((get_free_space_mb('d:/') < 20000)or(get_free_space_mb('c:/') < 40000)):")
 
                     pass
 
