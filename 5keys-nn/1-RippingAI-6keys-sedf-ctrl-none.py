@@ -385,7 +385,7 @@ def getArrowDirection():
 
 
 # Speedhack speed fixed with Cheat Engine
-SPEEDHACK_SPEED = 2
+SPEEDHACK_SPEED = 1
 print("SPEEDHACK_SPEED",SPEEDHACK_SPEED)
 
 DEBUG = 0
