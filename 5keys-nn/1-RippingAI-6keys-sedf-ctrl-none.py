@@ -711,7 +711,6 @@ def main(file_name, starting_value):
                         print('SAVED in builtin-ai folder')
                     except:
                         print("avoiding script's crash")
-                        break
 
                     starting_value += 1
 
