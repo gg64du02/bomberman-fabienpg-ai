@@ -687,27 +687,32 @@ def main(file_name, starting_value):
                     # extractedNumpyFromTrainData is a list
                     # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainData))
 
-                    extractedNumpyFromTrainDataTmp = [[] for i in range(len(extractedNumpyFromTrainData))]
+                    try:
+                        extractedNumpyFromTrainDataTmp = [[] for i in range(len(extractedNumpyFromTrainData))]
 
-                    offset = int(len(extractedNumpyFromTrainData) / len(extractedNumpyFromTrainData[0][1]))
-                    lineNum = 0
+                        offset = int(len(extractedNumpyFromTrainData) / len(extractedNumpyFromTrainData[0][1]))
+                        lineNum = 0
 
-                    for indexOffset in range(offset ):
-                        for outputKind in range(len(extractedNumpyFromTrainData[0][1])):
-                            index = int(offset * outputKind) + indexOffset
-                            extractedNumpyFromTrainDataTmp[lineNum] = np.asarray(extractedNumpyFromTrainData)[index]
-                            lineNum += 1
+                        for indexOffset in range(offset):
+                            for outputKind in range(len(extractedNumpyFromTrainData[0][1])):
+                                index = int(offset * outputKind) + indexOffset
+                                extractedNumpyFromTrainDataTmp[lineNum] = np.asarray(extractedNumpyFromTrainData)[index]
+                                lineNum += 1
 
-                    # print()
+                        # print()
 
-                    # extractedNumpyFromTrainData is a list
-                    # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainDataTmp))
-                    np.save(file_name, np.asarray(extractedNumpyFromTrainDataTmp))
+                        # extractedNumpyFromTrainData is a list
+                        # np.save(file_name_partial_extraction_dataset, np.asarray(extractedNumpyFromTrainDataTmp))
+                        np.save(file_name, np.asarray(extractedNumpyFromTrainDataTmp))
 
-                    # =======================
+                        # =======================
 
-                    # np.save(file_name, game_data)
-                    print('SAVED in builtin-ai folder')
+                        # np.save(file_name, game_data)
+                        print('SAVED in builtin-ai folder')
+                    except:
+                        print("avoiding script's crash")
+                        break
+
                     starting_value += 1
 
                     keyboard.press('tab')
