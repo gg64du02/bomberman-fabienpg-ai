@@ -441,7 +441,8 @@ def main(file_name, starting_value):
         if(stop == True):
             break
 
-        if(starting_value > 100):
+        if(starting_value > 1000):
+            print("if(starting_value > 1000):")
             exit()
 
         game_data = []
