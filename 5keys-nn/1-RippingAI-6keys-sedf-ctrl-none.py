@@ -27,6 +27,9 @@ import time
 # getting PID
 import psutil
 
+# for debbuging purposes on long runs
+import traceback
+
 
 # ============================================
 e =     [1,0,0,0,0,0]
@@ -711,6 +714,12 @@ def main(file_name, starting_value):
                         print('SAVED in builtin-ai folder')
                     except:
                         print("avoiding script's crash")
+
+                        # chack https://docs.python.org/3.1/library/traceback.html#traceback-examples
+                        print("Exception in user code:")
+                        print("-" * 60)
+                        traceback.print_exc(file=sys.stdout)
+                        print("-" * 60)
 
                     starting_value += 1
 
