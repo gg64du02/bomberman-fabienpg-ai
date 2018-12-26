@@ -42,7 +42,7 @@ from keras.callbacks import TensorBoard
 from keras.layers import Cropping2D
 
 # FILE_I_END = 19
-FILE_I_END = 10
+FILE_I_END = 24
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -95,13 +95,13 @@ model.add(Dropout(0.2))
 model.add(Flatten())
 # model.add(Dense(512, activation='softmax'))
 # model.add(Dropout(0.5))
-model.add(Dense(512, activation='softmax'))
-model.add(Dropout(0.5))
+# model.add(Dense(512, activation='softmax'))
+# model.add(Dropout(0.5))
 # model.add(Dense(512, activation='relu'))
 # model.add(Dropout(0.5))
-model.add(Dense(5, activation='softmax'))
+model.add(Dense(6, activation='softmax'))
 
-learning_rate = 0.01
+learning_rate = 0.0001
 opt = keras.optimizers.adam(lr=learning_rate, decay=1e-6)
 
 model.compile(loss='categorical_crossentropy',
@@ -124,6 +124,7 @@ def generate_arrays_from_folder(folder):
 
             try:
                 file_name = './'+folder+'/training_data_merged-partial-dataset-{}.npy'.format(i)
+                file_name = './'+folder+'/training_data_merged-{}.npy'.format(i)
                 print("file_name:",file_name)
 
                 # full file info
@@ -185,7 +186,7 @@ def generate_arrays_from_folder(folder):
                 print("labels.shape:", labels.shape)
 
                 # Convert labels to categorical one-hot encoding
-                one_hot_labels = keras.utils.to_categorical(labels, num_classes=5)
+                one_hot_labels = keras.utils.to_categorical(labels, num_classes=6)
                 print("one_hot_labels:", one_hot_labels.shape)
 
                 print("data.shape:",data.shape)
@@ -203,11 +204,11 @@ def generate_arrays_from_folder(folder):
                 test_size = 100
 
                 x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3)
-                y_train = np.array([i[1] for i in train_data[:-test_size]]).reshape(-1,5)
+                y_train = np.array([i[1] for i in train_data[:-test_size]]).reshape(-1,6)
 
 
                 x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3)
-                y_test = np.array([i[1] for i in train_data[-test_size:]]).reshape(-1,5)
+                y_test = np.array([i[1] for i in train_data[-test_size:]]).reshape(-1,6)
 
                 # # normalization: make it easier for the CNN to learn ?
                 # x_train = tf.keras.utils.normalize(x_train, axis=1)
@@ -233,6 +234,6 @@ def generate_arrays_from_folder(folder):
 #                     steps_per_epoch=5, epochs=EPOCHS)
 
 
-generate_arrays_from_folder('phase-3')
+generate_arrays_from_folder('phase-2')
 
 model.save(MODEL_NAME)
