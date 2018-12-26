@@ -12,7 +12,7 @@ from random import shuffle
 import sys
 
 # FILE_I_END = 19
-FILE_I_END = 103
+FILE_I_END = 247
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -54,7 +54,7 @@ if starting_value != 1:
 
 while(iii<FILE_I_END+1):
     print("====================================")
-    file_name = './phase-1/training_data-{}.npy'.format(iii)
+    file_name = './phase-1-builtin-ai/training_data-{}.npy'.format(iii)
 
     fd = os.open(file_name, os.O_RDWR | os.O_CREAT)
     fo = os.fdopen(fd, "r")
@@ -99,8 +99,8 @@ while(iii<FILE_I_END+1):
                len(training_data[0]))
         print("(np.asarray(training_data[0])).shape",
                (np.asarray(training_data[0])).shape)
-        print("(np.asarray(training_data[0])).reshape((5000,2)).shape",
-               (np.asarray(training_data[0])).reshape((5000,2)).shape)
+        print("(np.asarray(training_data[0])).reshape((tmpOutput.shape[0],2)).shape",
+               (np.asarray(training_data[0])).reshape((tmpOutput.shape[0],2)).shape)
 
         testLOL = (np.asarray(training_data[0])).transpose()
 
