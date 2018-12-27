@@ -47,7 +47,7 @@ EPOCHS = 10
 # MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
 # MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
 # MODEL_NAME = 'bomberman-nn-keras_v13_5classes_data_p_255.h5'
-MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 # MODEL_NAME = 'bomberman-nn-keras_v17_5classes.h5'
 
 PREV_MODEL = MODEL_NAME
@@ -163,7 +163,7 @@ while (True):
             cv2.destroyAllWindows()
             break
 
-        if(0):
+        if(1):
             mostImportantInputNumber = (np.where(prediction[0]==np.max(prediction[0])))[0]
 
             futureKeypress = np.zeros((1,5), np.uint8)
@@ -179,32 +179,32 @@ while (True):
                     if(mostImportantInputNumber==0):
                         # print("e")
                         keyboard.press('e')
-                        # time.sleep(0.05)
+                        time.sleep(0.05)
                         keyboard.release('e')
                         # pass
                     if(mostImportantInputNumber==1):
                         print("d")
                         keyboard.press('d')
-                        # time.sleep(0.05)
+                        time.sleep(0.05)
                         keyboard.release('d')
                         # pass
                     if(mostImportantInputNumber==2):
                         print("s")
                         keyboard.press('s')
-                        # time.sleep(0.05)
+                        time.sleep(0.05)
                         keyboard.release('s')
                         # pass
                         pass
                     if(mostImportantInputNumber==3):
                         print("f")
                         keyboard.press('f')
-                        # time.sleep(0.05)
+                        time.sleep(0.05)
                         keyboard.release('f')
                         # pass
                     if(mostImportantInputNumber==4):
                         print("ctrl")
                         keyboard.press('ctrl')
-                        # time.sleep(0.05)
+                        time.sleep(0.05)
                         keyboard.release('ctrl')
                         # pass
 
