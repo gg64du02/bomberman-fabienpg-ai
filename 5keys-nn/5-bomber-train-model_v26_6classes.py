@@ -220,7 +220,7 @@ def generate_arrays_from_folder(folder):
                           shuffle=True,
                           verbose=1)
 
-                model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-{}.h5".format(EPOCHS, learning_rate, e,i))
+                model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-{}.h5".format(EPOCHS, learning_rate, e,count))
 
                 print("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-.h5".format(EPOCHS, learning_rate, e),"saved")
 
