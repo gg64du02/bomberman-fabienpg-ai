@@ -42,7 +42,7 @@ from keras.callbacks import TensorBoard
 from keras.layers import Cropping2D
 
 # FILE_I_END = 19
-FILE_I_END = 24
+FILE_I_END = 51
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -220,7 +220,7 @@ def generate_arrays_from_folder(folder):
                           shuffle=True,
                           verbose=1)
 
-                model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-.h5".format(EPOCHS, learning_rate, e))
+                model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-{}.h5".format(EPOCHS, learning_rate, e,i))
 
                 print("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-.h5".format(EPOCHS, learning_rate, e),"saved")
 
