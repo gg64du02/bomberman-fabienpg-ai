@@ -43,13 +43,9 @@ LR = 1e-3
 # EPOCHS = 1
 EPOCHS = 10
 
-# MODEL_NAME = 'bomberman-nn-keras_v14_5classes.h5'
-# MODEL_NAME = 'bomberman-nn-keras_v15_5classes.h5'
-# MODEL_NAME = 'bomberman-nn-keras_v16_5classes.h5'
 # MODEL_NAME = 'bomberman-nn-keras_v13_5classes_data_p_255.h5'
 MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 # MODEL_NAME = 'BasicCNN-5-epochs-0.0001-LR-STAGE1-0-.h5'
-# MODEL_NAME = 'BasicCNN-5-epochs-0.0001-LR-STAGE1-4-.h5'
 
 # MODEL_NAME = 'bomberman-nn-keras_v17_5classes.h5'
 

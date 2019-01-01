@@ -55,7 +55,7 @@ LR = 1e-4
 # EPOCHS = 1
 EPOCHS = 5
 
-MODEL_NAME = 'bomberman-nn-keras_v21_5classes.h5'
+MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = False
