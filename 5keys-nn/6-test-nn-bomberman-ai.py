@@ -184,47 +184,83 @@ while (True):
                 if(once==False):
                     once=True
                     if(mostImportantInputNumber==0):
+                        # keyboard.release('e')
+                        keyboard.release('d')
+                        keyboard.release('s')
+                        keyboard.release('f')
+                        keyboard.release('ctrl')
+
                         # print("e")
                         keyboard.press('e')
-                        time.sleep(timePress)
-                        # time.sleep(0.05)
-                        keyboard.release('e')
-                        # pass
+                        # time.sleep(timePress)
+                        # # time.sleep(0.05)
+                        # keyboard.release('e')
+                        # # pass
 
                     if(mostImportantInputNumber==1):
+                        keyboard.release('e')
+                        # keyboard.release('d')
+                        keyboard.release('s')
+                        keyboard.release('f')
+                        keyboard.release('ctrl')
+
                         print("d")
                         keyboard.press('d')
-                        time.sleep(timePress)
-                        # time.sleep(0.05)
-                        keyboard.release('d')
-                        # pass
+                        # time.sleep(timePress)
+                        # # time.sleep(0.05)
+                        # keyboard.release('d')
+                        # # pass
 
                     if(mostImportantInputNumber==2):
+                        keyboard.release('e')
+                        keyboard.release('d')
+                        # keyboard.release('s')
+                        keyboard.release('f')
+                        keyboard.release('ctrl')
+
                         print("s")
                         keyboard.press('s')
-                        time.sleep(timePress)
-                        # time.sleep(0.05)
-                        keyboard.release('s')
-                        # pass
+                        # time.sleep(timePress)
+                        # # time.sleep(0.05)
+                        # keyboard.release('s')
+                        # # pass
 
                     if(mostImportantInputNumber==3):
+                        keyboard.release('e')
+                        keyboard.release('d')
+                        keyboard.release('s')
+                        # keyboard.release('f')
+                        keyboard.release('ctrl')
+
                         print("f")
                         keyboard.press('f')
-                        time.sleep(timePress)
-                        # time.sleep(0.05)
-                        keyboard.release('f')
-                        # pass
+                        # time.sleep(timePress)
+                        # # time.sleep(0.05)
+                        # keyboard.release('f')
+                        # # pass
 
                     if(mostImportantInputNumber==4):
+                        keyboard.release('e')
+                        keyboard.release('d')
+                        keyboard.release('s')
+                        keyboard.release('f')ff
+                        # keyboard.release('ctrl')
+
                         print("ctrl")
                         keyboard.press('ctrl')
-                        time.sleep(timePress)
-                        # time.sleep(0.05)
-                        keyboard.release('ctrl')
-                        # pass
+                        # time.sleep(timePress)
+                        # # time.sleep(0.05)
+                        # keyboard.release('ctrl')
+                        # # pass
 
                     if(mostImportantInputNumber==5):
-                        time.sleep(timePress)
+                        # time.sleep(timePress)
+
+                        keyboard.release('e')
+                        keyboard.release('d')
+                        keyboard.release('s')
+                        keyboard.release('f')
+                        keyboard.release('ctrl')
 
 
 
