@@ -162,7 +162,8 @@ while (True):
         # print(type(screen))
         # too see what is captured
         cv2.imshow('screen', cv2.cvtColor(screen, cv2.COLOR_BGR2RGB))
-        if cv2.waitKey(25) & 0xFF == ord('t'):
+        # if cv2.waitKey(25) & 0xFF == ord('t'):
+        if (0xFF == ord('t')):
             cv2.destroyAllWindows()
             break
 
