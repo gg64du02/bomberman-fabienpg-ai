@@ -90,7 +90,7 @@ model.add(Cropping2D(cropping=8,
 model.add(Conv2D(8, (8, 8), activation='softmax'))
 # model.add(Conv2D(32, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.2))
+model.add(Dropout(0.1666))
 
 model.add(Flatten())
 # model.add(Dense(512, activation='softmax'))

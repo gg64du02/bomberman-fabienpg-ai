@@ -28,6 +28,9 @@ from keras.models import Model
 
 from grabscreen import grab_screen
 
+# to generate alternative timing for keystroke to get around more easily
+from numpy import random
+
 # FILE_I_END = 19
 FILE_I_END = 5
 
@@ -174,27 +177,29 @@ while (True):
 
             once = False
 
+            timePress = 0.10 + random.randint(10) * 0.01
+
             for futureInput in all_keys:
                 if(once==False):
                     once=True
                     if(mostImportantInputNumber==0):
                         # print("e")
                         keyboard.press('e')
-                        time.sleep(0.15)
+                        time.sleep(timePress)
                         # time.sleep(0.05)
                         keyboard.release('e')
                         # pass
                     if(mostImportantInputNumber==1):
                         print("d")
                         keyboard.press('d')
-                        time.sleep(0.15)
+                        time.sleep(timePress)
                         # time.sleep(0.05)
                         keyboard.release('d')
                         # pass
                     if(mostImportantInputNumber==2):
                         print("s")
                         keyboard.press('s')
-                        time.sleep(0.15)
+                        time.sleep(timePress)
                         # time.sleep(0.05)
                         keyboard.release('s')
                         # pass
@@ -202,19 +207,19 @@ while (True):
                     if(mostImportantInputNumber==3):
                         print("f")
                         keyboard.press('f')
-                        time.sleep(0.15)
+                        time.sleep(timePress)
                         # time.sleep(0.05)
                         keyboard.release('f')
                         # pass
                     if(mostImportantInputNumber==4):
                         print("ctrl")
                         keyboard.press('ctrl')
-                        time.sleep(0.15)
+                        time.sleep(timePress)
                         # time.sleep(0.05)
                         keyboard.release('ctrl')
                         # pass
                     if(mostImportantInputNumber==5):
-                        time.sleep(0.15)
+                        time.sleep(timePress)
 
 
 
