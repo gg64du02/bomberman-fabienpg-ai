@@ -190,6 +190,7 @@ while (True):
                         # time.sleep(0.05)
                         keyboard.release('e')
                         # pass
+
                     if(mostImportantInputNumber==1):
                         print("d")
                         keyboard.press('d')
@@ -197,6 +198,7 @@ while (True):
                         # time.sleep(0.05)
                         keyboard.release('d')
                         # pass
+
                     if(mostImportantInputNumber==2):
                         print("s")
                         keyboard.press('s')
@@ -204,7 +206,7 @@ while (True):
                         # time.sleep(0.05)
                         keyboard.release('s')
                         # pass
-                        pass
+
                     if(mostImportantInputNumber==3):
                         print("f")
                         keyboard.press('f')
@@ -212,6 +214,7 @@ while (True):
                         # time.sleep(0.05)
                         keyboard.release('f')
                         # pass
+
                     if(mostImportantInputNumber==4):
                         print("ctrl")
                         keyboard.press('ctrl')
@@ -219,6 +222,7 @@ while (True):
                         # time.sleep(0.05)
                         keyboard.release('ctrl')
                         # pass
+
                     if(mostImportantInputNumber==5):
                         time.sleep(timePress)
 
