@@ -243,7 +243,7 @@ while (True):
                         keyboard.release('e')
                         keyboard.release('d')
                         keyboard.release('s')
-                        keyboard.release('f')ff
+                        keyboard.release('f')
                         # keyboard.release('ctrl')
 
                         print("ctrl")
