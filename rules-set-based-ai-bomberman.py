@@ -968,6 +968,12 @@ while True:
 
     print("listOfBombs:",listOfBombs)
 
+    keyboard.release('e')
+    keyboard.release('s')
+    keyboard.release('d')
+    keyboard.release('f')
+    keyboard.release('ctrl')
+
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
@@ -978,6 +984,7 @@ while True:
 
     # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
     # print("screenAveraged[:,8].astype(int):\n",screenAveraged[:,8].astype(int))
+
 
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
@@ -997,6 +1004,7 @@ while True:
     if(previousBombPutByPlayer1!=[]):
         listOfBombs.append(previousBombPutByPlayer1)
         print("listOfBombs.append(previousBombPutByPlayer1)")
+
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
@@ -1027,13 +1035,8 @@ while True:
 
 
     # time.sleep(0.05+random.randint(5)*0.01)
-    time.sleep(0.06+random.randint(5)*0.01)
+    # time.sleep(0.06+random.randint(5)*0.01)
     # time.sleep(0.015+random.randint(5)*0.01)
-    keyboard.release('e')
-    keyboard.release('s')
-    keyboard.release('d')
-    keyboard.release('f')
-    keyboard.release('ctrl')
 
     # too see what is capturedd
     # cv2.imshow('screen', cv2.cvtColor(screen, cv2.COLOR_BGR2RGB))
