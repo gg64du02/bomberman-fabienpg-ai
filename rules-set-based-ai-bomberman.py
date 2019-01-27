@@ -799,9 +799,10 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
     tp2 = tilePositionGenerator()
 
     for tile in tp2:
+        x = int(tile[0]/32)
+        y = int(tile[1]/32)
+        # print(x,y)
         for i in allBlocking:
-            x = int(tile[0]/32)
-            y = int(tile[1]/32)
             if(emptySpots[y,x]==False):
                 # print(i)
                 # print(x,y)
