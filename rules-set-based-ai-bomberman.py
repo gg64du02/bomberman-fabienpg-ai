@@ -493,11 +493,11 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     # timeToUnstuck = 0.05
     # # time.sleep(timeToUnstuck)
-    if(tmpCoincoin[0]<6):
+    if(tmpCoincoin[1]<6):
         keyboard.press('d')
         # time.sleep(timeToUnstuck)
         # keyboard.release('d')
-    if(tmpCoincoin[0]>26):
+    if(tmpCoincoin[1]>26):
         keyboard.press('e')
         # time.sleep(timeToUnstuck)
         # keyboard.release('e')
@@ -991,14 +991,14 @@ while True:
     # keyboard.release('f')
     # keyboard.release('ctrl')
 
-    tmpLOL = random.randint(4)
-
-    if((tmpLOL%4)==0):
-        keyboard.release('e')
-        keyboard.release('s')
-        keyboard.release('d')
-        keyboard.release('f')
-        keyboard.release('ctrl')
+    # tmpLOL = random.randint(4)
+    #
+    # if((tmpLOL%4)==0):
+    #     keyboard.release('e')
+    #     keyboard.release('s')
+    #     keyboard.release('d')
+    #     keyboard.release('f')
+    #     keyboard.release('ctrl')
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
