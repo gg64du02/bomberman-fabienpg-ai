@@ -491,24 +491,24 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     tmpCoincoin = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
     # print("tmpCoincoin:", tmpCoincoin)
 
-    timeToUnstuck = 0.05
-    time.sleep(timeToUnstuck)
-    if(tmpCoincoin[0]<6):
-        keyboard.press('d')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('d')
-    if(tmpCoincoin[0]>26):
-        keyboard.press('e')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('e')
-    if(tmpCoincoin[0]<6):
-        keyboard.press('f')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('f')
-    if(tmpCoincoin[0]>26):
-        keyboard.press('s')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('s')
+    # timeToUnstuck = 0.05
+    # # time.sleep(timeToUnstuck)
+    # if(tmpCoincoin[0]<6):
+    #     keyboard.press('d')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('d')
+    # if(tmpCoincoin[0]>26):
+    #     keyboard.press('e')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('e')
+    # if(tmpCoincoin[0]<6):
+    #     keyboard.press('f')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('f')
+    # if(tmpCoincoin[0]>26):
+    #     keyboard.press('s')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('s')
 
     previousPlayer1Position = player1indexes
 
@@ -984,12 +984,21 @@ while True:
     loop_time_3 = time.time()
 
     print("listOfBombs:",listOfBombs)
+    #
+    # keyboard.release('e')
+    # keyboard.release('s')
+    # keyboard.release('d')
+    # keyboard.release('f')
+    # keyboard.release('ctrl')
 
-    keyboard.release('e')
-    keyboard.release('s')
-    keyboard.release('d')
-    keyboard.release('f')
-    keyboard.release('ctrl')
+    # tmpLOL = random.randint(4)
+    #
+    # if((tmpLOL%4)==0):
+    #     keyboard.release('e')
+    #     keyboard.release('s')
+    #     keyboard.release('d')
+    #     keyboard.release('f')
+    #     keyboard.release('ctrl')
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
@@ -1002,6 +1011,11 @@ while True:
     # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
     # print("screenAveraged[:,8].astype(int):\n",screenAveraged[:,8].astype(int))
 
+    keyboard.release('e')
+    keyboard.release('s')
+    keyboard.release('d')
+    keyboard.release('f')
+    keyboard.release('ctrl')
 
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
@@ -1030,6 +1044,8 @@ while True:
     loop_time_6 = time.time()
 
     # time.sleep(1)
+
+
 
     if (keyboard.is_pressed('p') == True):
         paused = True
