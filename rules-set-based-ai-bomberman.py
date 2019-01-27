@@ -802,19 +802,16 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         x = int(tile[0]/32)
         y = int(tile[1]/32)
         # print("x,y:",x,y)
-        if(x<10):
-            # print(str(x%2))
-            if((x%2)==1):
-                # print("if((x%2)==1):")
-                if(y%2==1):
-                    # print("if(y%2==1):")
+        if(y%2==1):
+            if(x<10):
+                # print(str(x%2))
+                if((x%2)==1):
+                    # print("if((x%2)==1):")
                     availiableSpots[y, x] = False
                     continue
-        else:
-            # print(str((x+1)%2))
-            if((x+1)%2==1):
-                # print("if((x+1)%2==1):")
-                if(y%2==1):
+            else:
+                if((x+1)%2==1):
+                    # print("if((x+1)%2==1):")
                     availiableSpots[y, x] = False
                     continue
 
