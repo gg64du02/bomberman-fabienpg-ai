@@ -493,22 +493,30 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     # timeToUnstuck = 0.05
     # # time.sleep(timeToUnstuck)
-    if(tmpCoincoin[1]<6):
+    print("tmpCoincoin",tmpCoincoin)
+    print("player1indexes",player1indexes)
+    print("getPlayerPosition",getPlayerPosition)
+    lol =False
+    if(tmpCoincoin[0]<6):
         keyboard.press('d')
         # time.sleep(timeToUnstuck)
         # keyboard.release('d')
-    if(tmpCoincoin[1]>26):
+        lol =True
+    if(tmpCoincoin[0]>26):
         keyboard.press('e')
         # time.sleep(timeToUnstuck)
         # keyboard.release('e')
-    if(tmpCoincoin[0]<6):
+        lol =True
+    if(tmpCoincoin[1]<6):
         keyboard.press('f')
         # time.sleep(timeToUnstuck)
         # keyboard.release('f')
-    if(tmpCoincoin[0]>26):
+        lol =True
+    if(tmpCoincoin[1]>26):
         keyboard.press('s')
         # time.sleep(timeToUnstuck)
         # keyboard.release('s')
+        lol =True
 
     previousPlayer1Position = player1indexes
 
@@ -517,6 +525,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     print("2-1",format(st_time_oneStepToPutBomb2-st_time_oneStepToPutBomb1))
     print("3-2",format(st_time_oneStepToPutBomb3-st_time_oneStepToPutBomb2))
+
+    return tmpCoincoin, lol
 
     pass
 
@@ -942,6 +952,7 @@ def IsItABomb(pixel):
 
 # camera = cv2.VideoCapture("Bomber 2018-07-05 21-35-23-13.avi")
 
+offsetPosToDo = False
 
 while True:
 
@@ -972,8 +983,17 @@ while True:
 
     screenAveraged = ScreenAveraging(screen)
 
-
     loop_time_2 = time.time()
+
+    if(offsetPosToDo==True):
+        print("if(offsetPosToDo==True):")
+
+        # keyboard.release('e')
+        # keyboard.release('s')
+        # keyboard.release('d')
+        # keyboard.release('f')
+        # keyboard.release('ctrl')
+
 
     # print("screenAveraged:",screenAveraged)
 
@@ -1017,6 +1037,7 @@ while True:
     keyboard.release('f')
     keyboard.release('ctrl')
 
+
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
     # DONE: remove the bottom line
@@ -1042,7 +1063,11 @@ while True:
     # keyboard.release('f')
     # keyboard.release('ctrl')
 
-    oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
+    # oneStepToPutBomb(potentialPath, potentialPathList, player1indexes, player2indexes, listOfBombs, getPlayerPosition)
+
+    offsetPosition,offsetPosToDo = oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
+
+
 
     print("previousBombPutByPlayer1",previousBombPutByPlayer1)
 
