@@ -354,7 +354,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # DONE: add escaping when putting a bomb (disabled because availablePath is now putting bombs
     # as unavailable spot to walk onto)
     # DONE: make a cross pattern around the enemy and select the best spot to put the bomb
-    # the ideal would be to make the green player stuck....
+    # the ideal would be to make the green player....
     # TODO: make an ai aware of bomb timing
 
     neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
@@ -493,22 +493,22 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     # timeToUnstuck = 0.05
     # # time.sleep(timeToUnstuck)
-    # if(tmpCoincoin[0]<6):
-    #     keyboard.press('d')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('d')
-    # if(tmpCoincoin[0]>26):
-    #     keyboard.press('e')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('e')
-    # if(tmpCoincoin[0]<6):
-    #     keyboard.press('f')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('f')
-    # if(tmpCoincoin[0]>26):
-    #     keyboard.press('s')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('s')
+    if(tmpCoincoin[0]<6):
+        keyboard.press('d')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('d')
+    if(tmpCoincoin[0]>26):
+        keyboard.press('e')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('e')
+    if(tmpCoincoin[0]<6):
+        keyboard.press('f')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('f')
+    if(tmpCoincoin[0]>26):
+        keyboard.press('s')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('s')
 
     previousPlayer1Position = player1indexes
 
@@ -991,14 +991,14 @@ while True:
     # keyboard.release('f')
     # keyboard.release('ctrl')
 
-    # tmpLOL = random.randint(4)
-    #
-    # if((tmpLOL%4)==0):
-    #     keyboard.release('e')
-    #     keyboard.release('s')
-    #     keyboard.release('d')
-    #     keyboard.release('f')
-    #     keyboard.release('ctrl')
+    tmpLOL = random.randint(4)
+
+    if((tmpLOL%4)==0):
+        keyboard.release('e')
+        keyboard.release('s')
+        keyboard.release('d')
+        keyboard.release('f')
+        keyboard.release('ctrl')
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
@@ -1036,6 +1036,11 @@ while True:
         listOfBombs.append(previousBombPutByPlayer1)
         print("listOfBombs.append(previousBombPutByPlayer1)")
 
+    # keyboard.release('e')
+    # keyboard.release('s')
+    # keyboard.release('d')
+    # keyboard.release('f')
+    # keyboard.release('ctrl')
 
     oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
