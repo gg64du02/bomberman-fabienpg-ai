@@ -497,26 +497,26 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     print("player1indexes",player1indexes)
     print("getPlayerPosition",getPlayerPosition)
     lol =False
-    if(tmpCoincoin[0]<6):
-        keyboard.press('d')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('d')
-        lol =True
-    if(tmpCoincoin[0]>26):
-        keyboard.press('e')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('e')
-        lol =True
-    if(tmpCoincoin[1]<6):
-        keyboard.press('f')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('f')
-        lol =True
-    if(tmpCoincoin[1]>26):
-        keyboard.press('s')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('s')
-        lol =True
+    # if(tmpCoincoin[0]<5):
+    #     keyboard.press('d')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('d')
+    #     lol =True
+    # if(tmpCoincoin[0]>27):
+    #     keyboard.press('e')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('e')
+    #     lol =True
+    # if(tmpCoincoin[1]<5):
+    #     keyboard.press('f')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('f')
+    #     lol =True
+    # if(tmpCoincoin[1]>27):
+    #     keyboard.press('s')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('s')
+    #     lol =True
 
     previousPlayer1Position = player1indexes
 
@@ -985,14 +985,6 @@ while True:
 
     loop_time_2 = time.time()
 
-    if(offsetPosToDo==True):
-        print("if(offsetPosToDo==True):")
-
-        # keyboard.release('e')
-        # keyboard.release('s')
-        # keyboard.release('d')
-        # keyboard.release('f')
-        # keyboard.release('ctrl')
 
 
     # print("screenAveraged:",screenAveraged)
@@ -1003,13 +995,22 @@ while True:
 
     loop_time_3 = time.time()
 
-    print("listOfBombs:",listOfBombs)
-    #
     # keyboard.release('e')
     # keyboard.release('s')
     # keyboard.release('d')
     # keyboard.release('f')
     # keyboard.release('ctrl')
+
+    if(offsetPosToDo==True):
+        print("if(offsetPosToDo==True):")
+
+        # keyboard.release('e')
+        # keyboard.release('s')
+        # keyboard.release('d')
+        # keyboard.release('f')
+        # keyboard.release('ctrl')
+
+    print("listOfBombs:",listOfBombs)
 
     # tmpLOL = random.randint(4)
     #
@@ -1023,6 +1024,11 @@ while True:
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
+    # keyboard.release('e')
+    # keyboard.release('s')
+    # keyboard.release('d')
+    # keyboard.release('f')
+    # keyboard.release('ctrl')
 
     loop_time_4 = time.time()
 
@@ -1031,11 +1037,11 @@ while True:
     # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
     # print("screenAveraged[:,8].astype(int):\n",screenAveraged[:,8].astype(int))
 
-    keyboard.release('e')
-    keyboard.release('s')
-    keyboard.release('d')
-    keyboard.release('f')
-    keyboard.release('ctrl')
+    # keyboard.release('e')
+    # keyboard.release('s')
+    # keyboard.release('d')
+    # keyboard.release('f')
+    # keyboard.release('ctrl')
 
 
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
@@ -1057,11 +1063,11 @@ while True:
         listOfBombs.append(previousBombPutByPlayer1)
         print("listOfBombs.append(previousBombPutByPlayer1)")
 
-    # keyboard.release('e')
-    # keyboard.release('s')
-    # keyboard.release('d')
-    # keyboard.release('f')
-    # keyboard.release('ctrl')
+    keyboard.release('e')
+    keyboard.release('s')
+    keyboard.release('d')
+    keyboard.release('f')
+    keyboard.release('ctrl')
 
     # oneStepToPutBomb(potentialPath, potentialPathList, player1indexes, player2indexes, listOfBombs, getPlayerPosition)
 
