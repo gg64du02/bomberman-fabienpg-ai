@@ -764,8 +764,8 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
 
     time_AvailiablePath2  = time.time()
 
-    availiableSpots = np.ones((15,20))
-
+    # availiableSpots = np.ones((15,20))
+    #
     emptySpots = np.zeros((15,20))
 
     # print("screenAveragedToInt[0,:4]",screenAveragedToInt[0,:4])
@@ -785,13 +785,14 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
 
     tp = tilePositionGenerator()
 
-    # for tile in tp:
-    #     for k in allEmptyArray:
-    #         x = int(tile[0]/32)
-    #         y = int(tile[1]/32)
-    #         if(np.array_equal(k,screenAveragedToInt[y,x])==True):
-    #             emptySpots[y,x] = True
-    #             # break
+    for tile in tp:
+        for k in allEmptyArray:
+            x = int(tile[0]/32)
+            y = int(tile[1]/32)
+            if(np.array_equal(k,screenAveragedToInt[y,x])==True):
+                emptySpots[y,x] = True
+                # break
+                # pass
 
     # for tile in tp:
     #     x = int(tile[0] / 32)
