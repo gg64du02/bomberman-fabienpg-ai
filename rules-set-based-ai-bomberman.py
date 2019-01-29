@@ -1032,6 +1032,11 @@ while True:
 
     if(offsetPosToDo==True):
         print("if(offsetPosToDo==True):")
+        keyboard.release('e')
+        keyboard.release('s')
+        keyboard.release('d')
+        keyboard.release('f')
+        keyboard.release('ctrl')
 
     print("listOfBombs:",listOfBombs)
 
@@ -1110,12 +1115,6 @@ while True:
     print("3-2",format(loop_time_3-loop_time_2))
     print("2-1",format(loop_time_2-loop_time_1))
 
-
-    print('FPS:{}FPS'.format( (1/(time.time()-st_time))))
-    # print(str(int((1/(time.time()-st_time)))))
-    stats.extend([np.uint8(10*(1/(time.time()-st_time)))])
-
-
     # time.sleep(0.05+random.randint(5)*0.01)
     # time.sleep(0.06+random.randint(5)*0.01)
     # time.sleep(0.015+random.randint(5)*0.01)
@@ -1128,9 +1127,12 @@ while True:
     #     cv2.destroyAllWindows()
     #     break
 
+    print('FPS:{}FPS'.format( (1/(time.time()-st_time))))
+    # print(str(int((1/(time.time()-st_time)))))
+    stats.extend([np.uint8(1000*(time.time()-st_time))])
 
 num_bins = 100
 n, bins, patches = plt.hist(stats, num_bins, facecolor='blue', alpha=0.5,
-                            label="dFPS|"+os.path.basename(__file__))
+                            label="Time distribution in ms|"+os.path.basename(__file__))
 plt.legend()
 plt.show()
