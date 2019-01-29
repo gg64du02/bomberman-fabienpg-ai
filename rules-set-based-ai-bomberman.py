@@ -25,6 +25,8 @@ import itertools
 from heapq import *
 import time
 
+# for stastical analisys
+import matplotlib.pyplot as plt
 
 
 previousPlayer1Position = (0,0)
@@ -809,7 +811,6 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
         for k in allEmptyArray:
             if(np.array_equal(k,screenAveragedToInt[y,x])==True):
                 emptySpots[y,x] = True
-                # break
                 # pass
 
     tp2 = tilePositionGenerator()
@@ -989,6 +990,8 @@ def IsItABomb(pixel):
 
 offsetPosToDo = False
 
+stats = []
+
 while True:
 
     st_time = time.time()
@@ -1128,6 +1131,8 @@ while True:
         keyboard.release('ctrl')
 
         cv2.destroyAllWindows()
+
+
         break
 
     print("time for this loop in ms:",format(time.time()-st_time))
@@ -1136,6 +1141,11 @@ while True:
     print("4-3",format(loop_time_4-loop_time_3))
     print("3-2",format(loop_time_3-loop_time_2))
     print("2-1",format(loop_time_2-loop_time_1))
+
+
+    print('FPS:{}FPS'.format( (1/(time.time()-st_time))))
+    # print(str(int((1/(time.time()-st_time)))))
+    stats.extend([np.uint8(10*(1/(time.time()-st_time)))])
 
 
     # time.sleep(0.05+random.randint(5)*0.01)
@@ -1150,3 +1160,9 @@ while True:
     #     cv2.destroyAllWindows()
     #     break
 
+
+num_bins = 100
+n, bins, patches = plt.hist(stats, num_bins, facecolor='blue', alpha=0.5,
+                            label="dFPS|"+os.path.basename(__file__))
+plt.legend()
+plt.show()
