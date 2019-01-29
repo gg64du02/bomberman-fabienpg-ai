@@ -996,7 +996,6 @@ while True:
 
     st_time = time.time()
 
-
     loop_time_1 = time.time()
 
     # DONE: smarter logic about bomb location/placement to kill enemy and bomb timing
@@ -1023,8 +1022,6 @@ while True:
 
     loop_time_2 = time.time()
 
-
-
     # print("screenAveraged:",screenAveraged)
 
     # previousBombPutByPlayer1 = []
@@ -1033,20 +1030,8 @@ while True:
 
     loop_time_3 = time.time()
 
-    # keyboard.release('e')
-    # keyboard.release('s')
-    # keyboard.release('d')
-    # keyboard.release('f')
-    # keyboard.release('ctrl')
-
     if(offsetPosToDo==True):
         print("if(offsetPosToDo==True):")
-
-        # keyboard.release('e')
-        # keyboard.release('s')
-        # keyboard.release('d')
-        # keyboard.release('f')
-        # keyboard.release('ctrl')
 
     print("listOfBombs:",listOfBombs)
 
@@ -1062,25 +1047,12 @@ while True:
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs, currentMap)
 
-    # keyboard.release('e')
-    # keyboard.release('s')
-    # keyboard.release('d')
-    # keyboard.release('f')
-    # keyboard.release('ctrl')
-
     loop_time_4 = time.time()
 
     print("availiablePath:\n",availiablePath)
 
     # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
     # print("screenAveraged[:,8].astype(int):\n",screenAveraged[:,8].astype(int))
-
-    # keyboard.release('e')
-    # keyboard.release('s')
-    # keyboard.release('d')
-    # keyboard.release('f')
-    # keyboard.release('ctrl')
-
 
     regionSize,potentialPathList,potentialPath = availiablePathToControlledPlayer(availiablePath, getPlayerPosition)
 
@@ -1111,15 +1083,11 @@ while True:
 
     offsetPosition,offsetPosToDo = oneStepToPutBomb(potentialPath,potentialPathList,player1indexes,player2indexes,listOfBombs,getPlayerPosition)
 
-
-
     print("previousBombPutByPlayer1",previousBombPutByPlayer1)
 
     loop_time_6 = time.time()
 
     # time.sleep(1)
-
-
 
     if (keyboard.is_pressed('p') == True):
         paused = True
