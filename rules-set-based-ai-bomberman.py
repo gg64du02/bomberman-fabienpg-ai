@@ -26,6 +26,7 @@ from heapq import *
 import time
 
 
+
 previousPlayer1Position = (0,0)
 
 global previousBombPutByPlayer1
@@ -497,26 +498,26 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     print("player1indexes",player1indexes)
     print("getPlayerPosition",getPlayerPosition)
     lol =False
-    # if(tmpCoincoin[0]<5):
-    #     keyboard.press('d')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('d')
-    #     lol =True
-    # if(tmpCoincoin[0]>27):
-    #     keyboard.press('e')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('e')
-    #     lol =True
-    # if(tmpCoincoin[1]<5):
-    #     keyboard.press('f')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('f')
-    #     lol =True
-    # if(tmpCoincoin[1]>27):
-    #     keyboard.press('s')
-    #     # time.sleep(timeToUnstuck)
-    #     # keyboard.release('s')
-    #     lol =True
+    if(tmpCoincoin[0]<5):
+        keyboard.press('d')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('d')
+        lol =True
+    if(tmpCoincoin[0]>27):
+        keyboard.press('e')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('e')
+        lol =True
+    if(tmpCoincoin[1]<5):
+        keyboard.press('f')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('f')
+        lol =True
+    if(tmpCoincoin[1]>27):
+        keyboard.press('s')
+        # time.sleep(timeToUnstuck)
+        # keyboard.release('s')
+        lol =True
 
     previousPlayer1Position = player1indexes
 
@@ -667,7 +668,7 @@ def GetPlayerPosition(screen, number):
 
 
 # DONE: fix the "filled" (even though clear) bottom path issue
-def AvailiablePath(screen,screenAveraged,number,listOfBombs):
+def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
 
     time_AvailiablePath1  = time.time()
     crate = [65,151,191]
@@ -805,6 +806,7 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
 
     print("emptySpots\n",emptySpots)
 
+    availiableSpots = currentMapArray
 
     tp2 = tilePositionGenerator()
 
@@ -812,36 +814,37 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         x = int(tile[0]/32)
         y = int(tile[1]/32)
         # print("x,y:",x,y)
-        if(y%2==1):
-            if(x<10):
-                # print(str(x%2))
-                if((x%2)==1):
-                    # print("if((x%2)==1):")
-                    availiableSpots[y, x] = False
-                    continue
-            else:
-                if((x+1)%2==1):
-                    # print("if((x+1)%2==1):")
-                    availiableSpots[y, x] = False
-                    continue
+        # if(y%2==1):
+        #     if(x<10):
+        #         # print(str(x%2))
+        #         if((x%2)==1):
+        #             # print("if((x%2)==1):")
+        #             availiableSpots[y, x] = False
+        #             continue
+        #     else:
+        #         if((x+1)%2==1):
+        #             # print("if((x+1)%2==1):")
+        #             availiableSpots[y, x] = False
+        #             continue
 
         # if(availiableSpots[y, x] ==False):
         #     print("oh no")
 
-        for i in allBlocking:
-            if(emptySpots[y,x]==False):
-                # print(i)
-                # print(x,y)
-                # print("i:",i)
-                # print("screenAveragedToInt[y,x]:",screenAveragedToInt[y,x])
-                if(np.array_equal(i,screenAveragedToInt[y,x])==True):
-                    # print("True\n")
-                    availiableSpots[y,x] = False
-                    break
-                # else:
-                #     print("!True\n")
-        # if(IsItABomb(screenAveragedToInt[y,x])==True):
-        #     availiableSpots[y,x] = False
+        if(availiableSpots[y,x]==True):
+            for i in allBlocking:
+                if(emptySpots[y,x]==False):
+                    # print(i)
+                    # print(x,y)
+                    # print("i:",i)
+                    # print("screenAveragedToInt[y,x]:",screenAveragedToInt[y,x])
+                    if(np.array_equal(i,screenAveragedToInt[y,x])==True):
+                        # print("True\n")
+                        availiableSpots[y,x] = False
+                        break
+                    # else:
+                    #     print("!True\n")
+            # if(IsItABomb(screenAveragedToInt[y,x])==True):
+            #     availiableSpots[y,x] = False
     for bomb in listOfBombs:
         print("bomb:",bomb)
         y = bomb[0]
@@ -884,6 +887,34 @@ def tilePositionGenerator():
         for i in range(20):
             # print(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
             yield(i*tileWidth,ii*tileWidth,(i+1)*tileWidth-1,(ii+1)*tileWidth-1)
+
+
+# =============================================
+
+availiableSpots = np.ones((15, 20))
+
+tp2 = tilePositionGenerator()
+
+for tile in tp2:
+    x = int(tile[0] / 32)
+    y = int(tile[1] / 32)
+    # print("x,y:",x,y)
+    if (y % 2 == 1):
+        if (x < 10):
+            # print(str(x%2))
+            if ((x % 2) == 1):
+                # print("if((x%2)==1):")
+                availiableSpots[y, x] = False
+                continue
+        else:
+            if ((x + 1) % 2 == 1):
+                # print("if((x+1)%2==1):")
+                availiableSpots[y, x] = False
+                continue
+
+currentMap = availiableSpots
+
+# =============================================
 
 
 # your desktop resolution:
@@ -1022,7 +1053,7 @@ while True:
     #     keyboard.release('ctrl')
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
-    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
+    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs, currentMap)
 
     # keyboard.release('e')
     # keyboard.release('s')
