@@ -35,6 +35,99 @@ global previousBombPutByPlayer1
 
 previousBombPutByPlayer1 = []
 
+# ==============
+
+crate = [65, 151, 191]
+hardBlock = [156, 156, 156]
+
+bomb01 = [45, 55, 62]
+bomb02 = [45, 53, 54]
+bomb03 = [46, 56, 57]
+bomb04 = [46, 54, 56]
+
+bomb = [46, 56, 58]
+
+bomb05 = [47, 57, 59]
+bomb06 = [48, 58, 60]
+bomb07 = [48, 58, 60]
+bomb08 = [49, 60, 61]
+bomb09 = [74, 176, 204]
+bomb10 = [91, 169, 193]
+bomb11 = [107, 163, 181]
+
+# crate01 = [46, 152, 211]
+# crate02 = [65, 151, 191]
+# crate03 = [12, 188, 243]
+# crate04 = [0,  220, 252]
+
+crate01 = [46, 152, 211]
+crate02 = [65, 151, 191]
+crate03 = [12, 188, 243]
+crate04 = [0, 220, 252]
+crate05 = [32, 154, 225]
+
+crate06 = [71, 174, 202]
+crate07 = [74, 176, 205]
+crate08 = [88, 167, 191]
+crate09 = [93, 170, 193]
+
+# from the top line
+blast01_01 = [104, 162, 180]
+blast01_02 = [109, 165, 183]
+blast01_03 = [107, 163, 181]
+
+blast02_01 = [91, 169, 193]
+blast02_02 = [89, 168, 191]
+blast02_03 = [93, 170, 193]
+blast02_04 = [90, 168, 192]
+
+blast03_01 = [37, 200, 228]
+blast03_02 = [36, 199, 227]
+blast03_03 = [36, 199, 228]
+
+# from a vertical line
+blast04_01 = [111, 165, 183]
+blast04_02 = [104, 162, 180]
+
+blast05_01 = [93, 170, 194]
+blast05_02 = [88, 167, 191]
+
+blast06_01 = [37, 200, 228]
+blast06_02 = [35, 199, 227]
+
+# [45.29032258 55.72528616 62.90114464]
+# [45.29032258 53.87721124 54.82622268]
+# [46.27263267 56.09157128 57.52341311]
+# [46.15608741 54.89281998 56.05827263]
+# [47.421436  57.3735692 59.2049948]
+# [48.4037461  58.98855359 60.85327784]
+# [48.08740895 58.87200832 60.35379813]
+# [49.06971904 60.13735692 61.8855359]
+#  74.52653485952133 176.08324661810613 204.88657648283038
+#  91.69198751300729 169.4901144640999 193.06555671175857
+#  107.4588969823101 163.92924037460978 181.86056191467222
+
+# allBlocking = [crate,hardBlock]
+# allBlocking = [crate,hardBlock,bomb]
+# allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
+#                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
+#                crate01,crate02,crate03,crate04]
+# allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
+#                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
+#                crate01,crate02,crate03,crate04,crate05,crate06,crate07,crate08,crate09]
+allBlocking = [crate, hardBlock,
+               bomb, bomb01, bomb02, bomb03, bomb04, bomb05,
+               bomb06, bomb07, bomb08, bomb09, bomb10, bomb11,
+               blast01_01, blast01_02, blast01_03,
+               blast02_01, blast02_02, blast02_03, blast02_04,
+               blast03_01, blast03_02, blast03_03
+    , blast04_01, blast04_02
+    , blast05_01, blast05_02
+    , blast06_01, blast06_02]
+
+
+# ==============
+
 # Author: Christian Careaga (christian.careaga7@gmail.com)
 # A* Pathfinding in Python (2.7)
 # Please give credit if used
@@ -673,96 +766,8 @@ def GetPlayerPosition(screen, number):
 def AvailiablePath(screen,screenAveraged,number,listOfBombs):
 
     time_AvailiablePath1  = time.time()
-    crate = [65,151,191]
-    hardBlock = [156,156,156]
-
-    bomb01 = [45,55,62]
-    bomb02 = [45,53,54]
-    bomb03 = [46,56,57]
-    bomb04 = [46,54,56]
-
-    bomb   = [46,56,58]
-
-    bomb05 = [47,57,59]
-    bomb06 = [48,58,60]
-    bomb07 = [48,58,60]
-    bomb08 = [49,60,61]
-    bomb09 = [74,176,204]
-    bomb10 = [91,169,193]
-    bomb11 = [107,163,181]
-
-    # crate01 = [46, 152, 211]
-    # crate02 = [65, 151, 191]
-    # crate03 = [12, 188, 243]
-    # crate04 = [0,  220, 252]
-
-    crate01 = [46, 152, 211]
-    crate02 = [65, 151, 191]
-    crate03 = [12, 188, 243]
-    crate04 = [0,  220, 252]
-    crate05 = [32, 154, 225]
-
-    crate06 = [71, 174, 202]
-    crate07 = [74, 176, 205]
-    crate08 = [88, 167, 191]
-    crate09 = [93, 170, 193]
-
-    # from the top line
-    blast01_01 = [104, 162, 180]
-    blast01_02 = [109, 165, 183]
-    blast01_03 = [107, 163, 181]
-
-    blast02_01 = [ 91, 169, 193]
-    blast02_02 = [ 89, 168, 191]
-    blast02_03 = [ 93, 170, 193]
-    blast02_04 = [ 90, 168, 192]
-
-    blast03_01 = [ 37, 200, 228]
-    blast03_02 = [ 36, 199, 227]
-    blast03_03 = [ 36, 199, 228]
-
-    # from a vertical line
-    blast04_01 = [111, 165, 183]
-    blast04_02 = [104, 162, 180]
-
-    blast05_01 = [ 93, 170, 194]
-    blast05_02 = [ 88, 167, 191]
-
-    blast06_01 = [ 37, 200, 228]
-    blast06_02 = [ 35, 199, 227]
-
-    # [45.29032258 55.72528616 62.90114464]
-    # [45.29032258 53.87721124 54.82622268]
-    # [46.27263267 56.09157128 57.52341311]
-    # [46.15608741 54.89281998 56.05827263]
-    # [47.421436  57.3735692 59.2049948]
-    # [48.4037461  58.98855359 60.85327784]
-    # [48.08740895 58.87200832 60.35379813]
-    # [49.06971904 60.13735692 61.8855359]
-    #  74.52653485952133 176.08324661810613 204.88657648283038
-    #  91.69198751300729 169.4901144640999 193.06555671175857
-    #  107.4588969823101 163.92924037460978 181.86056191467222
 
     screenAveragedToInt = screenAveraged.astype(int)
-
-    # allBlocking = [crate,hardBlock]
-    # allBlocking = [crate,hardBlock,bomb]
-    # allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
-    #                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
-    #                crate01,crate02,crate03,crate04]
-    # allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
-    #                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
-    #                crate01,crate02,crate03,crate04,crate05,crate06,crate07,crate08,crate09]
-    allBlocking = [crate, hardBlock,
-                    bomb, bomb01, bomb02, bomb03, bomb04, bomb05,
-                    bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
-                    blast01_01,blast01_02,blast01_03,
-                    blast02_01,blast02_02,blast02_03,blast02_04,
-                    blast03_01,blast03_02,blast03_03
-                    ,blast04_01,blast04_02
-                    ,blast05_01,blast05_02
-                    ,blast06_01,blast06_02]
-
 
     time_AvailiablePath2  = time.time()
 
