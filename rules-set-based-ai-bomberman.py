@@ -273,7 +273,7 @@ def GoToPositionOneStep(player1indexes,closestNodeToEnemy,potentialPath,blastinP
     np.place(notPotentialPath,potentialPath>0,0)
 
     nextSteps = astar(notPotentialPath,(player1indexes[0],player1indexes[1]),(closestNodeToEnemy[0],closestNodeToEnemy[1]))
-    print("nextSteps:",nextSteps)
+    # print("nextSteps:",nextSteps)
 
     global previousPlayer1Position
     global pathLength
@@ -804,7 +804,7 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
     # availiableSpots = currentMapArray
     availiableSpots = np.copy(currentMapArray)
 
-    print("currentMapArray:\n",currentMapArray)
+    # print("currentMapArray:\n",currentMapArray)
 
 
     for tile in tp:
