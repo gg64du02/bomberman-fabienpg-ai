@@ -834,8 +834,8 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         #     print("oh no")
 
         if(availiableSpots[y,x]==True):
-            for i in allBlocking:
-                if(emptySpots[y,x]==False):
+            if(emptySpots[y,x]==False):
+                for i in allBlocking:
                     # print(i)
                     # print(x,y)
                     # print("i:",i)
