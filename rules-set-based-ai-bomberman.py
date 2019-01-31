@@ -815,11 +815,11 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
     for tile in tp:
         x = int(tile[0] / 32)
         y = int(tile[1] / 32)
-        # if(availiableSpots[y,x]==True):
-        for k in allEmptyArray:
-            if(np.array_equal(k,screenAveragedToInt[y,x])==True):
-                emptySpots[y,x] = True
-                # pass
+        if(availiableSpots[y,x]==True):
+            for k in allEmptyArray:
+                if(np.array_equal(k,screenAveragedToInt[y,x])==True):
+                    emptySpots[y,x] = True
+                    # pass
 
     time_AvailiablePath3 = time.time()
 
