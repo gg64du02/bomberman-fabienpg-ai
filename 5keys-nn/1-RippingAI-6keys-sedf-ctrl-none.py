@@ -721,6 +721,7 @@ def main(file_name, starting_value):
                         print("-" * 60)
                         traceback.print_exc(file=sys.stdout)
                         print("-" * 60)
+                        starting_value -= 1
 
                     starting_value += 1
 
