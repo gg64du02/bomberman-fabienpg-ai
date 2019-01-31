@@ -169,7 +169,7 @@ def adjacentNodeToPotentialBombBlast(listOfBombs, potentialPath, player1indexes)
 
     blastinPositions = potentialPathWithinBlasts(listOfBombs,potentialPath)
 
-    print("blastinPositions:\n",blastinPositions)
+    # print("blastinPositions:\n",blastinPositions)
 
     neighboors = [(0,1),(0,-1),(1,0),(-1,0)]
 
@@ -670,7 +670,7 @@ def GetPlayerPosition(screen, number):
 
 
 # DONE: fix the "filled" (even though clear) bottom path issue
-def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
+def AvailiablePath(screen,screenAveraged,number,listOfBombs):
 
     time_AvailiablePath1  = time.time()
     crate = [65,151,191]
@@ -802,7 +802,7 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
     # print("emptySpots\n",emptySpots)
 
     # availiableSpots = currentMapArray
-    availiableSpots = np.copy(currentMapArray)
+    availiableSpots = np.copy(currentMap)
 
     # print("currentMapArray:\n",currentMapArray)
 
@@ -1055,7 +1055,7 @@ while True:
     #     keyboard.release('ctrl')
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
-    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs, currentMap)
+    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
     loop_time_4 = time.time()
 
