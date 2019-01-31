@@ -821,24 +821,14 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
                 emptySpots[y,x] = True
                 # pass
 
+    time_AvailiablePath3 = time.time()
+
     tp2 = tilePositionGenerator()
 
     for tile in tp2:
         x = int(tile[0]/32)
         y = int(tile[1]/32)
         # print("x,y:",x,y)
-        # if(y%2==1):
-        #     if(x<10):
-        #         # print(str(x%2))
-        #         if((x%2)==1):
-        #             # print("if((x%2)==1):")
-        #             availiableSpots[y, x] = False
-        #             continue
-        #     else:
-        #         if((x+1)%2==1):
-        #             # print("if((x+1)%2==1):")
-        #             availiableSpots[y, x] = False
-        #             continue
 
         # if(availiableSpots[y, x] ==False):
         #     print("oh no")
@@ -864,8 +854,9 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
         x = bomb[1]
         availiableSpots[y,x] = False
 
-    time_AvailiablePath3 = time.time()
+    time_AvailiablePath4 = time.time()
 
+    print("time_AvailiablePath4-time_AvailiablePath3", format(time_AvailiablePath4 - time_AvailiablePath3))
     print("time_AvailiablePath3-time_AvailiablePath2", format(time_AvailiablePath3 - time_AvailiablePath2))
     print("time_AvailiablePath2-time_AvailiablePath1", format(time_AvailiablePath2 - time_AvailiablePath1))
 
