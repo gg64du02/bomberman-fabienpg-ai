@@ -801,7 +801,10 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs, currentMapArray):
 
     # print("emptySpots\n",emptySpots)
 
-    availiableSpots = currentMapArray
+    # availiableSpots = currentMapArray
+    availiableSpots = np.copy(currentMapArray)
+
+    print("currentMapArray:\n",currentMapArray)
 
 
     for tile in tp:
@@ -918,6 +921,8 @@ for tile in tp2:
                 continue
 
 currentMap = availiableSpots
+
+print("currentMap:\n",currentMap)
 
 # =============================================
 
@@ -1054,7 +1059,7 @@ while True:
 
     loop_time_4 = time.time()
 
-    print("availiablePath:\n",availiablePath)
+    # print("availiablePath:\n",availiablePath)
 
     # print("screenAveraged[0,:].astype(int):\n",screenAveraged[0,:].astype(int))
     # print("screenAveraged[:,8].astype(int):\n",screenAveraged[:,8].astype(int))
