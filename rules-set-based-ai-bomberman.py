@@ -1033,22 +1033,22 @@ while True:
 
     if(offsetPosToDo==True):
         print("if(offsetPosToDo==True):")
+        # keyboard.release('e')
+        # keyboard.release('s')
+        # keyboard.release('d')
+        # keyboard.release('f')
+        # keyboard.release('ctrl')
+
+    print("listOfBombs:",listOfBombs)
+
+    tmpLOL = random.randint(4)
+
+    if((tmpLOL%4)==0):
         keyboard.release('e')
         keyboard.release('s')
         keyboard.release('d')
         keyboard.release('f')
         keyboard.release('ctrl')
-
-    print("listOfBombs:",listOfBombs)
-
-    # tmpLOL = random.randint(4)
-    #
-    # if((tmpLOL%4)==0):
-    #     keyboard.release('e')
-    #     keyboard.release('s')
-    #     keyboard.release('d')
-    #     keyboard.release('f')
-    #     keyboard.release('ctrl')
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
@@ -1066,8 +1066,12 @@ while True:
     # print("regionSize:",regionSize)
     # print("potentialPath:\n",potentialPath)
 
+    loop_time_41 = time.time()
+
     player1indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,1))
     player2indexes = convertToIndexesGetPlayerPosition(GetPlayerPosition(screen,2))
+
+    loop_time_42 = time.time()
 
     print("player1indexes:",player1indexes)
     print("player2indexes:",player2indexes)
@@ -1115,6 +1119,8 @@ while True:
     print("4-3",format(loop_time_4-loop_time_3))
     print("3-2",format(loop_time_3-loop_time_2))
     print("2-1",format(loop_time_2-loop_time_1))
+    print("loop_time_42-loop_time_41",format(loop_time_42-loop_time_41))
+
 
     # time.sleep(0.05+random.randint(5)*0.01)
     # time.sleep(0.06+random.randint(5)*0.01)
