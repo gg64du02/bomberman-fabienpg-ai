@@ -819,7 +819,7 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
             for k in allEmptyArray:
                 if(np.array_equal(k,screenAveragedToInt[y,x])==True):
                     emptySpots[y,x] = True
-                    # pass
+                    break
 
     time_AvailiablePath3 = time.time()
 
