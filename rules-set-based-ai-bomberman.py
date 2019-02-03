@@ -1042,22 +1042,22 @@ while True:
 
     if(offsetPosToDo==True):
         print("if(offsetPosToDo==True):")
-        # keyboard.release('e')
-        # keyboard.release('s')
-        # keyboard.release('d')
-        # keyboard.release('f')
-        # keyboard.release('ctrl')
-
-    print("listOfBombs:",listOfBombs)
-
-    tmpLOL = random.randint(4)
-
-    if((tmpLOL%4)==0):
         keyboard.release('e')
         keyboard.release('s')
         keyboard.release('d')
         keyboard.release('f')
         keyboard.release('ctrl')
+
+    print("listOfBombs:",listOfBombs)
+
+    # tmpLOL = random.randint(4)
+    #
+    # if((tmpLOL%4)==0):
+    #     keyboard.release('e')
+    #     keyboard.release('s')
+    #     keyboard.release('d')
+    #     keyboard.release('f')
+    #     keyboard.release('ctrl')
 
     # availiablePath = AvailiablePath(screen,screenAveraged, 1)
     availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
