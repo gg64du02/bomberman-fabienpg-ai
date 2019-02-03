@@ -35,6 +35,11 @@ global previousBombPutByPlayer1
 
 previousBombPutByPlayer1 = []
 
+# todo: use cheat engine to slow down down to 0.5 for testing
+# todo: make the script play against itself
+# todo: lower the settings resolution to get more fps in both the script and the game
+# legacy resolution:
+
 # ==============
 
 crate = [65, 151, 191]
