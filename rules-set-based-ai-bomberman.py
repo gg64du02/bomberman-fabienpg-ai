@@ -948,10 +948,6 @@ anchorWidthBotRight = anchorHWidthTopLeft + WIDTH - 1
 
 stop = False
 
-for i in list(range(4))[::-1]:
-    print(i+1)
-    time.sleep(1)
-
 # testing a tile to know if it is a bomb
 def IsItABomb(pixel):
     # [45.29032258 55.72528616 62.90114464]
@@ -994,6 +990,10 @@ def IsItABomb(pixel):
                 print("here 107.4588969823101 163.92924037460978 181.86056191467222")
                 return True
     return False
+
+for i in list(range(4))[::-1]:
+    print(i+1)
+    time.sleep(1)
 
 # camera = cv2.VideoCapture("Bomber 2018-07-05 21-35-23-13.avi")
 
