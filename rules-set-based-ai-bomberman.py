@@ -38,7 +38,7 @@ previousBombPutByPlayer1 = []
 # todo: use cheat engine to slow down down to 0.5 for testing
 # todo: make the script play against itself
 # todo: do multicore processing on the tile optical recon ?
-# todo: use the keys.py script
+# Not to do: use the keys.py script (does not change the timing)
 # Not to do: lower the settings resolution to get more fps in both the script and the game
 # not possible because it does not exist in the settings and the resize takes about 100ms anyway
 # legacy resolution:
