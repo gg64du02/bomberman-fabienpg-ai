@@ -627,7 +627,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     # print("2-1",format(st_time_oneStepToPutBomb2-st_time_oneStepToPutBomb1))
     # print("3-2",format(st_time_oneStepToPutBomb3-st_time_oneStepToPutBomb2))
 
-    return tmpCoincoin, lol
+    return playerPosOffset, lol
 
     pass
 
