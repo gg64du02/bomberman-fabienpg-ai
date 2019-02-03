@@ -1015,18 +1015,21 @@ while True:
     # screen = cv2.resize(screen, (int(WIDTH / 2), int(HEIGTH / 2)))
     # screen = cv2.resize(screen, (int(WIDTH / 8), int(HEIGTH / 8)))
 
+    loop_time_11 = time.time()
+
     # run a color convert:
     screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
     # ret, screen = camera.read()
 
-    loop_time_11 = time.time()
+
+    loop_time_111 = time.time()
 
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
     print()
     print("getPlayerPosition:",getPlayerPosition)
 
-    loop_time_111 = time.time()
+    loop_time_1111 = time.time()
 
     screenAveraged = ScreenAveraging(screen)
 
@@ -1148,7 +1151,7 @@ while True:
     print('FPS:{}FPS'.format( (1/(time.time()-st_time))))
     # print(str(int((1/(time.time()-st_time)))))
     stats.extend([np.uint8(1000*(time.time()-st_time))])
-    # stats.extend([np.uint8(1000*(loop_time_2-loop_time_111))])
+    # stats.extend([np.uint8(1000000*(loop_time_111-loop_time_11))])
 
 num_bins = 100
 n, bins, patches = plt.hist(stats, num_bins, facecolor='blue', alpha=0.5,
