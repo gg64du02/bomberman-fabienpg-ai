@@ -589,31 +589,31 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
             runawayFromThisTile(player1indexes,PinnedDownClosestBombNode)
 
     # print("getPlayerPosition:", getPlayerPosition)
-    tmpCoincoin = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
+    playerPosOffset = np.subtract(getPlayerPosition, [player1indexes[0] * 32, player1indexes[1] * 32])
     # print("tmpCoincoin:", tmpCoincoin)
 
     # timeToUnstuck = 0.05
     # # time.sleep(timeToUnstuck)
-    print("tmpCoincoin",tmpCoincoin)
+    print("playerPosOffset",playerPosOffset)
     print("player1indexes",player1indexes)
     print("getPlayerPosition",getPlayerPosition)
     lol =False
-    if(tmpCoincoin[0]<5):
+    if(playerPosOffset[0]<5):
         keyboard.press('d')
         # time.sleep(timeToUnstuck)
         # keyboard.release('d')
         lol =True
-    if(tmpCoincoin[0]>27):
+    if(playerPosOffset[0]>27):
         keyboard.press('e')
         # time.sleep(timeToUnstuck)
         # keyboard.release('e')
         lol =True
-    if(tmpCoincoin[1]<5):
+    if(playerPosOffset[1]<5):
         keyboard.press('f')
         # time.sleep(timeToUnstuck)
         # keyboard.release('f')
         lol =True
-    if(tmpCoincoin[1]>27):
+    if(playerPosOffset[1]>27):
         keyboard.press('s')
         # time.sleep(timeToUnstuck)
         # keyboard.release('s')
@@ -624,8 +624,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     st_time_oneStepToPutBomb3 = time.time()
 
-    print("2-1",format(st_time_oneStepToPutBomb2-st_time_oneStepToPutBomb1))
-    print("3-2",format(st_time_oneStepToPutBomb3-st_time_oneStepToPutBomb2))
+    # print("2-1",format(st_time_oneStepToPutBomb2-st_time_oneStepToPutBomb1))
+    # print("3-2",format(st_time_oneStepToPutBomb3-st_time_oneStepToPutBomb2))
 
     return tmpCoincoin, lol
 
@@ -854,16 +854,16 @@ def AvailiablePath(screen,screenAveraged,number,listOfBombs):
             # if(IsItABomb(screenAveragedToInt[y,x])==True):
             #     availiableSpots[y,x] = False
     for bomb in listOfBombs:
-        print("bomb:",bomb)
+        # print("bomb:",bomb)
         y = bomb[0]
         x = bomb[1]
         availiableSpots[y,x] = False
 
     time_AvailiablePath4 = time.time()
 
-    print("time_AvailiablePath4-time_AvailiablePath3", format(time_AvailiablePath4 - time_AvailiablePath3))
-    print("time_AvailiablePath3-time_AvailiablePath2", format(time_AvailiablePath3 - time_AvailiablePath2))
-    print("time_AvailiablePath2-time_AvailiablePath1", format(time_AvailiablePath2 - time_AvailiablePath1))
+    # print("time_AvailiablePath4-time_AvailiablePath3", format(time_AvailiablePath4 - time_AvailiablePath3))
+    # print("time_AvailiablePath3-time_AvailiablePath2", format(time_AvailiablePath3 - time_AvailiablePath2))
+    # print("time_AvailiablePath2-time_AvailiablePath1", format(time_AvailiablePath2 - time_AvailiablePath1))
 
     return availiableSpots
 
@@ -1019,10 +1019,14 @@ while True:
     screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
     # ret, screen = camera.read()
 
+    loop_time_11 = time.time()
+
     getPlayerPosition = GetPlayerPosition(screen, 1)
 
     print()
     print("getPlayerPosition:",getPlayerPosition)
+
+    loop_time_111 = time.time()
 
     screenAveraged = ScreenAveraging(screen)
 
@@ -1118,13 +1122,15 @@ while True:
 
         break
 
-    print("time for this loop in ms:",format(time.time()-st_time))
-    print("6-5",format(loop_time_6-loop_time_5))
-    print("5-4",format(loop_time_5-loop_time_4))
-    print("4-3",format(loop_time_4-loop_time_3))
-    print("3-2",format(loop_time_3-loop_time_2))
-    print("2-1",format(loop_time_2-loop_time_1))
-    print("loop_time_42-loop_time_41",format(loop_time_42-loop_time_41))
+    # print("time for this loop in ms:",format(time.time()-st_time))
+    # print("6-5",format(loop_time_6-loop_time_5))
+    # print("5-4",format(loop_time_5-loop_time_4))
+    # print("4-3",format(loop_time_4-loop_time_3))
+    # print("3-2",format(loop_time_3-loop_time_2))
+    # print("2-1",format(loop_time_2-loop_time_1))
+    # print("11-1",format(loop_time_11-loop_time_1))
+    #
+    # print("loop_time_42-loop_time_41",format(loop_time_42-loop_time_41))
 
 
     # time.sleep(0.05+random.randint(5)*0.01)
@@ -1142,6 +1148,7 @@ while True:
     print('FPS:{}FPS'.format( (1/(time.time()-st_time))))
     # print(str(int((1/(time.time()-st_time)))))
     stats.extend([np.uint8(1000*(time.time()-st_time))])
+    # stats.extend([np.uint8(1000*(loop_time_2-loop_time_111))])
 
 num_bins = 100
 n, bins, patches = plt.hist(stats, num_bins, facecolor='blue', alpha=0.5,
