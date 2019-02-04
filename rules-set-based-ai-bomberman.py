@@ -602,22 +602,22 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     print("player1indexes",player1indexes)
     print("getPlayerPosition",getPlayerPosition)
     lol =False
-    if(playerPosOffset[0]<5):
+    if(playerPosOffset[0]<4):
         keyboard.press('d')
         # time.sleep(timeToUnstuck)
         # keyboard.release('d')
         lol =True
-    if(playerPosOffset[0]>27):
+    if(playerPosOffset[0]>28):
         keyboard.press('e')
         # time.sleep(timeToUnstuck)
         # keyboard.release('e')
         lol =True
-    if(playerPosOffset[1]<5):
+    if(playerPosOffset[1]<4):
         keyboard.press('f')
         # time.sleep(timeToUnstuck)
         # keyboard.release('f')
         lol =True
-    if(playerPosOffset[1]>27):
+    if(playerPosOffset[1]>28):
         keyboard.press('s')
         # time.sleep(timeToUnstuck)
         # keyboard.release('s')
