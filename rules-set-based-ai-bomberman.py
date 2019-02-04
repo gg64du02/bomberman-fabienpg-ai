@@ -39,6 +39,8 @@ previousBombPutByPlayer1 = []
 # todo: make the script play against itself
 # todo: do multicore processing on the tile optical recon ?
 # todo: process for bombs only, or crate change and mute AvailablePath, most of the time
+# todo: use the list of bombs to do the maths to know when you can go when they disappear (aka avoiding the bombs' blast)
+# Not to do: BlastsDetection function
 # Not to do: use the keys.py script (does not change the timing)
 # Not to do: lower the settings resolution to get more fps in both the script and the game
 # not possible because it does not exist in the settings and the resize takes about 100ms anyway
