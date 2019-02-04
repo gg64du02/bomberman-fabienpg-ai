@@ -1002,6 +1002,8 @@ offsetPosToDo = False
 
 stats = []
 
+L_num = 0
+
 while True:
 
     st_time = time.time()
@@ -1011,6 +1013,7 @@ while True:
     # DONE: smarter logic about bomb location/placement to kill enemy and bomb timing
     # bomb route clipping? (to avoid trying to go to somewhere that will be unavailable because of bomb(s))
 
+    # if((L_num%4)!=1):
     # getting the window mode screen
     screen = grab_screen(region=(anchorHWidthTopLeft, anchorHeightTopLeft,
                                  anchorWidthBotRight, anchorHeightBotRight))
@@ -1066,8 +1069,10 @@ while True:
     #     keyboard.release('f')
     #     keyboard.release('ctrl')
 
-    # availiablePath = AvailiablePath(screen,screenAveraged, 1)
-    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
+    if((L_num%5)==0):
+
+        # availiablePath = AvailiablePath(screen,screenAveraged, 1)
+        availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
     loop_time_4 = time.time()
 
@@ -1156,6 +1161,8 @@ while True:
     # print(str(int((1/(time.time()-st_time)))))
     stats.extend([np.uint8(1000*(time.time()-st_time))])
     # stats.extend([np.uint8(1000000*(loop_time_111-loop_time_11))])
+
+    L_num+=1
 
 num_bins = 100
 n, bins, patches = plt.hist(stats, num_bins, facecolor='blue', alpha=0.5,
