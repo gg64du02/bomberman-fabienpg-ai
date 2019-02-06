@@ -28,6 +28,7 @@ import time
 # for stastical analisys
 import matplotlib.pyplot as plt
 
+lastTimeTheBombWasSeen = []
 
 previousPlayer1Position = (0,0)
 
@@ -232,21 +233,25 @@ def listBombsPositions(screenAvged):
                         #     if(screenAveraged[y,x,2]<=125):
                                 # print("bomb decteted")
                                 list.append([y,x])
+                                lastTimeTheBombWasSeen.append([[y,x],loop_time_11])
 
         if (int(screenAveraged[y, x, 0]) == 74):
             if (int(screenAveraged[y, x, 0]) == 176):
                 if (int(screenAveraged[y, x, 0]) == 204):
                     list.append([y,x])
+                    lastTimeTheBombWasSeen.append([[y, x], loop_time_11])
 
         if (int(screenAveraged[y, x, 0]) == 91):
             if (int(screenAveraged[y, x, 0]) == 169):
                 if (int(screenAveraged[y, x, 0]) == 193):
                     list.append([y, x])
+                    lastTimeTheBombWasSeen.append([[y, x], loop_time_11])
 
         if (int(screenAveraged[y, x, 0]) == 107):
             if (int(screenAveraged[y, x, 0]) == 163):
                 if (int(screenAveraged[y, x, 0]) == 181):
                     list.append([y, x])
+                    lastTimeTheBombWasSeen.append([[y, x], loop_time_11])
 
     return list
 
@@ -1074,6 +1079,7 @@ while True:
     if((L_num%5)==0):
 
         # availiablePath = AvailiablePath(screen,screenAveraged, 1)
+        # potentialPathWithinBlasts
         availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
     loop_time_4 = time.time()
@@ -1137,12 +1143,12 @@ while True:
         break
 
     # print("time for this loop in ms:",format(time.time()-st_time))
-    # print("6-5",format(loop_time_6-loop_time_5))
-    # print("5-4",format(loop_time_5-loop_time_4))
-    # print("4-3",format(loop_time_4-loop_time_3))
-    # print("3-2",format(loop_time_3-loop_time_2))
-    # print("2-1",format(loop_time_2-loop_time_1))
-    # print("11-1",format(loop_time_11-loop_time_1))
+    print("6-5",format(loop_time_6-loop_time_5))
+    print("5-4",format(loop_time_5-loop_time_4))
+    print("4-3",format(loop_time_4-loop_time_3))
+    print("3-2",format(loop_time_3-loop_time_2))
+    print("2-1",format(loop_time_2-loop_time_1))
+    print("11-1",format(loop_time_11-loop_time_1))
     #
     # print("loop_time_42-loop_time_41",format(loop_time_42-loop_time_41))
 
