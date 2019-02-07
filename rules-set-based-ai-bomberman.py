@@ -495,8 +495,10 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 
     # bestBombSpotPos = (0,0)
     bestBombSpotPos = []
+    worstBombSpotPos = []
 
-    regionSizePrevious = 300
+    regionSizePreviousMax = 300
+    regionSizePreviousMin = 0
 
     st_time_oneStepToPutBomb1 = time.time()
     # print("time for this loop in ms:",format(time.time()-st_time))
@@ -549,9 +551,13 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
                 # print("regionSize",regionSize)
                 # print("bestBombSpotPos",bestBombSpotPos)
 
-                if(regionSizePrevious>regionSize):
-                    regionSizePrevious = regionSize
+                if(regionSizePreviousMax>regionSize):
+                    regionSizePreviousMax = regionSize
                     bestBombSpotPos = (i,j)
+
+                if (regionSizePreviousMin < regionSize):
+                    regionSizePreviousMin = regionSize
+                    worstBombSpotPos = (i, j)
 
                 # restoring the tile
                 potentialPath[(i,j)] = 1
@@ -1092,11 +1098,11 @@ while True:
     #     keyboard.release('f')
     #     keyboard.release('ctrl')
 
-    if((L_num%5)==0):
+    # if((L_num%5)==0):
 
-        # availiablePath = AvailiablePath(screen,screenAveraged, 1)
-        # potentialPathWithinBlasts
-        availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
+    # availiablePath = AvailiablePath(screen,screenAveraged, 1)
+    # potentialPathWithinBlasts
+    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
     loop_time_4 = time.time()
 
