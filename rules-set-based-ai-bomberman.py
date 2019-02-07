@@ -269,7 +269,7 @@ def listBombsPositions(screenAvged):
         #             list.append([y, x])
         #             lastTimeTheBombWasSeen.append([[y, x], loop_time_11])
 
-    return list
+    return list,lastTimeTheBombWasSeen
 
 
 def isIndexesRange(point):
@@ -1021,6 +1021,11 @@ def IsItABomb(pixel):
                 return True
     return False
 
+# list all bomb which already STARTED to explode and removing those which are no longer dangerous (because the blast is gone)
+def explodingBombList(listOfBombs,currentBombWithTimestamp):
+    # TODO
+    return []
+
 for i in list(range(4))[::-1]:
     print(i+1)
     time.sleep(1)
@@ -1075,7 +1080,9 @@ while True:
 
     # previousBombPutByPlayer1 = []
 
-    listOfBombs = listBombsPositions(screenAveraged)
+    listOfBombs,currentBombWithTimestamp = listBombsPositions(screenAveraged)
+
+    explodingBombs = explodingBombList(listOfBombs,currentBombWithTimestamp)
 
     loop_time_3 = time.time()
 
