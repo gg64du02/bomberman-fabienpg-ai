@@ -1117,6 +1117,9 @@ while True:
     # explodingBombs = explodingBombList(listOfBombs,currentBombWithTimestamp)
     explodingBombs = explodingBombList(listOfBombs)
 
+    for tada in explodingBombs:
+        listOfBombs.append(tada[0])
+
     loop_time_3 = time.time()
 
     if(offsetPosToDo==True):
