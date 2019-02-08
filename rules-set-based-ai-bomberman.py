@@ -39,9 +39,10 @@ previousBombPutByPlayer1 = []
 
 # todo: use cheat engine to slow down down to 0.5 for testing
 # todo: make the script play against itself
-# todo: do multicore processing on the tile optical recon ?
-# todo: process for bombs only, or crate change and mute AvailablePath, most of the time
-# todo: use the list of bombs to do the maths to know when you can go when they disappear (aka avoiding the bombs' blast)
+# todo: bug: the ai does not check if weither it is a substainable decision to go in any way after it put a bomb
+# DONE: process for bombs only, or crate change and mute AvailablePath, most of the time
+# DONE: use the list of bombs to do the maths to know when you can go when they disappear (aka avoiding the bombs' blast)
+# Not to do: do multicore processing on the tile optical recon ? (too slow)
 # Not to do: BlastsDetection function
 # Not to do: use the keys.py script (does not change the timing)
 # Not to do: lower the settings resolution to get more fps in both the script and the game
