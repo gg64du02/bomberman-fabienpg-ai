@@ -128,19 +128,19 @@ blast06_02 = [35, 199, 227]
 # allBlocking = [crate,hardBlock,bomb,bomb01,bomb02,bomb03,bomb04,bomb05,
 #                bomb06,bomb07,bomb08,bomb09,bomb10,bomb11,
 #                crate01,crate02,crate03,crate04,crate05,crate06,crate07,crate08,crate09]
-# allBlocking = [crate, hardBlock,
-#                bomb, bomb01, bomb02, bomb03, bomb04, bomb05,
-#                bomb06, bomb07, bomb08, bomb09, bomb10, bomb11,
-#                blast01_01, blast01_02, blast01_03,
-#                blast02_01, blast02_02, blast02_03, blast02_04,
-#                blast03_01, blast03_02, blast03_03
-#     , blast04_01, blast04_02
-#     , blast05_01, blast05_02
-#     , blast06_01, blast06_02]
-
 allBlocking = [crate, hardBlock,
                bomb, bomb01, bomb02, bomb03, bomb04, bomb05,
-               bomb06, bomb07, bomb08, bomb09, bomb10, bomb11]
+               bomb06, bomb07, bomb08, bomb09, bomb10, bomb11,
+               blast01_01, blast01_02, blast01_03,
+               blast02_01, blast02_02, blast02_03, blast02_04,
+               blast03_01, blast03_02, blast03_03
+    , blast04_01, blast04_02
+    , blast05_01, blast05_02
+    , blast06_01, blast06_02]
+
+# allBlocking = [crate, hardBlock,
+#                bomb, bomb01, bomb02, bomb03, bomb04, bomb05,
+#                bomb06, bomb07, bomb08, bomb09, bomb10, bomb11]
 
 
 
