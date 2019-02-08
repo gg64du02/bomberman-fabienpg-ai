@@ -393,6 +393,8 @@ def putBombAndStartToRunAway(player1indexes,node,potentialPath):
 
     currentBombPlacedPosition = player1indexes
 
+    explodingBombs.append([[player1indexes],time.time()])
+
     MoveToTheTileNextToMe(player1indexes, node)
 
 
