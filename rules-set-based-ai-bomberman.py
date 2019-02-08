@@ -1051,9 +1051,9 @@ def explodingBombList(listOfBombs):
 
     for explodedBomb in explodedBombs:
         if(1000*(loop_time_11-explodedBomb[1])>200):
-            explodingBombs.append(explodedBomb)
-        else:
             currentBombWithTimestamp.remove(explodedBomb)
+        else:
+            explodingBombs.append(explodedBomb)
     if(explodingBombs!=[]):
         print("explodingBombs",explodingBombs)
     return explodingBombs
