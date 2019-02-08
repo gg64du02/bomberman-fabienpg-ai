@@ -1031,7 +1031,7 @@ def explodingBombList(listOfBombs):
     # output
     explodingBombs = []
 
-    print("currentBombWithTimestamp",currentBombWithTimestamp)
+    # print("currentBombWithTimestamp",currentBombWithTimestamp)
     for l in currentBombWithTimestamp:
         if(1000*(loop_time_11-l[1])>200):
             currentBombWithTimestamp.remove(l)
@@ -1047,13 +1047,15 @@ def explodingBombList(listOfBombs):
             # the bomb probably exploded
             explodedBombs.append(bombsWtime)
 
-    print("explodedBombs:",explodedBombs)
+    # print("explodedBombs:",explodedBombs)
 
     for explodedBomb in explodedBombs:
         if(1000*(loop_time_11-explodedBomb[1])>200):
             explodingBombs.append(explodedBomb)
         else:
             currentBombWithTimestamp.remove(explodedBomb)
+    if(explodingBombs!=[]):
+        print("explodingBombs",explodingBombs)
     return explodingBombs
 
 for i in list(range(4))[::-1]:
@@ -1136,11 +1138,11 @@ while True:
     #     keyboard.release('f')
     #     keyboard.release('ctrl')
 
-    # if((L_num%5)==0):
+    if((L_num%5)==0):
 
-    # availiablePath = AvailiablePath(screen,screenAveraged, 1)
-    # potentialPathWithinBlasts
-    availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
+        # availiablePath = AvailiablePath(screen,screenAveraged, 1)
+        # potentialPathWithinBlasts
+        availiablePath = AvailiablePath(screen,screenAveraged, 1,listOfBombs)
 
     loop_time_4 = time.time()
 
@@ -1202,13 +1204,13 @@ while True:
 
         break
 
-    # print("time for this loop in ms:",format(time.time()-st_time))
-    # print("6-5",format(loop_time_6-loop_time_5))
-    # print("5-4",format(loop_time_5-loop_time_4))
-    # print("4-3",format(loop_time_4-loop_time_3))
-    # print("3-2",format(loop_time_3-loop_time_2))
-    # print("2-1",format(loop_time_2-loop_time_1))
-    # print("11-1",format(loop_time_11-loop_time_1))
+    print("time for this loop in ms:",format(time.time()-st_time))
+    print("6-5",format(loop_time_6-loop_time_5))
+    print("5-4",format(loop_time_5-loop_time_4))
+    print("4-3",format(loop_time_4-loop_time_3))
+    print("3-2",format(loop_time_3-loop_time_2))
+    print("2-1",format(loop_time_2-loop_time_1))
+    print("11-1",format(loop_time_11-loop_time_1))
     #
     # print("loop_time_42-loop_time_41",format(loop_time_42-loop_time_41))
 
