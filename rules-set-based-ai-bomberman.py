@@ -1022,24 +1022,30 @@ def IsItABomb(pixel):
     return False
 
 # list all bomb which already STARTED to explode and removing those which are no longer dangerous (because the blast is gone)
-def explodingBombList(listOfBombs,currentBombWithTimestamp):
+# def explodingBombList(listOfBombs,currentBombWithTimestamp):
+def explodingBombList(listOfBombs):
     # TODO:test this
+    global currentBombWithTimestamp
     # var
     explodedBombs =[]
     # output
     explodingBombs = []
     for bombsWtime in currentBombWithTimestamp:
         isHere = False
+        print("bombsWtime[0]:",bombsWtime[0])
         for current_bomb in listOfBombs:
-            if(np.equal(current_bomb,bombsWtime[0])):
+            if(np.array_equal(current_bomb,bombsWtime[0])):
                 isHere = True
+                continue
         if(isHere==False):
             # the bomb probably exploded
             explodedBombs.append(bombsWtime)
 
     for explodedBomb in explodedBombs:
-        if(explodedBomb[1]-loop_time_11<200):
+        if(1000*(explodedBomb[1]-loop_time_11)<200):
             explodingBombs.append(explodedBomb)
+        else:
+            currentBombWithTimestamp.remove(explodedBomb)
     return explodingBombs
 
 for i in list(range(4))[::-1]:
@@ -1098,7 +1104,8 @@ while True:
 
     listOfBombs,currentBombWithTimestamp = listBombsPositions(screenAveraged)
 
-    explodingBombs = explodingBombList(listOfBombs,currentBombWithTimestamp)
+    # explodingBombs = explodingBombList(listOfBombs,currentBombWithTimestamp)
+    explodingBombs = explodingBombList(listOfBombs)
 
     loop_time_3 = time.time()
 
