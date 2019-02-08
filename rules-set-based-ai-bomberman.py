@@ -1030,9 +1030,15 @@ def explodingBombList(listOfBombs):
     explodedBombs =[]
     # output
     explodingBombs = []
+
+    print("currentBombWithTimestamp",currentBombWithTimestamp)
+    for l in currentBombWithTimestamp:
+        if(1000*(loop_time_11-l[1])>200):
+            currentBombWithTimestamp.remove(l)
+
     for bombsWtime in currentBombWithTimestamp:
         isHere = False
-        print("bombsWtime[0]:",bombsWtime[0])
+        # print("bombsWtime[0]:",bombsWtime[0])
         for current_bomb in listOfBombs:
             if(np.array_equal(current_bomb,bombsWtime[0])):
                 isHere = True
@@ -1041,8 +1047,10 @@ def explodingBombList(listOfBombs):
             # the bomb probably exploded
             explodedBombs.append(bombsWtime)
 
+    print("explodedBombs:",explodedBombs)
+
     for explodedBomb in explodedBombs:
-        if(1000*(explodedBomb[1]-loop_time_11)<200):
+        if(1000*(loop_time_11-explodedBomb[1])>200):
             explodingBombs.append(explodedBomb)
         else:
             currentBombWithTimestamp.remove(explodedBomb)
