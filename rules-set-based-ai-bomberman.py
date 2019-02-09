@@ -506,7 +506,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     worstBombSpotPos = []
 
     regionSizePreviousMax = 300
-    regionSizePreviousMin = 0
+    regionSizePreviousMin = 1
 
     st_time_oneStepToPutBomb1 = time.time()
     # print("time for this loop in ms:",format(time.time()-st_time))
@@ -575,7 +575,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
             else:
                 # print("!if(int(currentTileState)==1):")
                 pass
-
+    print("regionSizePreviousMax",regionSizePreviousMax)
+    print("regionSizePreviousMin",regionSizePreviousMin)
     st_time_oneStepToPutBomb2 = time.time()
 
     print("bestBombSpotPos:",bestBombSpotPos)
