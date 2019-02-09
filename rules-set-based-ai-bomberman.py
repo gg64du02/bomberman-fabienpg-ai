@@ -579,7 +579,8 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     print("regionSizePreviousMin",regionSizePreviousMin)
     st_time_oneStepToPutBomb2 = time.time()
 
-    print("bestBombSpotPos:",bestBombSpotPos)
+    print("bestBombSpotPos:", bestBombSpotPos)
+    print("worstBombSpotPos:", worstBombSpotPos)
     print("best_bomb_spot:",best_bomb_spot)
 
     if(bestBombSpotPos!=[]):
