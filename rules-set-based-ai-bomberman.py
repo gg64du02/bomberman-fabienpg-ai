@@ -392,6 +392,11 @@ def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     # time.sleep(0.15)
     # keyboard.release('ctrl')
 
+    keyboard.release('e')
+    keyboard.release('s')
+    keyboard.release('d')
+    keyboard.release('f')
+
     currentBombPlacedPosition = player1indexes
 
     explodingBombs.append([[player1indexes],time.time()])
