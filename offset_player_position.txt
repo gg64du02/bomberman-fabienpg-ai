@@ -1,0 +1,11 @@
+down
+playerPosOffset [10.87096774 14.74193548]
+
+right
+playerPosOffset [ 8.52 13.68]
+
+left
+playerPosOffset [11.46428571 17.89285714]
+
+up
+playerPosOffset [13.5 15.5]
