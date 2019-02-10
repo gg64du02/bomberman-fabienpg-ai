@@ -279,11 +279,11 @@ def listBombsPositions(screenAvged):
         #             lastTimeTheBombWasSeen.append([[y, x], loop_time_11])
 
         # Lighter power up (todo: test it)
-        if (int(screenAveraged[y, x, 0]) > 89):
+        if (int(screenAveraged[y, x, 0]) > 85):
             if (int(screenAveraged[y, x, 0]) < 92):
-                if (int(screenAveraged[y, x, 1]) > 144):
+                if (int(screenAveraged[y, x, 1]) > 142):
                     if (int(screenAveraged[y, x, 1]) < 146):
-                        if (int(screenAveraged[y, x, 2]) > 108):
+                        if (int(screenAveraged[y, x, 2]) > 106):
                             if (int(screenAveraged[y, x, 2]) < 110):
                                 powerups.append([y,x])
                                 continue
@@ -958,6 +958,10 @@ def ScreenAveraging(screen):
         screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),1] = np.average(screen[tp[1]:tp[3],tp[0]:tp[2],1])
         screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),2] = np.average(screen[tp[1]:tp[3],tp[0]:tp[2],2])
         # print("tilePos:",tilePos)
+
+        print("tilePos:",tilePos)
+        print("int(tp[1]/tileWidth),int(tp[0]/tileWidth)",int(tp[1]/tileWidth),int(tp[0]/tileWidth))
+        print("[,,:]",screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),:])
     # print("screenAveragedRet:",screenAveragedRet)
     return screenAveragedRet
 
@@ -1152,6 +1156,8 @@ while True:
     # previousBombPutByPlayer1 = []
 
     listOfBombs,currentBombWithTimestamp,powerups = listBombsPositions(screenAveraged)
+
+    print("powerups",powerups)
 
     # explodingBombs = explodingBombList(listOfBombs,currentBombWithTimestamp)
     explodingBombs = explodingBombList(listOfBombs)
