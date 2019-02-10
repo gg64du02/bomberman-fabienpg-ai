@@ -39,9 +39,7 @@ previousBombPutByPlayer1 = []
 
 # todo: use cheat engine to slow down down to 0.5 for testing
 # todo: make the script play against itself
-# todo: make the ai pick up power up if it is far enough from the foe
-# Not done: bug: the ai does not check if either it is a sustainable decision to go in any way after it put a bomb or not,
-# because the ai was goes out of his way (literally) while putting the bomb, it is fixed
+# todo: bug: the ai does not check if either it is a sustainable decision to go in any way after it put a bomb or not
 # DONE: process for bombs only, or crate change and mute AvailablePath, most of the time
 # DONE: use the list of bombs to do the maths to know when you can go when they disappear (aka avoiding the bombs' blast)
 # Not to do: do multicore processing on the tile optical recon ? (too slow)
@@ -229,6 +227,8 @@ def listBombsPositions(screenAvged):
     # print("listBombsPostions")
     tp = tilePositionGenerator()
     list = []
+    powerups=[]
+
     for potentialBombs in tp:
         x = int( potentialBombs[0] / 32 )
         y = int( potentialBombs[1] / 32 )
@@ -258,6 +258,7 @@ def listBombsPositions(screenAvged):
                                 # print("bomb decteted")
                                 list.append([y,x])
                                 lastTimeTheBombWasSeen.append([[y,x],loop_time_11])
+                                continue
 
         # if (int(screenAveraged[y, x, 0]) == 74):
         #     if (int(screenAveraged[y, x, 1]) == 176):
@@ -277,7 +278,28 @@ def listBombsPositions(screenAvged):
         #             list.append([y, x])
         #             lastTimeTheBombWasSeen.append([[y, x], loop_time_11])
 
-    return list,lastTimeTheBombWasSeen
+        # Lighter power up (todo: test it)
+        if (int(screenAveraged[y, x, 0]) > 89):
+            if (int(screenAveraged[y, x, 0]) < 92):
+                if (int(screenAveraged[y, x, 1]) > 144):
+                    if (int(screenAveraged[y, x, 1]) < 146):
+                        if (int(screenAveraged[y, x, 2]) > 108):
+                            if (int(screenAveraged[y, x, 2]) < 110):
+                                powerups.append([y,x])
+                                continue
+
+        # Bomb power up (todo: test it)
+        if (int(screenAveraged[y, x, 0]) > 46):
+            if (int(screenAveraged[y, x, 0]) < 50):
+                if (int(screenAveraged[y, x, 1]) > 96):
+                    if (int(screenAveraged[y, x, 1]) < 98):
+                        if (int(screenAveraged[y, x, 2]) > 65):
+                            if (int(screenAveraged[y, x, 2]) < 68):
+                                powerups.append([y,x])
+                                continue
+
+
+    return list,lastTimeTheBombWasSeen,powerups
 
 
 def isIndexesRange(point):
@@ -653,7 +675,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # time.sleep(timeToUnstuck)
         # keyboard.release('d')
         lol =True
-    if(playerPosOffset[0]>24):
+    if(playerPosOffset[0]>28):
         keyboard.press('e')
         # time.sleep(timeToUnstuck)
         # keyboard.release('e')
@@ -663,7 +685,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # time.sleep(timeToUnstuck)
         # keyboard.release('f')
         lol =True
-    if(playerPosOffset[1]>26):
+    if(playerPosOffset[1]>28):
         keyboard.press('s')
         # time.sleep(timeToUnstuck)
         # keyboard.release('s')
@@ -1129,7 +1151,7 @@ while True:
 
     # previousBombPutByPlayer1 = []
 
-    listOfBombs,currentBombWithTimestamp = listBombsPositions(screenAveraged)
+    listOfBombs,currentBombWithTimestamp,powerups = listBombsPositions(screenAveraged)
 
     # explodingBombs = explodingBombList(listOfBombs,currentBombWithTimestamp)
     explodingBombs = explodingBombList(listOfBombs)
