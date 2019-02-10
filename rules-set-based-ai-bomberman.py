@@ -651,7 +651,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # time.sleep(timeToUnstuck)
         # keyboard.release('d')
         lol =True
-    if(playerPosOffset[0]>28):
+    if(playerPosOffset[0]>24):
         keyboard.press('e')
         # time.sleep(timeToUnstuck)
         # keyboard.release('e')
@@ -661,7 +661,7 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         # time.sleep(timeToUnstuck)
         # keyboard.release('f')
         lol =True
-    if(playerPosOffset[1]>28):
+    if(playerPosOffset[1]>26):
         keyboard.press('s')
         # time.sleep(timeToUnstuck)
         # keyboard.release('s')
