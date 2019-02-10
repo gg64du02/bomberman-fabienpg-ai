@@ -934,6 +934,13 @@ def ScreenAveraging(screen):
         screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),1] = np.average(screen[tp[1]:tp[3],tp[0]:tp[2],1])
         screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),2] = np.average(screen[tp[1]:tp[3],tp[0]:tp[2],2])
         # print("tilePos:",tilePos)
+
+        # if(int(tp[1]/tileWidth)==0):
+        # if(int(tp[0]/tileWidth)==0):
+        print("tilePos:",tilePos)
+        print("int(tp[1]/tileWidth),int(tp[0]/tileWidth)",int(tp[1]/tileWidth),int(tp[0]/tileWidth))
+        print("[,,:]",screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),:])
+
     # print("screenAveragedRet:",screenAveragedRet)
     return screenAveragedRet
 
