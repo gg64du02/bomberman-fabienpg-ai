@@ -39,7 +39,9 @@ previousBombPutByPlayer1 = []
 
 # todo: use cheat engine to slow down down to 0.5 for testing
 # todo: make the script play against itself
-# todo: bug: the ai does not check if either it is a sustainable decision to go in any way after it put a bomb or not
+# todo: make the ai pick up power up if it is far enough from the foe
+# Not done: bug: the ai does not check if either it is a sustainable decision to go in any way after it put a bomb or not,
+# because the ai was goes out of his way (literally) while putting the bomb, it is fixed
 # DONE: process for bombs only, or crate change and mute AvailablePath, most of the time
 # DONE: use the list of bombs to do the maths to know when you can go when they disappear (aka avoiding the bombs' blast)
 # Not to do: do multicore processing on the tile optical recon ? (too slow)
