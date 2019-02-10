@@ -388,9 +388,9 @@ pathLength = 0
 def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     print("putBombAndStartToRunAway")
     # todo: make all keypresses without sleeping
-    keyboard.press('ctrl')
-    # time.sleep(0.15)
-    # keyboard.release('ctrl')
+    # keyboard.press('ctrl')
+    # # time.sleep(0.15)
+    # # keyboard.release('ctrl')
 
     keyboard.release('e')
     keyboard.release('s')
@@ -442,26 +442,26 @@ def MoveToTheTileNextToMe(playerPos, nextStepPos):
     # timePress = 0.10+random.randint(10)*0.01
     # timePress = random.randint(5)*0.01
 
-    # upward
-    if(playerPos[0]>nextStepPos[0]):
-        keyboard.press('e')
-        # time.sleep(timePress)
-        # keyboard.release('e')
-    # downward
-    if(playerPos[0]<nextStepPos[0]):
-        keyboard.press('d')
-        # time.sleep(timePress)
-        # keyboard.release('d')
-    # rightward
-    if(playerPos[1]<nextStepPos[1]):
-        keyboard.press('f')
-        # time.sleep(timePress)
-        # keyboard.release('f')
-    # leftward
-    if (playerPos[1] > nextStepPos[1]):
-        keyboard.press('s')
-        # time.sleep(timePress)
-        # keyboard.release('s')
+    # # upward
+    # if(playerPos[0]>nextStepPos[0]):
+    #     keyboard.press('e')
+    #     # time.sleep(timePress)
+    #     # keyboard.release('e')
+    # # downward
+    # if(playerPos[0]<nextStepPos[0]):
+    #     keyboard.press('d')
+    #     # time.sleep(timePress)
+    #     # keyboard.release('d')
+    # # rightward
+    # if(playerPos[1]<nextStepPos[1]):
+    #     keyboard.press('f')
+    #     # time.sleep(timePress)
+    #     # keyboard.release('f')
+    # # leftward
+    # if (playerPos[1] > nextStepPos[1]):
+    #     keyboard.press('s')
+    #     # time.sleep(timePress)
+    #     # keyboard.release('s')
 
     pass
 
@@ -646,26 +646,26 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     print("player1indexes",player1indexes)
     print("getPlayerPosition",getPlayerPosition)
     lol =False
-    if(playerPosOffset[0]<4):
-        keyboard.press('d')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('d')
-        lol =True
-    if(playerPosOffset[0]>28):
-        keyboard.press('e')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('e')
-        lol =True
-    if(playerPosOffset[1]<4):
-        keyboard.press('f')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('f')
-        lol =True
-    if(playerPosOffset[1]>28):
-        keyboard.press('s')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('s')
-        lol =True
+    # if(playerPosOffset[0]<4):
+    #     keyboard.press('d')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('d')
+    #     lol =True
+    # if(playerPosOffset[0]>28):
+    #     keyboard.press('e')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('e')
+    #     lol =True
+    # if(playerPosOffset[1]<4):
+    #     keyboard.press('f')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('f')
+    #     lol =True
+    # if(playerPosOffset[1]>28):
+    #     keyboard.press('s')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('s')
+    #     lol =True
 
     previousPlayer1Position = player1indexes
 
@@ -682,26 +682,26 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
 def runawayFromThisTile(player, tile):
     timeToUnstuck = 0.05
 
-    # upward
-    if(player[0]<tile[0]):
-        keyboard.press('e')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('e')
-    # downward
-    if(player[0]>tile[0]):
-        keyboard.press('d')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('d')
-    # rightward
-    if(player[1]>tile[1]):
-        keyboard.press('f')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('f')
-    # leftward
-    if (player[1]<tile[1]):
-        keyboard.press('s')
-        # time.sleep(timeToUnstuck)
-        # keyboard.release('s')
+    # # upward
+    # if(player[0]<tile[0]):
+    #     keyboard.press('e')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('e')
+    # # downward
+    # if(player[0]>tile[0]):
+    #     keyboard.press('d')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('d')
+    # # rightward
+    # if(player[1]>tile[1]):
+    #     keyboard.press('f')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('f')
+    # # leftward
+    # if (player[1]<tile[1]):
+    #     keyboard.press('s')
+    #     # time.sleep(timeToUnstuck)
+    #     # keyboard.release('s')
 
 
 def convertToIndexesGetPlayerPosition(getPlayerPosition):
