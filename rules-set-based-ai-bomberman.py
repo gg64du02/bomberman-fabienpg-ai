@@ -623,18 +623,23 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     #     pass
 
     if(bestBombSpotPos!=[]):
-        powerups.append(bestBombSpotPos)
         targetPosition = bestBombSpotPos
-        for test in powerups:
-            dist1 = math.hypot(player1indexes[0] - test[0], player1indexes[1] - test[1])
-            dist2 = math.hypot(player1indexes[0] - targetPosition[0], player1indexes[1] - targetPosition[1])
-            if(dist1<dist2):
-                targetPosition = test
-            else:
-                targetPosition = player1indexes
     else:
         targetPosition = closest_node1
         # pass
+
+    # powerups.append(bestBombSpotPos)
+    # if (powerups != []):
+    #     for test in powerups:
+    #         if (test != []):
+    #             print("test", test)
+    #             dist1 = math.hypot(player1indexes[0] - test[0], player1indexes[1] - test[1])
+    #             dist2 = math.hypot(player1indexes[0] - targetPosition[0], player1indexes[1] - targetPosition[1])
+    #             if (dist1 < dist2):
+    #                 targetPosition = test
+    #             else:
+    #                 targetPosition = player1indexes
+    #     print("targetPosition", targetPosition)
 
     global previousBombPutByPlayer1
 
