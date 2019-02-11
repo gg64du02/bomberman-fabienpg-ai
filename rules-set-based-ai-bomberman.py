@@ -414,7 +414,7 @@ pathLength = 0
 def putBombAndStartToRunAway(player1indexes,node,potentialPath):
     print("putBombAndStartToRunAway")
     # todo: make all keypresses without sleeping
-    keyboard.press('ctrl')
+    # keyboard.press('ctrl')
     # time.sleep(0.15)
     # keyboard.release('ctrl')
 
@@ -628,17 +628,9 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         targetPosition = closest_node1
         # pass
 
-    # powerups.append(bestBombSpotPos)
-    # if (powerups != []):
-    #     for test in powerups:
-    #         if (test != []):
-    #             print("test", test)
-    #             dist1 = math.hypot(player1indexes[0] - test[0], player1indexes[1] - test[1])
-    #             dist2 = math.hypot(player1indexes[0] - targetPosition[0], player1indexes[1] - targetPosition[1])
-    #             if (dist1 < dist2):
-    #                 targetPosition = test
-    #             else:
-    #                 targetPosition = player1indexes
+    print("oneStepToPutBomb:powerups",powerups)
+    print("oneStepToPutBomb:targetPosition",targetPosition)
+    print("oneStepToPutBomb:player1indexes",player1indexes)
     #     print("targetPosition", targetPosition)
 
     global previousBombPutByPlayer1
@@ -666,6 +658,20 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
         else:
             # print("!if(targetPosition==player1indexes):")
             # goToTile
+            # todo: check for the powerups that could be reached
+            # print("goToTile")
+            # powerups.append(bestBombSpotPos)
+            # if (powerups != []):
+            #     for test in powerups:
+            #         if (test != []):
+            #             print("test", test)
+            #             dist1 = math.hypot(player1indexes[0] - test[0], player1indexes[1] - test[1])
+            #             dist2 = math.hypot(player1indexes[0] - targetPosition[0], player1indexes[1] - targetPosition[1])
+            #             if (dist1 < dist2):
+            #                 targetPosition = test
+            #             else:
+            #                 targetPosition = player1indexes
+            # print("lol:targetPosition",targetPosition)
             GoToPositionOneStep(player1indexes,targetPosition,potentialPath,blastinPositions)
 
     if(blastinPositions[player1indexes[0],player1indexes[1]]==1):
