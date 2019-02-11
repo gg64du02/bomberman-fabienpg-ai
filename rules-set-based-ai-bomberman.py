@@ -25,6 +25,8 @@ import itertools
 from heapq import *
 import time
 
+import math
+
 # for stastical analisys
 import matplotlib.pyplot as plt
 
@@ -616,15 +618,22 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     if(powerups!=[]):
         print("powerups",powerups)
         # debugging purpose
-    else:
-        powerups.append([0,8])
-        pass
+    # else:
+    #     powerups.append([0,8])
+    #     pass
 
     if(bestBombSpotPos!=[]):
-        # dist = math.hypot(x2 - x1, y2 - y1)
-        # for powerup in powerups:
-        #     tmpLolilol = np.subtract(player1indexes,powerup)
-        #     print("tmpLolilol",tmpLolilol)
+        powerups.append(bestBombSpotPos)
+        for test in powerups:
+            dist1 = math.hypot(playerYindex - test[0], playerXindex - test[1])
+            dist2 = math.hypot(playerYindex - targetPosition[0], playerXindex - targetPosition[1])
+            if(dist1<dist2):
+                targetPosition = test
+            else:
+                targetPosition = player1indexes
+
+            targetPosition = min(targetPosition, test)
+
         targetPosition = bestBombSpotPos
     else:
         targetPosition = closest_node1
