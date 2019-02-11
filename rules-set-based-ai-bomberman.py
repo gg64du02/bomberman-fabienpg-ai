@@ -612,7 +612,19 @@ def oneStepToPutBomb(potentialPath,potentialPathList,
     print("worstBombSpotPos:", worstBombSpotPos)
     print("best_bomb_spot:",best_bomb_spot)
 
+    # # global powerups
+    if(powerups!=[]):
+        print("powerups",powerups)
+        # debugging purpose
+    else:
+        powerups.append([0,8])
+        pass
+
     if(bestBombSpotPos!=[]):
+        # dist = math.hypot(x2 - x1, y2 - y1)
+        # for powerup in powerups:
+        #     tmpLolilol = np.subtract(player1indexes,powerup)
+        #     print("tmpLolilol",tmpLolilol)
         targetPosition = bestBombSpotPos
     else:
         targetPosition = closest_node1
@@ -959,9 +971,9 @@ def ScreenAveraging(screen):
         screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),2] = np.average(screen[tp[1]:tp[3],tp[0]:tp[2],2])
         # print("tilePos:",tilePos)
 
-        print("tilePos:",tilePos)
-        print("int(tp[1]/tileWidth),int(tp[0]/tileWidth)",int(tp[1]/tileWidth),int(tp[0]/tileWidth))
-        print("[,,:]",screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),:])
+        # print("tilePos:",tilePos)
+        # print("int(tp[1]/tileWidth),int(tp[0]/tileWidth)",int(tp[1]/tileWidth),int(tp[0]/tileWidth))
+        # print("[,,:]",screenAveragedRet[int(tp[1]/tileWidth),int(tp[0]/tileWidth),:])
     # print("screenAveragedRet:",screenAveragedRet)
     return screenAveragedRet
 
@@ -1156,8 +1168,6 @@ while True:
     # previousBombPutByPlayer1 = []
 
     listOfBombs,currentBombWithTimestamp,powerups = listBombsPositions(screenAveraged)
-
-    print("powerups",powerups)
 
     # explodingBombs = explodingBombList(listOfBombs,currentBombWithTimestamp)
     explodingBombs = explodingBombList(listOfBombs)
