@@ -53,12 +53,12 @@ HEIGHT = int( 480 / 2 )
 # LR = 1e-3
 LR = 1e-4
 # EPOCHS = 1
-EPOCHS = 1
+EPOCHS = 5
 
 MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 PREV_MODEL = MODEL_NAME
 
-LOAD_MODEL = True
+LOAD_MODEL = False
 
 # outer NN variables ?
 e1 =     0
@@ -220,7 +220,9 @@ def generate_arrays_from_folder(folder):
                           shuffle=True,
                           verbose=1)
 
-                model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-{}.h5".format(EPOCHS, learning_rate, e,count))
+                if(count%10==0):
+                    model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-{}.h5".format(EPOCHS, learning_rate, e, count))
+                # model.save("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-{}.h5".format(EPOCHS, learning_rate, e,count))
 
                 print("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-.h5".format(EPOCHS, learning_rate, e),"saved")
 
