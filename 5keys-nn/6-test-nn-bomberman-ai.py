@@ -162,9 +162,12 @@ while (True):
         # print(type(screen))
         # too see what is captured
         cv2.imshow('screen', cv2.cvtColor(screen, cv2.COLOR_BGR2RGB))
-        # if cv2.waitKey(25) & 0xFF == ord('t'):
-        if (0xFF == ord('t')):
+        # if cv2.waitKey(25) & 0xFF == ord('t'):et
+        # if (0xFF == ord('t')):
+        if (keyboard.is_pressed('t')):
             cv2.destroyAllWindows()
+            keyboard.release('ctrl')
+            exit()
             break
 
         if(1):
