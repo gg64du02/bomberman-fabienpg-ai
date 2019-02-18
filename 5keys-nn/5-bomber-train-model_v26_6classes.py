@@ -2,7 +2,7 @@ import numpy as np
 
 # forcing tf-cpu put this before tf and keras import
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 import cv2
 import time
@@ -58,7 +58,7 @@ EPOCHS = 1
 MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 PREV_MODEL = MODEL_NAME
 
-LOAD_MODEL = False
+LOAD_MODEL = True
 
 # outer NN variables ?
 e1 =     0
@@ -215,7 +215,7 @@ def generate_arrays_from_folder(folder):
                 # x_test = tf.keras.utils.normalize(x_test, axis=1)
 
                 model.fit(x_train, y_train,
-                          batch_size=200,
+                          batch_size=64,
                           validation_data=(x_test, y_test),
                           shuffle=True,
                           verbose=1)
