@@ -42,7 +42,7 @@ from keras.callbacks import TensorBoard
 from keras.layers import Cropping2D
 
 # FILE_I_END = 19
-FILE_I_END = 51
+FILE_I_END = 300
 
 # WIDTH = 480
 # HEIGHT = 270
@@ -53,7 +53,7 @@ HEIGHT = int( 480 / 2 )
 # LR = 1e-3
 LR = 1e-4
 # EPOCHS = 1
-EPOCHS = 5
+EPOCHS = 1
 
 MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 PREV_MODEL = MODEL_NAME
