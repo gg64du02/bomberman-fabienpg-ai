@@ -113,6 +113,10 @@ if LOAD_MODEL:
     keras.models.load_model(PREV_MODEL)
     print('We have loaded a previous model!!!!')
 
+orig_stdout = sys.stdout
+f = open('last_log.txt', 'w')
+sys.stdout = f
+
 
 def generate_arrays_from_folder(folder):
 # def generate_arrays_from_folder(path):
@@ -239,3 +243,6 @@ def generate_arrays_from_folder(folder):
 generate_arrays_from_folder('phase-2')
 
 model.save(MODEL_NAME)
+
+sys.stdout = orig_stdout
+f.close()
