@@ -58,7 +58,7 @@ EPOCHS = 5
 MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 PREV_MODEL = MODEL_NAME
 
-LOAD_MODEL = False
+LOAD_MODEL = True
 
 # outer NN variables ?
 e1 =     0
@@ -110,7 +110,8 @@ model.compile(loss='categorical_crossentropy',
 
 
 if LOAD_MODEL:
-    keras.models.load_model(PREV_MODEL)
+    del model
+    model = keras.models.load_model(PREV_MODEL)
     print('We have loaded a previous model!!!!')
 
 orig_stdout = sys.stdout
