@@ -1,6 +1,7 @@
 5keys-nn/phase-*
 5keys-nn/trained*
 5keys-nn/logs*
+5keys-nn/run6/*.txt
 
 6keys-nn/data/*
 6keys-nn/dataset/*
