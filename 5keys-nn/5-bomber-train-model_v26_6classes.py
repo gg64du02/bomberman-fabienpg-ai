@@ -231,8 +231,8 @@ def generate_arrays_from_folder(folder):
                 print("BasicCNN-{}-epochs-{}-LR-STAGE1-{}-.h5".format(EPOCHS, learning_rate, e),"saved")
 
                 pass
-            except Exception as e:
-                print(str(e))
+            except Exception as ex:
+                print(str(ex))
                 print(sys.exc_info())
 
 
