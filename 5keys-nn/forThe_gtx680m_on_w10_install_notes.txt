@@ -1,0 +1,11 @@
+On w10 professional (as admin):
+python 3.6.5 x64
+https://www.python.org/downloads/release/python-365/
+
+CUDA 9.0
+https://developer.nvidia.com/cuda-90-download-archive
+
+pip install tensorflow-gpu==1.8.0
+
+cudnn-9.0-windows10-x64-v7.6.1.34
+https://developer.nvidia.com/rdp/cudnn-download
