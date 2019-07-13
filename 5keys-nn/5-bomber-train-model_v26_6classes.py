@@ -7,8 +7,6 @@ import os
 import cv2
 import time
 import os
-import pandas as pd
-from tqdm import tqdm
 from collections import deque
 # from models import inception_v3 as googlenet
 from random import shuffle
@@ -24,8 +22,6 @@ from keras import losses
 import keras
 
 import sys
-
-from IPython.utils.capture import capture_output
 
 # convnet
 
