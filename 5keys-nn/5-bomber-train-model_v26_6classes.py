@@ -110,43 +110,48 @@ if LOAD_MODEL:
     model = keras.models.load_model(PREV_MODEL)
     print('We have loaded a previous model!!!!')
 
-# orig_stdout = sys.stdout
-# f = open('last_log.txt', 'w')
-# sys.stdout = f
+orig_stdout = sys.stdout
+f = open('last_log.txt', 'w')
+sys.stdout = f
 
 TRYTORESUMETRAINING = True
 
+epoch_count = -1
+file_count = -1
 
-# if(TRYTORESUMETRAINING  == True):
-print('if(TRYTORESUMETRAINING  == True):')
-# !/usr/bin/env python
-from stat import S_ISREG, ST_CTIME, ST_MODE
-import os, sys, time
-# path to the directory (relative or absolute)
-# dirpath = sys.argv[1] if len(sys.argv) == 2 else r'.'
-dirpath = r'.'
+if(TRYTORESUMETRAINING  == True):
+    print('if(TRYTORESUMETRAINING  == True):')
+    # !/usr/bin/env python
+    from stat import S_ISREG, ST_CTIME, ST_MODE
+    import os, sys, time
+    # path to the directory (relative or absolute)
+    # dirpath = sys.argv[1] if len(sys.argv) == 2 else r'.'
+    dirpath = r'.'
 
-# get all entries in the directory w/ stats
-entries = (os.path.join(dirpath, fn) for fn in os.listdir(dirpath))
-entries = ((os.stat(path), path) for path in entries)
+    # get all entries in the directory w/ stats
+    entries = (os.path.join(dirpath, fn) for fn in os.listdir(dirpath))
+    entries = ((os.stat(path), path) for path in entries)
 
-# leave only regular files, insert creation date
-entries = ((stat[ST_CTIME], path)
-           for stat, path in entries if S_ISREG(stat[ST_MODE]))
-#NOTE: on Windows `ST_CTIME` is a creation date
-#  but on Unix it could be something else
-#NOTE: use `ST_MTIME` to sort by a modification date
+    # leave only regular files, insert creation date
+    entries = ((stat[ST_CTIME], path)
+               for stat, path in entries if S_ISREG(stat[ST_MODE]))
+    #NOTE: on Windows `ST_CTIME` is a creation date
+    #  but on Unix it could be something else
+    #NOTE: use `ST_MTIME` to sort by a modification date
 
-for cdate, path in sorted(entries):
-    print(time.ctime(cdate), os.path.basename(path))tmpStr.split('.')[1]
-    tmpStr = os.path.basename(path)
-    # print(tmpStr)
-    # print(tmpStr[0:8] == 'BasicCNN')
-    if(tmpStr[0:8] == 'BasicCNN'):
-        print(tmpStr)
-        tmpStr2 = tmpStr.split('.')[1]
-        epoch_count = tmpStr2.split('-')[3]
-        file_count = tmpStr2.split('-')[4]
+    for cdate, path in sorted(entries):
+        print(time.ctime(cdate), os.path.basename(path))
+        tmpStr = os.path.basename(path)
+        # print(tmpStr)
+        # print(tmpStr[0:8] == 'BasicCNN')
+        if(tmpStr[0:8] == 'BasicCNN'):
+            print(tmpStr)
+            tmpStr2 = tmpStr.split('.')[1]
+            epoch_count = tmpStr2.split('-')[3]
+            file_count = tmpStr2.split('-')[4]
+
+epoch_count = int(epoch_count)
+file_count = int(file_count)
 
 print('epoch_count',epoch_count)
 print('file_count',file_count)
@@ -155,9 +160,28 @@ def generate_arrays_from_folder(folder):
 # def generate_arrays_from_folder(path):
     folderNameStr = 'dataset'
     for e in range(EPOCHS):
+
+        global epoch_count
+        if(epoch_count!=-1):
+            print('e',e)
+            if(e!=epoch_count):
+                continue
+                # epoch_count = -1
+            else:
+                epoch_count = -1
+
         data_order = [i for i in range(1, FILE_I_END + 1)]
         print("EPOCHS:",e)
         for count, i in enumerate(data_order):
+
+            global file_count
+            if (file_count != -1):
+                print('i', i)
+                if (i != file_count):
+                    continue
+                    # file_count = -1
+                else:
+                    file_count = -1
 
             try:
                 file_name = './'+folder+'/training_data_merged-partial-dataset-{}.npy'.format(i)
