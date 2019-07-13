@@ -2,10 +2,6 @@ import numpy as np
 
 import cv2
 import time
-import os
-import pandas as pd
-from tqdm import tqdm
-from collections import deque
 # from models import inception_v3 as googlenet
 from random import shuffle
 import tensorflow as tf
@@ -20,7 +16,6 @@ import keras
 
 import sys
 
-from IPython.utils.capture import capture_output
 import keyboard
 
 from keras.models import load_model
@@ -47,14 +42,21 @@ LR = 1e-3
 EPOCHS = 10
 
 # MODEL_NAME = 'bomberman-nn-keras_v13_5classes_data_p_255.h5'
-MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
+# MODEL_NAME = 'bomberman-nn-keras_v26_6classes.h5'
 # MODEL_NAME = 'BasicCNN-5-epochs-0.0001-LR-STAGE1-0-.h5'
+MODEL_NAME = 'BasicCNN-5-epochs-0.0001-LR-STAGE1-2-0.h5'
 
 # MODEL_NAME = 'bomberman-nn-keras_v17_5classes.h5'
 
 PREV_MODEL = MODEL_NAME
 
 LOAD_MODEL = True
+
+keyboard.release('e')
+keyboard.release('d')
+keyboard.release('s')
+keyboard.release('f')
+keyboard.release('ctrl')
 
 # outer NN variables ?
 e1 =     0
