@@ -130,7 +130,7 @@ model.add(Dense(1, input_shape=(240, 320, 3)))
 # model.add(Dense(240, activation='softmax'))
 # model.add(Dense(128, activation='softmax'))
 # model.add(Dense(64, activation='softmax'))
-model.add(Dense(1, activation='softmax'))
+model.add(Dense(8, activation='softmax'))
 # model.add(Dense(64, activation='softmax'))
 # model.add(Dense(128, activation='softmax'))
 
