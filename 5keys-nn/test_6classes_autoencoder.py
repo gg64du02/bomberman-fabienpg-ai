@@ -83,15 +83,16 @@ import random
 # random.seed(1)
 
 model = Sequential()
-
-input_img= Input(shape=(240, 320, 3))
-flat = Flatten()(input_img)
-encoded = Dense(units=56, activation='relu')(flat)
-decoded = Dense(units=224640, activation='sigmoid')(encoded)
-# decoded = Dense(units=224640, activation='sigmoid')(encoded)
-# decoded = Conv3D(1, (240,320,3), )(encoded)
-autoencoder=Model(input_img, decoded)
-autoencoder.summary()
+#
+# input_img1= Input(shape=(240, 320, 3))
+# input_img2 = Conv2D(4,(32,32))(input_img1)
+# flat = Flatten()(input_img2)
+# encoded = Dense(units=56, activation='relu')(flat)
+# decoded = Dense(units=128, activation='sigmoid')(encoded)
+# # decoded = Dense(units=224640, activation='sigmoid')(encoded)
+# decoded = Conv2D(1, (240,320) )(encoded)
+# model=Model(input_img1, decoded)
+# model.summary()
 
 # exit()
 
@@ -116,7 +117,47 @@ autoencoder.summary()
 # # model.add(Dropout(0.5))
 # # model.add(Dense(512, activation='relu'))
 # # model.add(Dropout(0.5))
+# # model.add(Dense(6, activation='softmax'))))
 # model.add(Dense(6, activation='softmax'))
+
+
+
+# model.add(Cropping2D(cropping=8,
+#                      input_shape=(240, 320, 3)))
+
+model.add(Dense(1, input_shape=(240, 320, 3)))
+
+# model.add(Dense(240, activation='softmax'))
+# model.add(Dense(128, activation='softmax'))
+# model.add(Dense(64, activation='softmax'))
+model.add(Dense(1, activation='softmax'))
+# model.add(Dense(64, activation='softmax'))
+# model.add(Dense(128, activation='softmax'))
+
+model.add(Dense(1, activation='softmax'))
+model.add(Dense(3, activation='softmax'))
+model.summary()
+
+
+# from keras.layers import Input, Dense, Conv2D, MaxPooling2D, UpSampling2D
+# input_img = Input(shape=(240, 320, 3))  # adapt this if using `channels_first` image data format
+#
+# x = Conv2D(16, (3, 3), activation='relu', padding='same')(input_img)
+# x = MaxPooling2D((2, 2), padding='same')(x)
+# x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+# x = MaxPooling2D((2, 2), padding='same')(x)
+# x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+# encoded = MaxPooling2D((2, 2), padding='same')(x)
+#
+# x = Conv2D(8, (3, 3), activation='relu', padding='same')(encoded)
+# x = UpSampling2D((2, 2))(x)
+# x = Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+# x = UpSampling2D((2, 2))(x)
+# x = Conv2D(16, (3, 3), activation='relu')(x)
+# x = UpSampling2D((2, 2))(x)
+# decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
+#
+# model = Model(input_img, decoded)
 
 learning_rate = 0.9
 # opt = keras.optimizers.adam(lr=learning_rate, decay=1e-6)
@@ -292,12 +333,16 @@ def generate_arrays_from_folder(folder):
                 test_size = 100
 
                 x_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3)
-                y_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3)
+                # y_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 240, 320, 3)
+                y_train = np.copy(x_train)
+                # y_train = np.array([i[0] for i in train_data[:-test_size]]).reshape(-1, 230400)
                 # y_train = np.array([i[1] for i in train_data[:-test_size]]).reshape(-1,6)
 
 
                 x_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3)
-                y_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3)
+                # y_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 240, 320, 3)
+                y_test = np.copy(x_test)
+                # y_test = np.array([i[0] for i in train_data[-test_size:]]).reshape(-1, 230400)
                 # y_test = np.array([i[1] for i in train_data[-test_size:]]).reshape(-1,6)
 
                 # # normalization: make it easier for the CNN to learn ?
